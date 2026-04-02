@@ -1324,7 +1324,7 @@ const SUPABASE_URL = 'https://ahhetzualzvwxtfxpigp.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFoaGV0enVhbHp2d3h0ZnhwaWdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwODE3NzIsImV4cCI6MjA5MDY1Nzc3Mn0.mWGbX7Zvkj93z3sSThMEGhxwWT5j7L3C1-ogn0kWL2U';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-function loadState() {
+function loadLocal() {
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
   } catch { return {}; }
@@ -1332,30 +1332,63 @@ function loadState() {
 
 function saveState(state) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  // Debounced sync to Supabase
   clearTimeout(saveState._timer);
   saveState._timer = setTimeout(() => {
     sb.from('planner_state').upsert({ id: 'default', state, updated_at: new Date().toISOString() });
-  }, 1000);
+  }, 500);
 }
 
-// On load: pull from Supabase if newer, otherwise use localStorage
-const state = loadState();
+// Start with localStorage (instant), then overwrite from Supabase (source of truth)
+const state = loadLocal();
+let _initialSyncDone = false;
 
 (async function syncFromRemote() {
   try {
-    const { data } = await sb.from('planner_state').select('state,updated_at').eq('id', 'default').single();
+    const { data } = await sb.from('planner_state').select('state').eq('id', 'default').single();
     if (data && data.state && Object.keys(data.state).length > 0) {
-      const local = loadState();
-      if (Object.keys(local).length === 0) {
-        // Local is empty, use remote
-        Object.assign(state, data.state);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-        location.reload();
-      }
+      Object.keys(state).forEach(k => delete state[k]);
+      Object.assign(state, data.state);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      applyStateToDOM();
     }
   } catch {}
+  _initialSyncDone = true;
 })();
+
+function applyStateToDOM() {
+  // Re-apply checkboxes
+  document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
+    cb.checked = !!state[getCheckId(cb)];
+  });
+  // Remove old custom items and re-add from state
+  document.querySelectorAll('.check-item.custom-item').forEach(el => el.remove());
+  if (state._custom) {
+    Object.entries(state._custom).forEach(([group, items]) => {
+      const card = document.querySelector(`[data-group="${group}"]`);
+      if (!card) return;
+      const row = card.querySelector('.add-item-row');
+      items.forEach(text => {
+        const label = document.createElement('label');
+        label.className = 'check-item custom-item';
+        label.innerHTML = `<input type="checkbox"><span class="check-box"></span><span class="check-label">${text}</span>`;
+        card.insertBefore(label, row);
+        const cb = label.querySelector('input');
+        cb.checked = !!state[getCheckId(cb)];
+        cb.addEventListener('change', () => {
+          state[getCheckId(cb)] = cb.checked;
+          saveState(state);
+          updateProgress(card);
+        });
+      });
+    });
+  }
+  document.querySelectorAll('.checklist-card').forEach(updateProgress);
+  // Re-apply notes
+  document.querySelectorAll('.notes-area').forEach(el => {
+    const key = el.dataset.key;
+    if (state[key]) el.innerHTML = state[key];
+  });
+}
 
 // ============ CHECKBOXES ============
 function getCheckId(checkbox) {
@@ -1396,7 +1429,7 @@ function addItem(btn) {
 
   const card = row.closest('.checklist-card');
   const label = document.createElement('label');
-  label.className = 'check-item';
+  label.className = 'check-item custom-item';
   label.innerHTML = `<input type="checkbox"><span class="check-box"></span><span class="check-label">${text}</span>`;
 
   card.insertBefore(label, row);
@@ -1427,7 +1460,7 @@ if (state._custom) {
     const row = card.querySelector('.add-item-row');
     items.forEach(text => {
       const label = document.createElement('label');
-      label.className = 'check-item';
+      label.className = 'check-item custom-item';
       label.innerHTML = `<input type="checkbox"><span class="check-box"></span><span class="check-label">${text}</span>`;
       card.insertBefore(label, row);
       const cb = label.querySelector('input');
