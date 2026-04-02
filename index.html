@@ -1731,6 +1731,12 @@ function renderItinerary() {
   });
 }
 
+function reRenderAll() {
+  renderItinerary();
+  DAY_KEYS.forEach(renderRefGrid);
+  setupObservers();
+}
+
 function addActivity(dayIdx, btn) {
   const form = btn.closest('.add-activity-form');
   const title = form.querySelector('[data-field="title"]').value.trim();
@@ -1742,15 +1748,13 @@ function addActivity(dayIdx, btn) {
     type: form.querySelector('[data-field="type"]').value,
   });
   saveState(state);
-  renderItinerary();
-  DAY_KEYS.forEach(renderRefGrid);
+  reRenderAll();
 }
 
 function removeActivity(dayIdx, actIdx) {
   state._itinerary[dayIdx].activities.splice(actIdx, 1);
   saveState(state);
-  renderItinerary();
-  DAY_KEYS.forEach(renderRefGrid);
+  reRenderAll();
 }
 
 // ============ CHECKLIST SECTIONS (Packing & Booking) ============
@@ -2016,6 +2020,7 @@ try {
       renderVenues('stays');
       renderVenues('food');
       DAY_KEYS.forEach(renderRefGrid);
+      setupObservers();
     }
   } catch {}
 })();
