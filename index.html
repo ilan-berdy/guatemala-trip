@@ -2161,15 +2161,21 @@ function saveState(s) {
 }
 
 const state = loadLocal();
+const _hadLocalData = Object.keys(state).length > 0;
 
-// Initialize defaults
-if (!state._sections) state._sections = JSON.parse(JSON.stringify(DEFAULT_SECTIONS));
-if (!state._itinerary) state._itinerary = JSON.parse(JSON.stringify(DEFAULT_ITINERARY));
-if (!state._refs) state._refs = {};
-if (!state._research) state._research = [];
-if (!state._stays) state._stays = JSON.parse(JSON.stringify(DEFAULT_STAYS));
-if (!state._food) state._food = JSON.parse(JSON.stringify(DEFAULT_FOOD));
-saveState(state);
+// Initialize defaults for rendering (but don't save to Supabase if empty — wait for sync)
+function applyDefaults(s) {
+  if (!s._sections) s._sections = JSON.parse(JSON.stringify(DEFAULT_SECTIONS));
+  if (!s._itinerary) s._itinerary = JSON.parse(JSON.stringify(DEFAULT_ITINERARY));
+  if (!s._refs) s._refs = {};
+  if (!s._research) s._research = [];
+  if (!s._stays) s._stays = JSON.parse(JSON.stringify(DEFAULT_STAYS));
+  if (!s._food) s._food = JSON.parse(JSON.stringify(DEFAULT_FOOD));
+}
+applyDefaults(state);
+// Only save to Supabase if we had real local data (prevents overwriting remote with defaults)
+if (_hadLocalData) saveState(state);
+else localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 
 function escapeHtml(text) {
   const d = document.createElement('div');
@@ -2486,12 +2492,7 @@ try {
     if (data && data.state && Object.keys(data.state).length > 0) {
       Object.keys(state).forEach(k => delete state[k]);
       Object.assign(state, data.state);
-      if (!state._sections) state._sections = JSON.parse(JSON.stringify(DEFAULT_SECTIONS));
-      if (!state._itinerary) state._itinerary = JSON.parse(JSON.stringify(DEFAULT_ITINERARY));
-      if (!state._refs) state._refs = {};
-      if (!state._research) state._research = [];
-      if (!state._stays) state._stays = JSON.parse(JSON.stringify(DEFAULT_STAYS));
-      if (!state._food) state._food = JSON.parse(JSON.stringify(DEFAULT_FOOD));
+      applyDefaults(state);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       renderItinerary();
       renderAllSections();
