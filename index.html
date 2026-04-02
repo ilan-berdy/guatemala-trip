@@ -1981,12 +1981,18 @@ function removeRef(dayKey, idx) {
 }
 
 // ============ INITIAL RENDER ============
-renderItinerary();
-renderAllSections();
-renderResearch();
-renderVenues('stays');
-renderVenues('food');
-DAY_KEYS.forEach(renderRefGrid);
+try {
+  renderItinerary();
+  renderAllSections();
+  renderResearch();
+  renderVenues('stays');
+  renderVenues('food');
+  DAY_KEYS.forEach(renderRefGrid);
+  console.log('Initial render OK. Days:', state._itinerary?.length, 'Refs:', Object.keys(state._refs || {}).length);
+} catch (e) {
+  console.error('RENDER ERROR:', e);
+  document.getElementById('days-container').innerHTML = '<p style="padding:2rem;color:red">Render error: ' + e.message + '</p>';
+}
 
 // ============ SUPABASE SYNC ============
 (async function syncFromRemote() {
