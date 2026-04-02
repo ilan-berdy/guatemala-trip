@@ -517,6 +517,7 @@ body {
   border-radius: 16px;
   padding: 2rem;
   transition: all 0.3s;
+  position: relative;
 }
 
 .checklist-card:hover {
@@ -741,6 +742,75 @@ body {
 
 .add-item-btn:hover {
   background: var(--jade);
+}
+
+.add-section-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.add-section-input {
+  flex: 1;
+  padding: 0.65rem 1rem;
+  border: 1px dashed rgba(44, 36, 23, 0.15);
+  border-radius: 12px;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  color: var(--earth);
+  outline: none;
+  transition: all 0.3s;
+}
+
+.add-section-input:focus {
+  border-color: var(--jade);
+  border-style: solid;
+  background: white;
+}
+
+.add-section-input::placeholder { color: var(--ash); opacity: 0.5; }
+
+.add-section-btn {
+  padding: 0.65rem 1.25rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.add-section-btn:hover {
+  background: var(--jade);
+}
+
+.remove-section-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--ash);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.25rem;
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+.checklist-card:hover .remove-section-btn {
+  opacity: 0.5;
+}
+
+.remove-section-btn:hover {
+  opacity: 1 !important;
+  color: var(--terracotta);
 }
 
 /* ============ FOOTER ============ */
@@ -1144,112 +1214,20 @@ body {
   <!-- ====== PACKING LIST ====== -->
   <div id="packing">
     <p class="section-label">Packing List</p>
-    <div class="checklist-grid">
-
-      <div class="checklist-card" data-group="pack-tech">
-        <h3>Tech</h3>
-        <span class="progress-text">0 / 5</span>
-        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Camera</span></label>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">GoPro</span></label>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Lenses</span></label>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Drone?</span></label>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Computer? (hopefully not)</span></label>
-        <div class="add-item-row">
-          <input class="add-item-input" placeholder="Add item..." data-group="pack-tech">
-          <button class="add-item-btn" onclick="addItem(this)">Add</button>
-        </div>
-      </div>
-
-      <div class="checklist-card" data-group="pack-hiking">
-        <h3>Hiking</h3>
-        <span class="progress-text">0 / 3</span>
-        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Water bottle</span></label>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Water bladder</span></label>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Head lamp</span></label>
-        <div class="add-item-row">
-          <input class="add-item-input" placeholder="Add item..." data-group="pack-hiking">
-          <button class="add-item-btn" onclick="addItem(this)">Add</button>
-        </div>
-      </div>
-
-      <div class="checklist-card" data-group="pack-clothing">
-        <h3>Clothing</h3>
-        <span class="progress-text">0 / 5</span>
-        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Wool socks</span></label>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Rain jacket</span></label>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Rain pants</span></label>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Hiking boots</span></label>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Source sandals</span></label>
-        <div class="add-item-row">
-          <input class="add-item-input" placeholder="Add item..." data-group="pack-clothing">
-          <button class="add-item-btn" onclick="addItem(this)">Add</button>
-        </div>
-      </div>
-
-      <div class="checklist-card" data-group="pack-gear">
-        <h3>Gear & Essentials</h3>
-        <span class="progress-text">0 / 5</span>
-        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Mosquito protection</span></label>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Sunscreen</span></label>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Energy gels</span></label>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Debit card</span></label>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Cash (USD + Quetzales)</span></label>
-        <div class="add-item-row">
-          <input class="add-item-input" placeholder="Add item..." data-group="pack-gear">
-          <button class="add-item-btn" onclick="addItem(this)">Add</button>
-        </div>
-      </div>
-
+    <div class="checklist-grid" id="packing-grid"></div>
+    <div class="add-section-row">
+      <input class="add-section-input" id="add-packing-section" placeholder="New category (e.g. Toiletries)...">
+      <button class="add-section-btn" onclick="addSection('packing')">+ Category</button>
     </div>
   </div>
 
   <!-- ====== THINGS TO BOOK ====== -->
   <div id="booking">
     <p class="section-label">Things to Book Ahead of Time</p>
-    <div class="checklist-grid">
-
-      <div class="checklist-card" data-group="book-shuttles">
-        <h3>Shuttles</h3>
-        <span class="progress-text">0 / 3</span>
-        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Airport &rarr; Antigua shuttle</span></label>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Antigua &rarr; Panajachel (~$20)</span></label>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Panajachel &rarr; GUA Airport (~$30)</span></label>
-        <div class="add-item-row">
-          <input class="add-item-input" placeholder="Add item..." data-group="book-shuttles">
-          <button class="add-item-btn" onclick="addItem(this)">Add</button>
-        </div>
-      </div>
-
-      <div class="checklist-card" data-group="book-stays">
-        <h3>Hostels / Stays</h3>
-        <span class="progress-text">0 / 3</span>
-        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Antigua hostel (Apr 30)</span></label>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Lake Atitl&aacute;n hostel (May 2–3)</span></label>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Acatenango overnight (included in hike?)</span></label>
-        <div class="add-item-row">
-          <input class="add-item-input" placeholder="Add item..." data-group="book-stays">
-          <button class="add-item-btn" onclick="addItem(this)">Add</button>
-        </div>
-      </div>
-
-      <div class="checklist-card" data-group="book-activities">
-        <h3>Activities / Hikes</h3>
-        <span class="progress-text">0 / 2</span>
-        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Acatenango overnight hike tour</span></label>
-        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Indian Nose sunrise hike</span></label>
-        <div class="add-item-row">
-          <input class="add-item-input" placeholder="Add item..." data-group="book-activities">
-          <button class="add-item-btn" onclick="addItem(this)">Add</button>
-        </div>
-      </div>
-
+    <div class="checklist-grid" id="booking-grid"></div>
+    <div class="add-section-row">
+      <input class="add-section-input" id="add-booking-section" placeholder="New category (e.g. Insurance)...">
+      <button class="add-section-btn" onclick="addSection('booking')">+ Category</button>
     </div>
   </div>
 
@@ -1324,6 +1302,21 @@ const SUPABASE_URL = 'https://ahhetzualzvwxtfxpigp.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFoaGV0enVhbHp2d3h0ZnhwaWdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwODE3NzIsImV4cCI6MjA5MDY1Nzc3Mn0.mWGbX7Zvkj93z3sSThMEGhxwWT5j7L3C1-ogn0kWL2U';
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+// Default sections — used on first load only
+const DEFAULT_SECTIONS = {
+  packing: [
+    { id: 'pack-tech', title: 'Tech', items: ['Camera', 'GoPro', 'Lenses', 'Drone?', 'Computer? (hopefully not)'] },
+    { id: 'pack-hiking', title: 'Hiking', items: ['Water bottle', 'Water bladder', 'Head lamp'] },
+    { id: 'pack-clothing', title: 'Clothing', items: ['Wool socks', 'Rain jacket', 'Rain pants', 'Hiking boots', 'Source sandals'] },
+    { id: 'pack-gear', title: 'Gear & Essentials', items: ['Mosquito protection', 'Sunscreen', 'Energy gels', 'Debit card', 'Cash (USD + Quetzales)'] },
+  ],
+  booking: [
+    { id: 'book-shuttles', title: 'Shuttles', items: ['Airport \u2192 Antigua shuttle', 'Antigua \u2192 Panajachel (~$20)', 'Panajachel \u2192 GUA Airport (~$30)'] },
+    { id: 'book-stays', title: 'Hostels / Stays', items: ['Antigua hostel (Apr 30)', 'Lake Atitl\u00e1n hostel (May 2\u20133)', 'Acatenango overnight (included in hike?)'] },
+    { id: 'book-activities', title: 'Activities / Hikes', items: ['Acatenango overnight hike tour', 'Indian Nose sunrise hike'] },
+  ]
+};
+
 function loadLocal() {
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
@@ -1338,56 +1331,71 @@ function saveState(state) {
   }, 500);
 }
 
-// Start with localStorage (instant), then overwrite from Supabase (source of truth)
 const state = loadLocal();
-let _initialSyncDone = false;
 
-(async function syncFromRemote() {
-  try {
-    const { data } = await sb.from('planner_state').select('state').eq('id', 'default').single();
-    if (data && data.state && Object.keys(data.state).length > 0) {
-      Object.keys(state).forEach(k => delete state[k]);
-      Object.assign(state, data.state);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      applyStateToDOM();
-    }
-  } catch {}
-  _initialSyncDone = true;
-})();
+// Initialize sections data if not present
+if (!state._sections) {
+  state._sections = JSON.parse(JSON.stringify(DEFAULT_SECTIONS));
+  saveState(state);
+}
 
-function applyStateToDOM() {
-  // Re-apply checkboxes
-  document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
-    cb.checked = !!state[getCheckId(cb)];
+// ============ RENDER SECTIONS ============
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function renderCard(section, gridEl) {
+  const card = document.createElement('div');
+  card.className = 'checklist-card';
+  card.dataset.group = section.id;
+
+  let html = `<button class="remove-section-btn" onclick="removeSection('${section.id}')" title="Remove category">\u00d7</button>`;
+  html += `<h3>${escapeHtml(section.title)}</h3>`;
+  html += `<span class="progress-text">0 / 0</span>`;
+  html += `<div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>`;
+
+  section.items.forEach(item => {
+    html += `<label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">${escapeHtml(item)}</span></label>`;
   });
-  // Remove old custom items and re-add from state
-  document.querySelectorAll('.check-item.custom-item').forEach(el => el.remove());
-  if (state._custom) {
-    Object.entries(state._custom).forEach(([group, items]) => {
-      const card = document.querySelector(`[data-group="${group}"]`);
-      if (!card) return;
-      const row = card.querySelector('.add-item-row');
-      items.forEach(text => {
-        const label = document.createElement('label');
-        label.className = 'check-item custom-item';
-        label.innerHTML = `<input type="checkbox"><span class="check-box"></span><span class="check-label">${text}</span>`;
-        card.insertBefore(label, row);
-        const cb = label.querySelector('input');
-        cb.checked = !!state[getCheckId(cb)];
-        cb.addEventListener('change', () => {
-          state[getCheckId(cb)] = cb.checked;
-          saveState(state);
-          updateProgress(card);
-        });
-      });
+
+  html += `<div class="add-item-row">`;
+  html += `<input class="add-item-input" placeholder="Add item..." data-group="${section.id}">`;
+  html += `<button class="add-item-btn" onclick="addItem(this)">Add</button>`;
+  html += `</div>`;
+
+  card.innerHTML = html;
+  gridEl.appendChild(card);
+
+  // Wire up checkboxes
+  card.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
+    const id = getCheckId(cb);
+    if (state[id]) cb.checked = true;
+    cb.addEventListener('change', () => {
+      state[getCheckId(cb)] = cb.checked;
+      saveState(state);
+      updateProgress(card);
     });
-  }
-  document.querySelectorAll('.checklist-card').forEach(updateProgress);
-  // Re-apply notes
-  document.querySelectorAll('.notes-area').forEach(el => {
-    const key = el.dataset.key;
-    if (state[key]) el.innerHTML = state[key];
   });
+
+  // Wire up enter key on input
+  const input = card.querySelector('.add-item-input');
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') addItem(input.nextElementSibling);
+  });
+
+  updateProgress(card);
+}
+
+function renderAllSections() {
+  const packingGrid = document.getElementById('packing-grid');
+  const bookingGrid = document.getElementById('booking-grid');
+  packingGrid.innerHTML = '';
+  bookingGrid.innerHTML = '';
+
+  (state._sections.packing || []).forEach(s => renderCard(s, packingGrid));
+  (state._sections.booking || []).forEach(s => renderCard(s, bookingGrid));
 }
 
 // ============ CHECKBOXES ============
@@ -1408,19 +1416,7 @@ function updateProgress(card) {
   card.querySelector('.progress-fill').style.width = `${pct}%`;
 }
 
-document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
-  const id = getCheckId(cb);
-  if (state[id]) cb.checked = true;
-  cb.addEventListener('change', () => {
-    state[getCheckId(cb)] = cb.checked;
-    saveState(state);
-    updateProgress(cb.closest('.checklist-card'));
-  });
-});
-
-document.querySelectorAll('.checklist-card').forEach(updateProgress);
-
-// ============ ADD ITEM ============
+// ============ ADD / REMOVE ITEMS ============
 function addItem(btn) {
   const row = btn.parentElement;
   const input = row.querySelector('.add-item-input');
@@ -1428,10 +1424,20 @@ function addItem(btn) {
   if (!text) return;
 
   const card = row.closest('.checklist-card');
-  const label = document.createElement('label');
-  label.className = 'check-item custom-item';
-  label.innerHTML = `<input type="checkbox"><span class="check-box"></span><span class="check-label">${text}</span>`;
+  const group = card.dataset.group;
 
+  // Add to state
+  const type = group.startsWith('pack-') ? 'packing' : 'booking';
+  const section = state._sections[type].find(s => s.id === group);
+  if (section) {
+    section.items.push(text);
+    saveState(state);
+  }
+
+  // Add to DOM
+  const label = document.createElement('label');
+  label.className = 'check-item';
+  label.innerHTML = `<input type="checkbox"><span class="check-box"></span><span class="check-label">${escapeHtml(text)}</span>`;
   card.insertBefore(label, row);
   input.value = '';
 
@@ -1442,46 +1448,75 @@ function addItem(btn) {
     updateProgress(card);
   });
 
-  // Save custom items
-  const group = card.dataset.group;
-  if (!state._custom) state._custom = {};
-  if (!state._custom[group]) state._custom[group] = [];
-  state._custom[group].push(text);
-  saveState(state);
-
   updateProgress(card);
 }
 
-// Restore custom items
-if (state._custom) {
-  Object.entries(state._custom).forEach(([group, items]) => {
-    const card = document.querySelector(`[data-group="${group}"]`);
-    if (!card) return;
-    const row = card.querySelector('.add-item-row');
-    items.forEach(text => {
-      const label = document.createElement('label');
-      label.className = 'check-item custom-item';
-      label.innerHTML = `<input type="checkbox"><span class="check-box"></span><span class="check-label">${text}</span>`;
-      card.insertBefore(label, row);
-      const cb = label.querySelector('input');
-      const id = getCheckId(cb);
-      if (state[id]) cb.checked = true;
-      cb.addEventListener('change', () => {
-        state[getCheckId(cb)] = cb.checked;
-        saveState(state);
-        updateProgress(card);
-      });
-    });
-    updateProgress(card);
-  });
+// ============ ADD / REMOVE SECTIONS ============
+function addSection(type) {
+  const input = document.getElementById(`add-${type}-section`);
+  const title = input.value.trim();
+  if (!title) return;
+
+  const prefix = type === 'packing' ? 'pack-' : 'book-';
+  const id = prefix + title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+  // Check for duplicate
+  if (state._sections[type].some(s => s.id === id)) return;
+
+  const section = { id, title, items: [] };
+  state._sections[type].push(section);
+  saveState(state);
+
+  const grid = document.getElementById(`${type}-grid`);
+  renderCard(section, grid);
+  input.value = '';
 }
 
-// Enter to add
-document.querySelectorAll('.add-item-input').forEach(input => {
+function removeSection(sectionId) {
+  if (!confirm('Remove this category and all its items?')) return;
+
+  const type = sectionId.startsWith('pack-') ? 'packing' : 'booking';
+  state._sections[type] = state._sections[type].filter(s => s.id !== sectionId);
+
+  // Clean up checkbox states for this group
+  Object.keys(state).forEach(k => {
+    if (k.startsWith(sectionId + '-')) delete state[k];
+  });
+
+  saveState(state);
+
+  const card = document.querySelector(`[data-group="${sectionId}"]`);
+  if (card) card.remove();
+}
+
+// Wire up enter key on section inputs
+document.querySelectorAll('.add-section-input').forEach(input => {
+  const type = input.id.includes('packing') ? 'packing' : 'booking';
   input.addEventListener('keydown', e => {
-    if (e.key === 'Enter') addItem(input.nextElementSibling);
+    if (e.key === 'Enter') addSection(type);
   });
 });
+
+// ============ INITIAL RENDER ============
+renderAllSections();
+
+// ============ SUPABASE SYNC ============
+(async function syncFromRemote() {
+  try {
+    const { data } = await sb.from('planner_state').select('state').eq('id', 'default').single();
+    if (data && data.state && data.state._sections) {
+      Object.keys(state).forEach(k => delete state[k]);
+      Object.assign(state, data.state);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      renderAllSections();
+      // Re-apply notes
+      document.querySelectorAll('.notes-area').forEach(el => {
+        const key = el.dataset.key;
+        if (state[key]) el.innerHTML = state[key];
+      });
+    }
+  } catch {}
+})();
 
 // ============ NOTES PERSISTENCE ============
 document.querySelectorAll('.notes-area').forEach(el => {
@@ -1503,7 +1538,6 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
   });
 });
 
-// Active nav on scroll
 const sections = [...document.querySelectorAll('[id]')].filter(el =>
   document.querySelector(`.nav-btn[data-target="${el.id}"]`)
 );
