@@ -2691,13 +2691,18 @@ document.querySelectorAll('.weather-loc-btn').forEach(btn => {
 })();
 
 // ============ AI ASSISTANT ============
+const GEMINI_BUILTIN_KEY = '__GEMINI_API_KEY__';
 const AI_KEY_STORAGE = 'guat-ai-key';
 const AI_HISTORY_STORAGE = 'guat-ai-history';
 let aiMessages = [];
 
 try { aiMessages = JSON.parse(localStorage.getItem(AI_HISTORY_STORAGE)) || []; } catch { aiMessages = []; }
 
-function getAIKey() { return localStorage.getItem(AI_KEY_STORAGE) || ''; }
+function getAIKey() {
+  // Prefer built-in key injected at deploy time, fall back to localStorage
+  if (GEMINI_BUILTIN_KEY && !GEMINI_BUILTIN_KEY.startsWith('__')) return GEMINI_BUILTIN_KEY;
+  return localStorage.getItem(AI_KEY_STORAGE) || '';
+}
 
 function saveAIKey() {
   const key = document.getElementById('ai-key-input').value.trim();
@@ -2710,6 +2715,11 @@ function saveAIKey() {
 
 function updateAIKeyUI() {
   const setup = document.getElementById('ai-key-setup');
+  // Hide setup entirely if built-in key is present
+  if (GEMINI_BUILTIN_KEY && !GEMINI_BUILTIN_KEY.startsWith('__')) {
+    setup.style.display = 'none';
+    return;
+  }
   const key = getAIKey();
   if (key) {
     setup.innerHTML = `<label>Gemini API Key</label><span style="font-family:'JetBrains Mono';font-size:0.7rem;color:var(--jade)">✓ Key saved</span><button onclick="localStorage.removeItem('${AI_KEY_STORAGE}');updateAIKeyUI()" style="padding:0.4rem 0.75rem;border:none;background:rgba(196,89,59,0.1);color:var(--terracotta);border-radius:8px;font-family:'JetBrains Mono';font-size:0.6rem;cursor:pointer">Remove</button>`;
