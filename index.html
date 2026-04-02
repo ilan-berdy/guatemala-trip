@@ -2,8 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Guatemala — Apr 30 – May 4</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Guatemala">
+<meta name="theme-color" content="#2C2417">
+<link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -1292,6 +1297,8 @@ body {
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 768px) {
+  .hero h1 { font-size: 4rem; }
+  .main { padding: 0 1rem; }
   .flight-card {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -1306,8 +1313,21 @@ body {
     align-items: center;
   }
   .day-header { flex-direction: column; gap: 0.5rem; }
+  .day-number { font-size: 3rem; }
+  .activity { flex-wrap: wrap; gap: 0.5rem; padding: 1rem; }
+  .activity-time { min-width: auto; }
+  .activity-tag { margin-left: auto; }
   .checklist-grid { grid-template-columns: 1fr; }
   .budget-grid { grid-template-columns: 1fr 1fr; }
+  .ref-grid { grid-template-columns: 1fr 1fr; }
+  .venue-grid { grid-template-columns: 1fr; }
+  .add-venue-form { grid-template-columns: 1fr; }
+  .add-research-form { grid-template-columns: 1fr; }
+  .add-activity-form { grid-template-columns: 1fr; }
+  .add-activity-form select { width: 100%; }
+  .research-item { flex-wrap: wrap; }
+  .nav-inner { gap: 0.25rem; padding: 0 0.5rem; }
+  .nav-btn { font-size: 0.55rem; padding: 0.4rem 0.6rem; }
 }
 
 /* ============ PRINT STYLES ============ */
