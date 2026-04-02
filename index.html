@@ -1571,11 +1571,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  max-height: 500px;
-  overflow-y: auto;
+  overflow-y: visible;
   padding-right: 0.5rem;
-  scrollbar-width: thin;
-  scrollbar-color: var(--ash) transparent;
 }
 
 .ai-msg {
@@ -2761,23 +2758,80 @@ function scrollAIToBottom() {
   c.scrollTop = c.scrollHeight;
 }
 
-const TRIP_CONTEXT = `You are a helpful Guatemala travel assistant for a specific trip: April 30 - May 4, 2026.
+function buildTripContext() {
+  let ctx = `You are a helpful Guatemala travel assistant. You have FULL access to the traveler's current trip plan. Answer based on this data — don't say you don't have information if it's below.
 
-Trip details:
-- Flying JFK → Guatemala City on Avianca AV653 (3:20AM, arrives 6AM)
-- Day 1 (Apr 30): Arrive, shuttle to Antigua, explore colonial town
-- Day 2 (May 1): Acatenango Volcano overnight hike (camp, watch Fuego eruptions)
-- Day 3 (May 2): Summit sunrise, descend, shuttle to Lake Atitlán via Panajachel
-- Day 4 (May 3): Indian Nose sunrise hike, explore lake villages by lancha, kayak
-- Day 5 (May 4): Morning at lake, shuttle to airport, fly home via San Salvador
-- Budget backpacker trip, staying in hostels ($7-13/night)
-- Solo male traveler from NYC
+=== FLIGHTS ===
+OUTBOUND: Avianca AV653, JFK Terminal 4 → Guatemala City La Aurora
+  Departs: Wed Apr 30, 3:20 AM — Arrives: 6:00 AM (4h 40m, Nonstop)
+  LIGHT fare, Carry-on: 1pc/10kg, Checked bag: $130 USD, Ticket: $370.23, Booking: CCB2VT
 
-Key locations: Antigua Guatemala, Volcán Acatenango, Lake Atitlán (San Pedro La Laguna, Panajachel)
-Currency: Guatemalan Quetzal (GTQ), ~7.75 per USD
-Season: Early rainy season — warm days, cool highlands, afternoon showers
+RETURN LEG 1: AV555, Guatemala City → San Salvador
+  Departs: Mon May 4, 3:40 PM — Arrives: 4:30 PM (0h 50m), 2h layover
 
-Keep answers concise and practical. Focus on actionable travel advice.`;
+RETURN LEG 2: AV566, San Salvador → JFK Terminal 4
+  Departs: Mon May 4, 6:30 PM — Arrives: Tue May 5, 1:15 AM (4h 45m)
+
+=== DAILY ITINERARY ===\n`;
+
+  (state._itinerary || []).forEach(day => {
+    ctx += `\n${day.date} — ${day.title} (${day.location}):\n`;
+    day.activities.forEach(a => {
+      ctx += `  ${a.time}: ${a.title} — ${a.sub} [${a.type}]\n`;
+    });
+  });
+
+  ctx += `\n=== PACKING LIST ===\n`;
+  (state._sections?.packing || []).forEach(s => {
+    const checked = s.items.map((item, i) => {
+      const isChecked = state[`${s.id}-${i}`];
+      return `${isChecked ? '✓' : '☐'} ${item}`;
+    });
+    ctx += `${s.title}: ${checked.join(', ')}\n`;
+  });
+
+  ctx += `\n=== THINGS TO BOOK ===\n`;
+  (state._sections?.booking || []).forEach(s => {
+    const checked = s.items.map((item, i) => {
+      const isChecked = state[`${s.id}-${i}`];
+      return `${isChecked ? '✓ DONE' : '☐ TODO'} ${item}`;
+    });
+    ctx += `${s.title}: ${checked.join(', ')}\n`;
+  });
+
+  ctx += `\n=== RESEARCH (things being considered) ===\n`;
+  (state._research || []).forEach(r => {
+    ctx += `[${r.status}] ${r.title} — ${r.price || 'no price'} — ${r.notes || ''} (${r.cat})\n`;
+  });
+
+  ctx += `\n=== WHERE TO STAY ===\n`;
+  (state._stays || []).forEach(v => {
+    ctx += `${v.name} (${v.location}) — ${v.price} — ${v.desc}\n`;
+  });
+
+  ctx += `\n=== WHERE TO EAT ===\n`;
+  (state._food || []).forEach(v => {
+    ctx += `${v.name} (${v.location}) — ${v.price} — ${v.desc}\n`;
+  });
+
+  ctx += `\n=== BUDGET ===
+Flights: $370.23 (booked)
+Shuttle Antigua→Panajachel: ~$20
+Shuttle Panajachel→Airport: ~$30
+Acatenango hike tour: ~$30–60
+Hostels (3 nights): ~$30–60
+Lanchas/local transport: ~$10–15
+Food & misc: ~$50–80
+
+=== TRAVELER ===
+Solo male traveler from NYC. Budget backpacker. Hostels $7-13/night.
+Currency: Guatemalan Quetzal (GTQ), ~${gtqRate.toFixed(2)} per USD.
+Season: Early rainy season — warm days, cool highlands, afternoon showers.
+
+Keep answers concise and practical. Reference specific items from the plan above when relevant. If asked "what am I forgetting" or similar, compare the packing/booking lists against what's typical for this type of trip.`;
+
+  return ctx;
+}
 
 async function sendAIMessage() {
   const input = document.getElementById('ai-input');
@@ -2804,11 +2858,13 @@ async function sendAIMessage() {
       parts: [{ text: m.content }]
     }));
 
+    const tripCtx = buildTripContext();
+
     // Prepend system context as first user message if first real message
     if (geminiMessages.length === 1) {
       geminiMessages.unshift(
-        { role: 'user', parts: [{ text: TRIP_CONTEXT + '\n\nPlease acknowledge you understand the trip details briefly.' }] },
-        { role: 'model', parts: [{ text: 'Got it! I have all your Guatemala trip details for April 30 - May 4, 2026. Ready to help with anything — from Acatenango packing tips to Lake Atitlán logistics. What would you like to know?' }] }
+        { role: 'user', parts: [{ text: tripCtx + '\n\nPlease acknowledge you understand the trip details briefly.' }] },
+        { role: 'model', parts: [{ text: 'Got it! I have all your Guatemala trip details — flights, daily itinerary, packing list, bookings, hostels, food spots, and budget. Ready to help with anything. What would you like to know?' }] }
       );
     }
 
@@ -2818,7 +2874,7 @@ async function sendAIMessage() {
       body: JSON.stringify({
         contents: geminiMessages,
         generationConfig: { maxOutputTokens: 1024, temperature: 0.7 },
-        systemInstruction: { parts: [{ text: TRIP_CONTEXT }] },
+        systemInstruction: { parts: [{ text: tripCtx }] },
       }),
     });
 
