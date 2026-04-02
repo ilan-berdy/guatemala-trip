@@ -1720,6 +1720,8 @@ function renderItinerary() {
 
     section.innerHTML = html;
     container.appendChild(section);
+    // Make visible (CSS starts at opacity:0 for scroll-reveal)
+    requestAnimationFrame(() => section.classList.add('visible'));
 
     // Wire notes
     const notesEl = section.querySelector('.notes-area');
