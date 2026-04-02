@@ -563,6 +563,30 @@ body {
   padding: 0.5rem 0;
   cursor: pointer;
   user-select: none;
+  position: relative;
+}
+
+.delete-item-btn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--ash);
+  cursor: pointer;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  padding: 0 0.25rem;
+  opacity: 0;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.check-item:hover .delete-item-btn {
+  opacity: 0.4;
+}
+
+.delete-item-btn:hover {
+  opacity: 1 !important;
+  color: var(--terracotta);
 }
 
 .check-item input {
@@ -1357,7 +1381,7 @@ function renderCard(section, gridEl) {
   html += `<div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>`;
 
   section.items.forEach(item => {
-    html += `<label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">${escapeHtml(item)}</span></label>`;
+    html += `<label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">${escapeHtml(item)}</span><button class="delete-item-btn" onclick="removeItem(event, this)" title="Remove item">\u00d7</button></label>`;
   });
 
   html += `<div class="add-item-row">`;
@@ -1437,7 +1461,7 @@ function addItem(btn) {
   // Add to DOM
   const label = document.createElement('label');
   label.className = 'check-item';
-  label.innerHTML = `<input type="checkbox"><span class="check-box"></span><span class="check-label">${escapeHtml(text)}</span>`;
+  label.innerHTML = `<input type="checkbox"><span class="check-box"></span><span class="check-label">${escapeHtml(text)}</span><button class="delete-item-btn" onclick="removeItem(event, this)" title="Remove item">\u00d7</button>`;
   card.insertBefore(label, row);
   input.value = '';
 
@@ -1448,6 +1472,48 @@ function addItem(btn) {
     updateProgress(card);
   });
 
+  updateProgress(card);
+}
+
+function removeItem(event, btn) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  const label = btn.closest('.check-item');
+  const card = label.closest('.checklist-card');
+  const group = card.dataset.group;
+  const type = group.startsWith('pack-') ? 'packing' : 'booking';
+  const section = state._sections[type].find(s => s.id === group);
+  if (!section) return;
+
+  // Find item index among all check-items in this card
+  const allItems = [...card.querySelectorAll('.check-item')];
+  const idx = allItems.indexOf(label);
+
+  // Remove from state
+  if (idx >= 0 && idx < section.items.length) {
+    section.items.splice(idx, 1);
+    // Rebuild checkbox states for this group (indices shifted)
+    const oldStates = {};
+    allItems.forEach((item, i) => {
+      const cb = item.querySelector('input[type="checkbox"]');
+      if (cb && cb.checked) oldStates[i] = true;
+    });
+    // Clear old states
+    Object.keys(state).forEach(k => {
+      if (k.startsWith(group + '-')) delete state[k];
+    });
+    // Re-map states skipping removed index
+    let newIdx = 0;
+    allItems.forEach((item, i) => {
+      if (i === idx) return;
+      if (oldStates[i]) state[`${group}-${newIdx}`] = true;
+      newIdx++;
+    });
+    saveState(state);
+  }
+
+  label.remove();
   updateProgress(card);
 }
 
