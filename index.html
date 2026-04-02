@@ -171,11 +171,12 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(245, 240, 232, 0.85);
+  background: rgba(245, 240, 232, 0.95);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(44, 36, 23, 0.08);
   padding: 0 2rem;
+  padding-top: env(safe-area-inset-top, 0);
 }
 
 .nav-inner {
@@ -1326,8 +1327,9 @@ body {
   .add-activity-form { grid-template-columns: 1fr; }
   .add-activity-form select { width: 100%; }
   .research-item { flex-wrap: wrap; }
-  .nav-inner { gap: 0.25rem; padding: 0 0.5rem; }
-  .nav-btn { font-size: 0.55rem; padding: 0.4rem 0.6rem; }
+  .nav { padding: 0 0.75rem; }
+  .nav-inner { gap: 0.15rem; padding: 0.5rem 0; }
+  .nav-btn { font-size: 0.5rem; padding: 0.35rem 0.5rem; letter-spacing: 0.05em; }
 }
 
 /* ============ PRINT STYLES ============ */
