@@ -1336,6 +1336,400 @@ body {
   .nav { padding: 0 0.75rem; }
   .nav-inner { gap: 0.15rem; padding: 0.5rem 0; }
   .nav-btn { font-size: 0.5rem; padding: 0.35rem 0.5rem; letter-spacing: 0.05em; }
+  .converter-widget { flex-direction: column; }
+  .converter-arrow { transform: rotate(90deg); padding: 0; }
+  .weather-grid { grid-template-columns: repeat(3, 1fr); }
+  .weather-locations { flex-wrap: wrap; }
+  .ai-msg { max-width: 95%; }
+}
+
+/* ============ CURRENCY CONVERTER ============ */
+.converter-widget {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.converter-input-group {
+  flex: 1;
+  min-width: 180px;
+  position: relative;
+}
+
+.converter-input-group label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 0.4rem;
+}
+
+.converter-input-group input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 12px;
+  background: var(--linen);
+  font-family: 'Instrument Serif', serif;
+  font-size: 2rem;
+  color: var(--earth);
+  outline: none;
+  transition: all 0.3s;
+}
+
+.converter-input-group input:focus {
+  border-color: var(--jade);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(58, 125, 92, 0.08);
+}
+
+.converter-arrow {
+  font-size: 1.5rem;
+  color: var(--ash);
+  padding-top: 1.2rem;
+}
+
+.converter-rate {
+  width: 100%;
+  margin-top: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--ash);
+  letter-spacing: 0.05em;
+}
+
+.converter-quick-amounts {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.quick-amount-btn {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 100px;
+  background: var(--linen);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--earth);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.quick-amount-btn:hover {
+  background: var(--earth);
+  color: var(--cream);
+  border-color: var(--earth);
+}
+
+.converter-cheat-sheet {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.cheat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0.9rem;
+  background: var(--linen);
+  border-radius: 8px;
+  font-size: 0.8rem;
+}
+
+.cheat-item .cheat-usd {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--jade);
+}
+
+.cheat-item .cheat-gtq {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--ash);
+}
+
+/* ============ WEATHER ============ */
+.weather-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.weather-card {
+  background: var(--linen);
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: all 0.3s;
+  text-align: center;
+}
+
+.weather-card:hover {
+  background: white;
+  box-shadow: 0 4px 20px rgba(44, 36, 23, 0.06);
+}
+
+.weather-card .wc-day {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 0.5rem;
+}
+
+.weather-card .wc-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.weather-card .wc-temp {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.8rem;
+  color: var(--earth);
+}
+
+.weather-card .wc-temp-range {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--ash);
+  margin-top: 0.15rem;
+}
+
+.weather-card .wc-detail {
+  font-size: 0.75rem;
+  color: var(--ash);
+  margin-top: 0.5rem;
+  line-height: 1.4;
+}
+
+.weather-locations {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.weather-loc-btn {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 100px;
+  background: var(--linen);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ash);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.weather-loc-btn.active {
+  background: var(--earth);
+  color: var(--cream);
+  border-color: var(--earth);
+}
+
+.weather-summary {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background: var(--linen);
+  border-radius: 12px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--charcoal);
+}
+
+.weather-summary strong {
+  color: var(--earth);
+}
+
+.weather-loading {
+  text-align: center;
+  padding: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--ash);
+}
+
+/* ============ AI ASSISTANT ============ */
+.ai-chat-container {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ai-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ash) transparent;
+}
+
+.ai-msg {
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  max-width: 85%;
+  word-wrap: break-word;
+}
+
+.ai-msg.user {
+  background: var(--earth);
+  color: var(--cream);
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.ai-msg.assistant {
+  background: var(--linen);
+  color: var(--charcoal);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.ai-msg.assistant p { margin: 0.4rem 0; }
+.ai-msg.assistant p:first-child { margin-top: 0; }
+.ai-msg.assistant p:last-child { margin-bottom: 0; }
+.ai-msg.assistant strong { color: var(--earth); }
+.ai-msg.assistant ul, .ai-msg.assistant ol { margin: 0.4rem 0; padding-left: 1.25rem; }
+.ai-msg.assistant li { margin: 0.2rem 0; }
+
+.ai-msg.system {
+  background: rgba(212, 168, 67, 0.1);
+  color: var(--ash);
+  align-self: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-align: center;
+  max-width: 100%;
+}
+
+.ai-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ai-input {
+  flex: 1;
+  padding: 0.85rem 1.1rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 12px;
+  background: var(--linen);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  color: var(--earth);
+  outline: none;
+  transition: all 0.3s;
+  resize: none;
+}
+
+.ai-input:focus {
+  border-color: var(--jade);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(58, 125, 92, 0.08);
+}
+
+.ai-send-btn {
+  padding: 0.85rem 1.5rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.ai-send-btn:hover { background: var(--jade); }
+.ai-send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.ai-key-setup {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background: rgba(212, 168, 67, 0.08);
+  border-radius: 12px;
+  flex-wrap: wrap;
+}
+
+.ai-key-setup label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ash);
+  white-space: nowrap;
+}
+
+.ai-key-setup input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 8px;
+  background: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--earth);
+  outline: none;
+}
+
+.ai-key-setup input:focus { border-color: var(--jade); }
+
+.ai-key-setup button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+}
+
+.ai-key-setup button:hover { background: var(--jade); }
+
+.ai-suggestions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.ai-suggestion-btn {
+  padding: 0.5rem 0.9rem;
+  border: 1px dashed rgba(44, 36, 23, 0.15);
+  border-radius: 100px;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: var(--ash);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ai-suggestion-btn:hover {
+  border-color: var(--jade);
+  color: var(--jade);
+  border-style: solid;
 }
 
 /* ============ PRINT STYLES ============ */
@@ -1377,6 +1771,9 @@ body {
     <button class="nav-btn" data-target="stays">Stays</button>
     <button class="nav-btn" data-target="food">Food</button>
     <button class="nav-btn" data-target="budget">Budget</button>
+    <button class="nav-btn" data-target="convert">GTQ/USD</button>
+    <button class="nav-btn" data-target="weather">Weather</button>
+    <button class="nav-btn" data-target="ai-assistant">Ask AI</button>
   </div>
 </nav>
 
@@ -1610,6 +2007,62 @@ body {
       <div class="budget-row">
         <span class="item-name">Food & misc</span>
         <span class="item-cost">~$50–80</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== CURRENCY CONVERTER ====== -->
+  <div id="convert">
+    <p class="section-label">Currency Converter &middot; Guatemalan Quetzal</p>
+    <div class="converter-widget">
+      <div class="converter-input-group">
+        <label>US Dollars (USD)</label>
+        <input type="number" id="usd-input" placeholder="0.00" step="0.01" min="0">
+      </div>
+      <span class="converter-arrow">&harr;</span>
+      <div class="converter-input-group">
+        <label>Quetzales (GTQ)</label>
+        <input type="number" id="gtq-input" placeholder="0.00" step="0.01" min="0">
+      </div>
+    </div>
+    <div class="converter-rate" id="converter-rate">Loading exchange rate...</div>
+    <div class="converter-quick-amounts" id="quick-amounts"></div>
+    <div class="converter-cheat-sheet" id="cheat-sheet"></div>
+  </div>
+
+  <!-- ====== WEATHER ====== -->
+  <div id="weather">
+    <p class="section-label">Weather Forecast &middot; Apr 30 &ndash; May 4</p>
+    <div class="weather-locations">
+      <button class="weather-loc-btn active" data-loc="antigua" data-lat="14.5586" data-lon="-90.7295">Antigua</button>
+      <button class="weather-loc-btn" data-loc="atitlan" data-lat="14.6875" data-lon="-91.2069">Lake Atitl&aacute;n</button>
+    </div>
+    <div class="weather-grid" id="weather-grid">
+      <div class="weather-loading">Fetching forecast data...</div>
+    </div>
+    <div class="weather-summary" id="weather-summary"></div>
+  </div>
+
+  <!-- ====== AI ASSISTANT ====== -->
+  <div id="ai-assistant">
+    <p class="section-label">Trip Assistant &middot; Ask About Guatemala</p>
+    <div class="ai-chat-container">
+      <div class="ai-key-setup" id="ai-key-setup">
+        <label>Anthropic API Key</label>
+        <input type="password" id="ai-key-input" placeholder="sk-ant-...">
+        <button onclick="saveAIKey()">Save</button>
+      </div>
+      <div class="ai-suggestions" id="ai-suggestions">
+        <button class="ai-suggestion-btn" onclick="askAI(this.textContent)">Best time to exchange money?</button>
+        <button class="ai-suggestion-btn" onclick="askAI(this.textContent)">Safety tips for Lake Atitl&aacute;n</button>
+        <button class="ai-suggestion-btn" onclick="askAI(this.textContent)">What to bring for Acatenango?</button>
+        <button class="ai-suggestion-btn" onclick="askAI(this.textContent)">Tipping customs in Guatemala</button>
+        <button class="ai-suggestion-btn" onclick="askAI(this.textContent)">Best food to try in Antigua</button>
+      </div>
+      <div class="ai-messages" id="ai-messages"></div>
+      <div class="ai-input-row">
+        <input class="ai-input" id="ai-input" placeholder="Ask anything about your Guatemala trip..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAIMessage()}">
+        <button class="ai-send-btn" id="ai-send-btn" onclick="sendAIMessage()">Send</button>
       </div>
     </div>
   </div>
@@ -2094,6 +2547,308 @@ function updateCountdown() {
   footer.textContent = days > 0 ? `Guatemala 2026 \u00B7 ${days} days to go` : days === 0 ? `Guatemala 2026 \u00B7 Today!` : `Guatemala 2026 \u00B7 Memories made`;
 }
 updateCountdown();
+
+// ============ CURRENCY CONVERTER ============
+let gtqRate = 7.75; // fallback rate
+const usdInput = document.getElementById('usd-input');
+const gtqInput = document.getElementById('gtq-input');
+const rateDisplay = document.getElementById('converter-rate');
+
+(async function fetchRate() {
+  try {
+    const r = await fetch('https://open.er-api.com/v6/latest/USD');
+    const d = await r.json();
+    if (d.rates && d.rates.GTQ) {
+      gtqRate = d.rates.GTQ;
+      rateDisplay.textContent = `1 USD = ${gtqRate.toFixed(2)} GTQ · Updated ${new Date(d.time_last_update_utc).toLocaleDateString()}`;
+    }
+  } catch {
+    rateDisplay.textContent = `1 USD ≈ ${gtqRate.toFixed(2)} GTQ · Offline rate`;
+  }
+  buildCheatSheet();
+})();
+
+usdInput.addEventListener('input', () => {
+  const v = parseFloat(usdInput.value);
+  gtqInput.value = isNaN(v) ? '' : (v * gtqRate).toFixed(2);
+});
+gtqInput.addEventListener('input', () => {
+  const v = parseFloat(gtqInput.value);
+  usdInput.value = isNaN(v) ? '' : (v / gtqRate).toFixed(2);
+});
+
+function setUSD(amount) {
+  usdInput.value = amount;
+  gtqInput.value = (amount * gtqRate).toFixed(2);
+}
+
+const quickAmounts = [1, 5, 10, 20, 50, 100];
+const quickContainer = document.getElementById('quick-amounts');
+quickAmounts.forEach(a => {
+  const btn = document.createElement('button');
+  btn.className = 'quick-amount-btn';
+  btn.textContent = `$${a}`;
+  btn.onclick = () => setUSD(a);
+  quickContainer.appendChild(btn);
+});
+
+function buildCheatSheet() {
+  const sheet = document.getElementById('cheat-sheet');
+  const items = [
+    { label: 'Street food', gtq: 15 },
+    { label: 'Local meal', gtq: 35 },
+    { label: 'Coffee', gtq: 10 },
+    { label: 'Beer', gtq: 20 },
+    { label: 'Tuk-tuk ride', gtq: 10 },
+    { label: 'Lancha boat', gtq: 25 },
+    { label: 'Hostel dorm', gtq: 60 },
+    { label: 'Shuttle', gtq: 150 },
+  ];
+  sheet.innerHTML = items.map(i => `<div class="cheat-item"><span>${i.label}</span><span><span class="cheat-gtq">Q${i.gtq}</span> · <span class="cheat-usd">$${(i.gtq / gtqRate).toFixed(2)}</span></span></div>`).join('');
+}
+
+// ============ WEATHER FORECAST ============
+const weatherCache = {};
+const TRIP_DATES = ['2026-04-30','2026-05-01','2026-05-02','2026-05-03','2026-05-04'];
+const DAY_NAMES = ['Thu Apr 30','Fri May 1','Sat May 2','Sun May 3','Mon May 4'];
+
+const weatherIcons = {
+  0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️',
+  45: '🌫️', 48: '🌫️',
+  51: '🌦️', 53: '🌦️', 55: '🌧️',
+  61: '🌧️', 63: '🌧️', 65: '🌧️',
+  80: '🌦️', 81: '🌧️', 82: '⛈️',
+  95: '⛈️', 96: '⛈️', 99: '⛈️',
+};
+
+const weatherDescs = {
+  0: 'Clear sky', 1: 'Mostly clear', 2: 'Partly cloudy', 3: 'Overcast',
+  45: 'Foggy', 48: 'Rime fog',
+  51: 'Light drizzle', 53: 'Drizzle', 55: 'Heavy drizzle',
+  61: 'Light rain', 63: 'Rain', 65: 'Heavy rain',
+  80: 'Light showers', 81: 'Showers', 82: 'Heavy showers',
+  95: 'Thunderstorm', 96: 'Hail storm', 99: 'Severe hail',
+};
+
+function getWeatherIcon(code) {
+  return weatherIcons[code] || '🌡️';
+}
+
+async function fetchWeather(lat, lon, locKey) {
+  if (weatherCache[locKey]) return weatherCache[locKey];
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum&temperature_unit=fahrenheit&start_date=2026-04-30&end_date=2026-05-04&timezone=America/Guatemala`;
+  try {
+    const r = await fetch(url);
+    const d = await r.json();
+    weatherCache[locKey] = d.daily;
+    return d.daily;
+  } catch {
+    return null;
+  }
+}
+
+function renderWeather(data) {
+  const grid = document.getElementById('weather-grid');
+  const summary = document.getElementById('weather-summary');
+  if (!data) {
+    grid.innerHTML = '<div class="weather-loading">Weather data not yet available for these dates. Check back closer to the trip.</div>';
+    summary.innerHTML = '<strong>May in Guatemala:</strong> Rainy season begins. Expect warm days (75–85°F / 24–30°C), cooler highlands (60–75°F / 15–24°C). Afternoon showers are common — mornings are usually clear. Pack a rain jacket and layers for Acatenango (near-freezing at summit).';
+    return;
+  }
+  grid.innerHTML = data.time.map((date, i) => {
+    const code = data.weather_code[i];
+    const hi = Math.round(data.temperature_2m_max[i]);
+    const lo = Math.round(data.temperature_2m_min[i]);
+    const rain = data.precipitation_probability_max[i];
+    const mm = data.precipitation_sum[i];
+    return `<div class="weather-card">
+      <div class="wc-day">${DAY_NAMES[i]}</div>
+      <div class="wc-icon">${getWeatherIcon(code)}</div>
+      <div class="wc-temp">${hi}°F</div>
+      <div class="wc-temp-range">${lo}° / ${hi}°</div>
+      <div class="wc-detail">${weatherDescs[code] || 'Unknown'}<br>${rain}% rain · ${mm}mm</div>
+    </div>`;
+  }).join('');
+  const avgHi = Math.round(data.temperature_2m_max.reduce((a,b) => a+b, 0) / data.temperature_2m_max.length);
+  const avgLo = Math.round(data.temperature_2m_min.reduce((a,b) => a+b, 0) / data.temperature_2m_min.length);
+  const maxRain = Math.max(...data.precipitation_probability_max);
+  summary.innerHTML = `<strong>Trip average:</strong> Highs around ${avgHi}°F, lows around ${avgLo}°F. Rain chance up to ${maxRain}%. <strong>Pack tip:</strong> Layers for Acatenango summit (can drop below 40°F), rain jacket for afternoon showers, light clothes for lakeside days.`;
+}
+
+document.querySelectorAll('.weather-loc-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    document.querySelectorAll('.weather-loc-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const grid = document.getElementById('weather-grid');
+    grid.innerHTML = '<div class="weather-loading">Loading...</div>';
+    const data = await fetchWeather(btn.dataset.lat, btn.dataset.lon, btn.dataset.loc);
+    renderWeather(data);
+  });
+});
+
+// Initial weather load
+(async () => {
+  const btn = document.querySelector('.weather-loc-btn.active');
+  const data = await fetchWeather(btn.dataset.lat, btn.dataset.lon, btn.dataset.loc);
+  renderWeather(data);
+})();
+
+// ============ AI ASSISTANT ============
+const AI_KEY_STORAGE = 'guat-ai-key';
+const AI_HISTORY_STORAGE = 'guat-ai-history';
+let aiMessages = [];
+
+try { aiMessages = JSON.parse(localStorage.getItem(AI_HISTORY_STORAGE)) || []; } catch { aiMessages = []; }
+
+function getAIKey() { return localStorage.getItem(AI_KEY_STORAGE) || ''; }
+
+function saveAIKey() {
+  const key = document.getElementById('ai-key-input').value.trim();
+  if (!key) return;
+  localStorage.setItem(AI_KEY_STORAGE, key);
+  document.getElementById('ai-key-input').value = '';
+  updateAIKeyUI();
+  addSystemMessage('API key saved. Ask me anything about your trip!');
+}
+
+function updateAIKeyUI() {
+  const setup = document.getElementById('ai-key-setup');
+  const key = getAIKey();
+  if (key) {
+    setup.innerHTML = `<label>Gemini API Key</label><span style="font-family:'JetBrains Mono';font-size:0.7rem;color:var(--jade)">✓ Key saved</span><button onclick="localStorage.removeItem('${AI_KEY_STORAGE}');updateAIKeyUI()" style="padding:0.4rem 0.75rem;border:none;background:rgba(196,89,59,0.1);color:var(--terracotta);border-radius:8px;font-family:'JetBrains Mono';font-size:0.6rem;cursor:pointer">Remove</button>`;
+  } else {
+    setup.innerHTML = `<label>Google AI API Key</label><input type="password" id="ai-key-input" placeholder="AIza..."><button onclick="saveAIKey()">Save</button><span style="font-size:0.7rem;color:var(--ash)">Free from <a href="https://aistudio.google.com/apikey" target="_blank" style="color:var(--lake)">Google AI Studio</a></span>`;
+  }
+}
+
+function addSystemMessage(text) {
+  const el = document.createElement('div');
+  el.className = 'ai-msg system';
+  el.textContent = text;
+  document.getElementById('ai-messages').appendChild(el);
+  scrollAIToBottom();
+}
+
+function renderAIMessages() {
+  const container = document.getElementById('ai-messages');
+  container.innerHTML = '';
+  aiMessages.forEach(m => {
+    const el = document.createElement('div');
+    el.className = `ai-msg ${m.role}`;
+    if (m.role === 'assistant') {
+      el.innerHTML = simpleMarkdown(m.content);
+    } else {
+      el.textContent = m.content;
+    }
+    container.appendChild(el);
+  });
+  scrollAIToBottom();
+}
+
+function simpleMarkdown(text) {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/^- (.+)$/gm, '<li>$1</li>')
+    .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/\n/g, '<br>')
+    .replace(/^(.+)$/, '<p>$1</p>');
+}
+
+function scrollAIToBottom() {
+  const c = document.getElementById('ai-messages');
+  c.scrollTop = c.scrollHeight;
+}
+
+const TRIP_CONTEXT = `You are a helpful Guatemala travel assistant for a specific trip: April 30 - May 4, 2026.
+
+Trip details:
+- Flying JFK → Guatemala City on Avianca AV653 (3:20AM, arrives 6AM)
+- Day 1 (Apr 30): Arrive, shuttle to Antigua, explore colonial town
+- Day 2 (May 1): Acatenango Volcano overnight hike (camp, watch Fuego eruptions)
+- Day 3 (May 2): Summit sunrise, descend, shuttle to Lake Atitlán via Panajachel
+- Day 4 (May 3): Indian Nose sunrise hike, explore lake villages by lancha, kayak
+- Day 5 (May 4): Morning at lake, shuttle to airport, fly home via San Salvador
+- Budget backpacker trip, staying in hostels ($7-13/night)
+- Solo male traveler from NYC
+
+Key locations: Antigua Guatemala, Volcán Acatenango, Lake Atitlán (San Pedro La Laguna, Panajachel)
+Currency: Guatemalan Quetzal (GTQ), ~7.75 per USD
+Season: Early rainy season — warm days, cool highlands, afternoon showers
+
+Keep answers concise and practical. Focus on actionable travel advice.`;
+
+async function sendAIMessage() {
+  const input = document.getElementById('ai-input');
+  const text = input.value.trim();
+  if (!text) return;
+
+  const key = getAIKey();
+  if (!key) {
+    addSystemMessage('Please add your Google AI API key above first (free from Google AI Studio)');
+    return;
+  }
+
+  aiMessages.push({ role: 'user', content: text });
+  input.value = '';
+  renderAIMessages();
+
+  const btn = document.getElementById('ai-send-btn');
+  btn.disabled = true;
+  btn.textContent = '...';
+
+  try {
+    const geminiMessages = aiMessages.map(m => ({
+      role: m.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: m.content }]
+    }));
+
+    // Prepend system context as first user message if first real message
+    if (geminiMessages.length === 1) {
+      geminiMessages.unshift(
+        { role: 'user', parts: [{ text: TRIP_CONTEXT + '\n\nPlease acknowledge you understand the trip details briefly.' }] },
+        { role: 'model', parts: [{ text: 'Got it! I have all your Guatemala trip details for April 30 - May 4, 2026. Ready to help with anything — from Acatenango packing tips to Lake Atitlán logistics. What would you like to know?' }] }
+      );
+    }
+
+    const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: geminiMessages,
+        generationConfig: { maxOutputTokens: 1024, temperature: 0.7 },
+        systemInstruction: { parts: [{ text: TRIP_CONTEXT }] },
+      }),
+    });
+
+    const data = await resp.json();
+
+    if (data.error) {
+      throw new Error(data.error.message || 'API error');
+    }
+
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response received.';
+    aiMessages.push({ role: 'assistant', content: reply });
+    localStorage.setItem(AI_HISTORY_STORAGE, JSON.stringify(aiMessages));
+    renderAIMessages();
+  } catch (err) {
+    addSystemMessage(`Error: ${err.message}`);
+    aiMessages.pop(); // remove failed user message
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Send';
+}
+
+function askAI(text) {
+  document.getElementById('ai-input').value = text;
+  sendAIMessage();
+}
+
+// Initialize AI UI
+updateAIKeyUI();
+if (aiMessages.length > 0) renderAIMessages();
 </script>
 
 </body>
