@@ -1172,7 +1172,7 @@ body {
         <span class="activity-tag tag-transport">Transport</span>
       </div>
     </div>
-    <details class="ref-section" data-day="day0"><summary>Photos & Links</summary><div class="ref-grid" id="ref-grid-day0"></div></details>
+    <details class="ref-section" open data-day="day0"><summary>Photos & Links</summary><div class="ref-grid" id="ref-grid-day0"></div></details>
     <div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-day0"></div>
   </div>
 
@@ -1220,7 +1220,7 @@ body {
         <span class="activity-tag tag-explore">Explore</span>
       </div>
     </div>
-    <details class="ref-section" data-day="day1"><summary>Photos & Links</summary><div class="ref-grid" id="ref-grid-day1"></div></details>
+    <details class="ref-section" open data-day="day1"><summary>Photos & Links</summary><div class="ref-grid" id="ref-grid-day1"></div></details>
     <div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-day1"></div>
   </div>
 
@@ -1244,7 +1244,7 @@ body {
         <span class="activity-tag tag-hike">Hike</span>
       </div>
     </div>
-    <details class="ref-section" data-day="day2"><summary>Photos & Links</summary><div class="ref-grid" id="ref-grid-day2"></div></details>
+    <details class="ref-section" open data-day="day2"><summary>Photos & Links</summary><div class="ref-grid" id="ref-grid-day2"></div></details>
     <div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-day2"></div>
   </div>
 
@@ -1284,7 +1284,7 @@ body {
         <span class="activity-tag tag-chill">Chill</span>
       </div>
     </div>
-    <details class="ref-section" data-day="day3"><summary>Photos & Links</summary><div class="ref-grid" id="ref-grid-day3"></div></details>
+    <details class="ref-section" open data-day="day3"><summary>Photos & Links</summary><div class="ref-grid" id="ref-grid-day3"></div></details>
     <div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-day3"></div>
   </div>
 
@@ -1340,7 +1340,7 @@ body {
         <span class="activity-tag tag-chill">Chill</span>
       </div>
     </div>
-    <details class="ref-section" data-day="day4"><summary>Photos & Links</summary><div class="ref-grid" id="ref-grid-day4"></div></details>
+    <details class="ref-section" open data-day="day4"><summary>Photos & Links</summary><div class="ref-grid" id="ref-grid-day4"></div></details>
     <div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-day4"></div>
   </div>
 
@@ -1396,7 +1396,7 @@ body {
         <span class="activity-tag tag-flight">Flight</span>
       </div>
     </div>
-    <details class="ref-section" data-day="day5"><summary>Photos & Links</summary><div class="ref-grid" id="ref-grid-day5"></div></details>
+    <details class="ref-section" open data-day="day5"><summary>Photos & Links</summary><div class="ref-grid" id="ref-grid-day5"></div></details>
     <div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-day5"></div>
   </div>
 
@@ -1735,6 +1735,7 @@ renderAllSections();
 (async function syncFromRemote() {
   try {
     const { data } = await sb.from('planner_state').select('state').eq('id', 'default').single();
+    console.log('Supabase sync:', data?.state ? Object.keys(data.state) : 'empty', '_refs count:', data?.state?._refs ? Object.values(data.state._refs).flat().length : 0);
     if (data && data.state && Object.keys(data.state).length > 0) {
       Object.keys(state).forEach(k => delete state[k]);
       Object.assign(state, data.state);
