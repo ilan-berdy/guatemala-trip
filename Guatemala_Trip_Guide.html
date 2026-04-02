@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guatemala Trip Guide — Apr 30 – May 4, 2026</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1923; color: #e8e6e3; }
+
+  .hero {
+    background: linear-gradient(135deg, #1a3a2a 0%, #0f1923 50%, #1a2a3a 100%);
+    padding: 48px 24px 24px;
+    text-align: center;
+  }
+  .hero h1 { font-size: 2.2em; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
+  .hero h1 span { color: #4ecdc4; }
+  .hero .subtitle { color: #8a9bae; font-size: 1.05em; }
+
+  .nav-tabs {
+    display: flex; justify-content: center; gap: 8px; padding: 16px 24px;
+    background: #141e2a; border-bottom: 1px solid #1e2d3d; flex-wrap: wrap;
+    position: sticky; top: 0; z-index: 1000;
+  }
+  .nav-tab {
+    padding: 8px 18px; border-radius: 20px; border: 1px solid #2a3a4a;
+    background: transparent; color: #8a9bae; cursor: pointer; font-size: 0.9em;
+    transition: all 0.2s;
+  }
+  .nav-tab:hover { border-color: #4ecdc4; color: #4ecdc4; }
+  .nav-tab.active { background: #4ecdc4; color: #0f1923; border-color: #4ecdc4; font-weight: 600; }
+
+  .content { max-width: 1100px; margin: 0 auto; padding: 24px; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* MAP */
+  #map { height: 500px; border-radius: 12px; margin-bottom: 24px; border: 1px solid #1e2d3d; }
+
+  .map-legend {
+    background: #1a2636; border-radius: 12px; padding: 20px; margin-bottom: 24px;
+    border: 1px solid #1e2d3d;
+  }
+  .map-legend h3 { color: #4ecdc4; margin-bottom: 12px; font-size: 1.1em; }
+  .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .legend-dot {
+    width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+  }
+  .legend-line {
+    width: 24px; height: 3px; flex-shrink: 0; border-radius: 2px;
+  }
+
+  /* PLACE CARDS */
+  .place-card {
+    background: #1a2636; border-radius: 16px; overflow: hidden;
+    margin-bottom: 24px; border: 1px solid #1e2d3d;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .place-card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+
+  .place-card .card-header {
+    padding: 20px 24px; display: flex; align-items: center; gap: 16px;
+    border-bottom: 1px solid #1e2d3d; cursor: pointer;
+  }
+  .place-card .day-badge {
+    background: #4ecdc4; color: #0f1923; font-weight: 700; font-size: 0.75em;
+    padding: 4px 10px; border-radius: 12px; white-space: nowrap;
+  }
+  .place-card h3 { font-size: 1.25em; flex: 1; }
+  .place-card .elevation { color: #8a9bae; font-size: 0.85em; }
+  .place-card .toggle-arrow { color: #4ecdc4; font-size: 1.2em; transition: transform 0.3s; }
+  .place-card .toggle-arrow.open { transform: rotate(180deg); }
+
+  .place-card .card-body {
+    padding: 0 24px 24px; display: none;
+  }
+  .place-card .card-body.open { display: block; }
+
+  .place-card .description { color: #b0bec5; line-height: 1.7; margin-bottom: 16px; }
+
+  .place-card .highlights {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px; margin-bottom: 16px;
+  }
+  .highlight-chip {
+    background: #0f1923; border: 1px solid #1e2d3d; border-radius: 10px;
+    padding: 12px 16px; font-size: 0.9em;
+  }
+  .highlight-chip .emoji { margin-right: 6px; }
+
+  .place-card .stats {
+    display: flex; gap: 20px; flex-wrap: wrap; padding-top: 16px;
+    border-top: 1px solid #1e2d3d;
+  }
+  .stat { text-align: center; }
+  .stat .value { font-size: 1.3em; font-weight: 700; color: #4ecdc4; }
+  .stat .label { font-size: 0.75em; color: #8a9bae; margin-top: 2px; }
+
+  /* ROUTE SECTION */
+  .route-card {
+    background: #1a2636; border-radius: 12px; padding: 20px 24px;
+    margin-bottom: 16px; border: 1px solid #1e2d3d;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .route-icon { font-size: 1.5em; }
+  .route-info { flex: 1; }
+  .route-info .route-name { font-weight: 600; margin-bottom: 4px; }
+  .route-info .route-detail { color: #8a9bae; font-size: 0.9em; }
+  .route-cost { color: #4ecdc4; font-weight: 700; font-size: 1.1em; }
+
+  /* OVERVIEW SECTION */
+  .overview-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px; margin-bottom: 24px;
+  }
+  .overview-card {
+    background: #1a2636; border-radius: 12px; padding: 24px;
+    border: 1px solid #1e2d3d;
+  }
+  .overview-card h3 { color: #4ecdc4; margin-bottom: 12px; font-size: 1em; }
+  .overview-card p { color: #b0bec5; line-height: 1.6; font-size: 0.95em; }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+    width: 2px; background: #1e2d3d;
+  }
+  .timeline-item { position: relative; margin-bottom: 24px; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -28px; top: 6px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #4ecdc4; border: 2px solid #0f1923;
+  }
+  .timeline-item .day-label {
+    font-weight: 700; color: #4ecdc4; font-size: 0.85em;
+    margin-bottom: 4px;
+  }
+  .timeline-item .day-title { font-size: 1.1em; font-weight: 600; margin-bottom: 6px; }
+  .timeline-item .day-desc { color: #8a9bae; font-size: 0.9em; line-height: 1.5; }
+
+  /* PHOTOS placeholder */
+  .photo-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px; margin-top: 16px;
+  }
+  .photo-placeholder {
+    background: linear-gradient(135deg, #1a3a2a, #1a2a3a);
+    border-radius: 12px; padding: 40px 20px; text-align: center;
+    border: 1px dashed #2a3a4a; color: #8a9bae; font-size: 0.9em;
+    min-height: 180px; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 8px;
+  }
+  .photo-placeholder .photo-icon { font-size: 2em; }
+
+  /* GEOGRAPHY EXPLAINER */
+  .geo-card {
+    background: linear-gradient(135deg, #1a2636, #1e3040);
+    border-radius: 16px; padding: 28px; margin-bottom: 24px;
+    border: 1px solid #2a3a4a;
+  }
+  .geo-card h3 { color: #4ecdc4; margin-bottom: 16px; }
+  .geo-card p { color: #b0bec5; line-height: 1.7; margin-bottom: 12px; }
+  .geo-card .callout {
+    background: rgba(78, 205, 196, 0.1); border-left: 3px solid #4ecdc4;
+    padding: 12px 16px; border-radius: 0 8px 8px 0; margin-top: 12px;
+    font-size: 0.9em; color: #cdd9e5;
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 1.6em; }
+    #map { height: 350px; }
+    .place-card .card-header { flex-wrap: wrap; }
+    .nav-tabs { gap: 4px; padding: 12px 8px; }
+    .nav-tab { padding: 6px 12px; font-size: 0.8em; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Your <span>Guatemala</span> Trip</h1>
+  <p class="subtitle">Apr 30 – May 4, 2026 &nbsp;·&nbsp; Ilan + 1</p>
+</div>
+
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showSection('overview')">Overview</button>
+  <button class="nav-tab" onclick="showSection('map')">Map</button>
+  <button class="nav-tab" onclick="showSection('places')">Places</button>
+  <button class="nav-tab" onclick="showSection('routes')">Getting Around</button>
+</div>
+
+<div class="content">
+
+  <!-- OVERVIEW -->
+  <div id="overview" class="section active">
+
+    <div class="geo-card">
+      <h3>The Lay of the Land</h3>
+      <p>Guatemala's tourist trail runs along a roughly <strong>west-northwest line through the highlands</strong>. You're hitting three stops, all connected by shuttle:</p>
+      <p><strong>Guatemala City</strong> (airport) sits in a valley at ~1,500m. It's just a transit point — you won't spend time here. From the airport, you go straight west to <strong>Antigua</strong> (45 min–1.5 hrs), the gorgeous colonial base for the Acatenango hike.</p>
+      <p>From Antigua, it's ~2.5–3 hrs further northwest through winding highland roads to <strong>Panajachel</strong> on the shore of <strong>Lake Atitlán</strong>. From Pana, you catch a boat across the lake to <strong>San Pedro La Laguna</strong> on the southwest shore — the backpacker hub.</p>
+      <p>Think of it as a simple A → B → C → A route, all in the western highlands between 1,500m and 3,976m elevation.</p>
+      <div class="callout">
+        <strong>Scale check:</strong> The entire trip area fits in about a 75km radius. Guatemala is compact — but the mountain roads make everything take longer than the distance suggests.
+      </div>
+    </div>
+
+    <h2 style="margin-bottom: 20px; font-size: 1.3em;">Your 5 Days at a Glance</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="day-label">THU APR 30</div>
+        <div class="day-title">Fly in → Antigua</div>
+        <div class="day-desc">Land 6 AM, shuttle to Antigua. Explore cobblestone streets, Santa Catalina Arch, Cerro de la Cruz viewpoint. Acclimate to altitude. Early bed.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="day-label">FRI MAY 1</div>
+        <div class="day-title">Acatenango Hike — Day 1 (Up)</div>
+        <div class="day-desc">Pickup ~5–6 AM from Antigua. Drive to trailhead. 5–6 hour hike through farmland, cloud forest, and volcanic grit to basecamp at 3,600m. Camp overnight watching Fuego erupt across the valley.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="day-label">SAT MAY 2</div>
+        <div class="day-title">Acatenango — Day 2 (Down) → Lake Atitlán</div>
+        <div class="day-desc">Optional 4 AM sunrise summit push. Hike down by noon. Back to Antigua, shower, then afternoon shuttle to Panajachel + boat to San Pedro La Laguna.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="day-label">SUN MAY 3</div>
+        <div class="day-title">Lake Atitlán Full Day</div>
+        <div class="day-desc">Indian Nose sunrise hike (4:30 AM). Village-hop by boat: San Juan, Santa Cruz, San Marcos. Optional Volcán San Pedro hike. Kayak, swim, sunset.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="day-label">MON MAY 4</div>
+        <div class="day-title">Lake → Airport → Home</div>
+        <div class="day-desc">Early boat to Pana, shuttle to GUA airport (~4 hrs). Flight at 3:40 PM via San Salvador → JFK.</div>
+      </div>
+    </div>
+
+    <h2 style="margin: 32px 0 20px; font-size: 1.3em;">Key Numbers</h2>
+    <div class="overview-grid">
+      <div class="overview-card">
+        <h3>Volcanoes You'll See</h3>
+        <p><strong>Acatenango</strong> (3,976m) — you climb this one<br>
+        <strong>Fuego</strong> (3,763m) — active, erupts every ~15 min, you watch from Acatenango's slopes<br>
+        <strong>Volcán de Agua</strong> (3,760m) — the backdrop behind Antigua<br>
+        <strong>San Pedro</strong> (3,020m) — optional hike at the lake<br>
+        <strong>Tolimán</strong> (3,158m) — visible across the lake<br>
+        <strong>Atitlán</strong> (3,535m) — the big one looming over the lake's south shore</p>
+      </div>
+      <div class="overview-card">
+        <h3>Elevation Profile</h3>
+        <p><strong>NYC:</strong> Sea level<br>
+        <strong>Guatemala City:</strong> 1,500m / 4,900 ft<br>
+        <strong>Antigua:</strong> 1,530m / 5,020 ft<br>
+        <strong>Lake Atitlán:</strong> 1,562m / 5,125 ft<br>
+        <strong>Acatenango basecamp:</strong> 3,600m / 11,800 ft<br>
+        <strong>Acatenango summit:</strong> 3,976m / 13,045 ft<br><br>
+        You go from 0 → 3,976m in under 48 hours. Hydrate!</p>
+      </div>
+      <div class="overview-card">
+        <h3>Distances & Times</h3>
+        <p><strong>Airport → Antigua:</strong> 40km, ~1.5 hrs<br>
+        <strong>Antigua → Panajachel:</strong> 75km, ~2.5–3 hrs<br>
+        <strong>Panajachel → San Pedro (boat):</strong> ~25 min<br>
+        <strong>Panajachel → Airport:</strong> 110km, ~3.5–4.5 hrs<br><br>
+        All overland travel is on winding mountain roads — expect to feel every kilometer.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAP -->
+  <div id="map-section" class="section">
+    <div id="map"></div>
+    <div class="map-legend">
+      <h3>Map Key</h3>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #e74c3c;"></div>
+        <span>Volcanoes</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #4ecdc4;"></div>
+        <span>Towns & bases</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background: #f39c12;"></div>
+        <span>Hike viewpoints</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-line" style="background: #4ecdc4;"></div>
+        <span>Your route (shuttles & boats)</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-line" style="background: #e74c3c; border: none; height: 3px; border-top: 3px dashed #e74c3c; background: transparent;"></div>
+        <span>Hikes</span>
+      </div>
+    </div>
+    <p style="color: #8a9bae; font-size: 0.85em; text-align: center;">Click any marker for details. Zoom and drag to explore.</p>
+  </div>
+
+  <!-- PLACES -->
+  <div id="places" class="section">
+
+    <div class="place-card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <span class="day-badge">DAY 1</span>
+        <h3>Antigua Guatemala</h3>
+        <span class="elevation">1,530m</span>
+        <span class="toggle-arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="description">
+          A stunning UNESCO World Heritage colonial city nestled in a valley between three volcanoes (Agua, Fuego, and Acatenango). Cobblestone streets, pastel-colored buildings, ruined churches and convents from the Spanish colonial era, and killer cheap food. This is your Day 1 base and the launching pad for Acatenango.
+        </p>
+        <div class="highlights">
+          <div class="highlight-chip"><span class="emoji">⛪</span> Santa Catalina Arch — the Instagram icon. Yellow arch framing Volcán de Agua.</div>
+          <div class="highlight-chip"><span class="emoji">⛰️</span> Cerro de la Cruz — short uphill walk for panoramic city views.</div>
+          <div class="highlight-chip"><span class="emoji">🏛️</span> Church ruins everywhere — earthquake-damaged convents you can walk through.</div>
+          <div class="highlight-chip"><span class="emoji">🌮</span> Central market — cheap eats, fruit, and local life.</div>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="value">1.5 hrs</div><div class="label">from airport</div></div>
+          <div class="stat"><div class="value">$15–20</div><div class="label">shuttle</div></div>
+          <div class="stat"><div class="value">$8–12</div><div class="label">hostel/night</div></div>
+          <div class="stat"><div class="value">1 night</div><div class="label">you're here</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="place-card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <span class="day-badge">DAY 2–3</span>
+        <h3>Volcán Acatenango + Fuego</h3>
+        <span class="elevation">3,976m summit</span>
+        <span class="toggle-arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="description">
+          The crown jewel of your trip. Acatenango is the 3rd highest volcano in Central America. You hike up over 5–6 hours and camp at ~3,600m with a direct view of <strong>Volcán de Fuego</strong> — one of the most active volcanoes in the world, erupting roughly every 15–20 minutes with plumes of ash and (sometimes) glowing lava. You sleep in tents or A-frame cabins, eat hot food at camp, then optionally summit at 4 AM for sunrise. It's cold, it's hard, and it's absolutely unforgettable.
+        </p>
+        <div class="highlights">
+          <div class="highlight-chip"><span class="emoji">🌋</span> Fuego erupts every ~15 min — ash plumes, rumbling, sometimes lava at night.</div>
+          <div class="highlight-chip"><span class="emoji">🏕️</span> Sleep at basecamp at 3,600m — tents or wood cabins depending on tour.</div>
+          <div class="highlight-chip"><span class="emoji">🌅</span> 4 AM sunrise summit push — above the clouds, watching the sun rise over Guatemala.</div>
+          <div class="highlight-chip"><span class="emoji">🥶</span> Temps drop near freezing at camp — bring every warm layer you own.</div>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="value">5–6 hrs</div><div class="label">hike up</div></div>
+          <div class="stat"><div class="value">3–4 hrs</div><div class="label">hike down</div></div>
+          <div class="stat"><div class="value">$50–100</div><div class="label">tour cost</div></div>
+          <div class="stat"><div class="value">3,976m</div><div class="label">summit</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="place-card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <span class="day-badge">DAY 3–4</span>
+        <h3>Lake Atitlán</h3>
+        <span class="elevation">1,562m</span>
+        <span class="toggle-arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="description">
+          Often called the most beautiful lake in the world. It's a massive volcanic caldera lake surrounded by three towering volcanoes (San Pedro, Tolimán, and Atitlán) with a dozen indigenous Maya villages scattered around its shores. Each village has its own character — you get between them by small motorboats called <em>lanchas</em>. The water is deep blue, the sunsets are ridiculous, and the whole vibe is one of the most special places in Central America.
+        </p>
+        <div class="highlights">
+          <div class="highlight-chip"><span class="emoji">🚤</span> Lanchas (boats) — the lake's "public transit." Q25 (~$3) per ride between villages.</div>
+          <div class="highlight-chip"><span class="emoji">🏘️</span> Each village has its own vibe — backpacker (San Pedro), artsy (San Juan), yoga (San Marcos), quiet (Jaibalito).</div>
+          <div class="highlight-chip"><span class="emoji">🌊</span> Swim, kayak, cliff jump at Santa Cruz, paddleboard — the water is refreshing.</div>
+          <div class="highlight-chip"><span class="emoji">🌄</span> Sunsets behind the volcanoes are legendary. Watch from any west-facing shore.</div>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="value">130 km²</div><div class="label">lake area</div></div>
+          <div class="stat"><div class="value">340m</div><div class="label">max depth</div></div>
+          <div class="stat"><div class="value">12+</div><div class="label">villages</div></div>
+          <div class="stat"><div class="value">~Q25</div><div class="label">per lancha</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="place-card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <span class="day-badge">DAY 3–4</span>
+        <h3>San Pedro La Laguna</h3>
+        <span class="elevation">1,610m</span>
+        <span class="toggle-arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="description">
+          Your base on the lake. San Pedro is the backpacker capital of Atitlán — the cheapest place to stay, the liveliest nightlife, and the most activity options. It sits at the foot of Volcán San Pedro on the lake's southwest shore. The town is small, walkable, a bit scrappy, and full of hostels, cheap restaurants, and tour agencies. From here you can hike San Pedro volcano, catch the Indian Nose sunrise tour, take Spanish classes, or just lancha-hop to the other villages.
+        </p>
+        <div class="highlights">
+          <div class="highlight-chip"><span class="emoji">🎒</span> Backpacker hub — cheapest hostels ($6–8/night), bars, social scene.</div>
+          <div class="highlight-chip"><span class="emoji">🥾</span> Base for Volcán San Pedro hike (4–5 hrs round trip) and Indian Nose sunrise.</div>
+          <div class="highlight-chip"><span class="emoji">🎨</span> 20-min walk to San Juan La Laguna — murals, art co-ops, weaving workshops.</div>
+          <div class="highlight-chip"><span class="emoji">🍺</span> Cheap eats & drinks — comedores (local lunch spots) for Q15–25 ($2–3).</div>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="value">$6–8</div><div class="label">dorm/night</div></div>
+          <div class="stat"><div class="value">25 min</div><div class="label">boat from Pana</div></div>
+          <div class="stat"><div class="value">$2–3</div><div class="label">local meal</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="place-card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <span class="day-badge">DAY 4</span>
+        <h3>Indian Nose (Rostro Maya)</h3>
+        <span class="elevation">2,200m</span>
+        <span class="toggle-arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="description">
+          A short but spectacular sunrise hike above Lake Atitlán. The peak is named because the mountain's profile looks like a reclining Mayan face. It's only a 30-minute hike from the trailhead (you're driven there from San Pedro around 4:30 AM), but the payoff is unreal — a 360° panorama of the entire lake, all three lakeside volcanoes, and on clear days you can see Acatenango and Fuego in the distance. They give you hot chocolate and sweet bread at the top while you watch the sunrise.
+        </p>
+        <div class="highlights">
+          <div class="highlight-chip"><span class="emoji">🌅</span> Best sunrise viewpoint on the lake — see all 3 volcanoes + the entire lake basin.</div>
+          <div class="highlight-chip"><span class="emoji">☕</span> Hot chocolate + pan dulce at the summit while you watch the sunrise.</div>
+          <div class="highlight-chip"><span class="emoji">📸</span> Drone-worthy — this is THE panoramic shot of Lake Atitlán.</div>
+          <div class="highlight-chip"><span class="emoji">⏱️</span> Only 30 min hike — easy after surviving Acatenango.</div>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="value">30 min</div><div class="label">hike up</div></div>
+          <div class="stat"><div class="value">~$13</div><div class="label">tour cost</div></div>
+          <div class="stat"><div class="value">4:30 AM</div><div class="label">pickup</div></div>
+          <div class="stat"><div class="value">2,200m</div><div class="label">summit</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="place-card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <span class="day-badge">DAY 3–4</span>
+        <h3>Panajachel (Pana)</h3>
+        <span class="elevation">1,570m</span>
+        <span class="toggle-arrow">▼</span>
+      </div>
+      <div class="card-body">
+        <p class="description">
+          The lake's main gateway town on the north shore. This is where shuttles from Antigua drop you off, and where you catch lanchas to all the other lake villages. Pana is more developed and touristy than the other towns — it has ATMs, a supermarket, pharmacies, and a long main street (Calle Santander) lined with shops and restaurants. You'll pass through here twice (arriving and leaving) but probably won't stay — San Pedro is more fun for backpackers.
+        </p>
+        <div class="highlights">
+          <div class="highlight-chip"><span class="emoji">🚐</span> Shuttle hub — all Antigua ↔ Lake shuttles go here.</div>
+          <div class="highlight-chip"><span class="emoji">🏧</span> ATMs & services — stock up on cash before heading to smaller villages.</div>
+          <div class="highlight-chip"><span class="emoji">⛵</span> Boat dock — lanchas to every village leave from the public dock.</div>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="value">2.5–3 hrs</div><div class="label">from Antigua</div></div>
+          <div class="stat"><div class="value">3.5–4.5 hrs</div><div class="label">to airport</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ROUTES -->
+  <div id="routes" class="section">
+
+    <h2 style="margin-bottom: 20px; font-size: 1.3em;">Your Route, Step by Step</h2>
+
+    <div class="route-card">
+      <div class="route-icon">✈️</div>
+      <div class="route-info">
+        <div class="route-name">JFK → Guatemala City (La Aurora)</div>
+        <div class="route-detail">AV653 · 3:20 AM → 6:00 AM · 4h 40m · Thu Apr 30</div>
+      </div>
+    </div>
+
+    <div class="route-card">
+      <div class="route-icon">🚐</div>
+      <div class="route-info">
+        <div class="route-name">Guatemala City Airport → Antigua</div>
+        <div class="route-detail">Shared shuttle · ~1.5 hours · Book via GuateGo or at airport kiosks</div>
+      </div>
+      <div class="route-cost">$15–20</div>
+    </div>
+
+    <div class="route-card">
+      <div class="route-icon">🚐</div>
+      <div class="route-info">
+        <div class="route-name">Antigua → Acatenango Trailhead</div>
+        <div class="route-detail">Included in tour · Pickup ~5–6 AM Fri May 1 · ~45 min drive</div>
+      </div>
+      <div class="route-cost">Included</div>
+    </div>
+
+    <div class="route-card">
+      <div class="route-icon">🥾</div>
+      <div class="route-info">
+        <div class="route-name">Acatenango Hike (2 days)</div>
+        <div class="route-detail">Day 1: 5–6 hrs up to basecamp · Day 2: Optional 1hr summit + 3–4 hrs down</div>
+      </div>
+      <div class="route-cost">$50–100</div>
+    </div>
+
+    <div class="route-card">
+      <div class="route-icon">🚐</div>
+      <div class="route-info">
+        <div class="route-name">Antigua → Panajachel (Lake Atitlán)</div>
+        <div class="route-detail">Shared shuttle · ~2.5–3 hours · Winding mountain roads · Book in advance</div>
+      </div>
+      <div class="route-cost">$13–25</div>
+    </div>
+
+    <div class="route-card">
+      <div class="route-icon">🚤</div>
+      <div class="route-info">
+        <div class="route-name">Panajachel → San Pedro La Laguna</div>
+        <div class="route-detail">Lancha (motorboat) · ~25 min across the lake · Last boats ~6–7 PM</div>
+      </div>
+      <div class="route-cost">~Q25 / $3</div>
+    </div>
+
+    <div class="route-card">
+      <div class="route-icon">🚤</div>
+      <div class="route-info">
+        <div class="route-name">San Pedro → Panajachel (return)</div>
+        <div class="route-detail">Lancha · ~25 min · Mon May 4 early morning</div>
+      </div>
+      <div class="route-cost">~Q25 / $3</div>
+    </div>
+
+    <div class="route-card" style="border-color: #e74c3c;">
+      <div class="route-icon">🚐</div>
+      <div class="route-info">
+        <div class="route-name">Panajachel → Guatemala City Airport</div>
+        <div class="route-detail">Shared shuttle · ~3.5–4.5 hrs (some stop in Antigua) · BOOK EARLY, leave by 8 AM latest · Consider private shuttle to be safe</div>
+      </div>
+      <div class="route-cost">$30–35</div>
+    </div>
+
+    <div class="route-card">
+      <div class="route-icon">✈️</div>
+      <div class="route-info">
+        <div class="route-name">Guatemala City → San Salvador → JFK</div>
+        <div class="route-detail">AV555 3:40 PM + AV566 6:30 PM → JFK 1:15 AM · Mon May 4–5</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+// Tab navigation
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+
+  const sectionId = id === 'map' ? 'map-section' : id;
+  document.getElementById(sectionId).classList.add('active');
+  event.target.classList.add('active');
+
+  if (id === 'map' && !window.mapInitialized) {
+    initMap();
+    window.mapInitialized = true;
+  }
+}
+
+// Card toggle
+function toggleCard(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector('.toggle-arrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+// Open first card by default
+document.addEventListener('DOMContentLoaded', () => {
+  const firstBody = document.querySelector('.place-card .card-body');
+  const firstArrow = document.querySelector('.place-card .toggle-arrow');
+  if (firstBody) { firstBody.classList.add('open'); firstArrow.classList.add('open'); }
+});
+
+// Map
+function initMap() {
+  const map = L.map('map').setView([14.65, -91.1], 10);
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap contributors © CARTO',
+    maxZoom: 18
+  }).addTo(map);
+
+  // Custom icons
+  function icon(color, size) {
+    return L.divIcon({
+      className: '',
+      html: `<div style="width:${size}px;height:${size}px;background:${color};border:2px solid #fff;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.4);"></div>`,
+      iconSize: [size, size],
+      iconAnchor: [size/2, size/2]
+    });
+  }
+
+  const volcanoIcon = icon('#e74c3c', 16);
+  const townIcon = icon('#4ecdc4', 14);
+  const hikeIcon = icon('#f39c12', 14);
+
+  // Towns
+  const guaCity = L.marker([14.5833, -90.5275], {icon: townIcon}).addTo(map)
+    .bindPopup('<b>Guatemala City (La Aurora Airport)</b><br>Your arrival/departure point.<br>Elevation: 1,500m');
+
+  const antigua = L.marker([14.5586, -90.7295], {icon: townIcon}).addTo(map)
+    .bindPopup('<b>Antigua Guatemala</b><br>Colonial city, your Day 1 base.<br>Elevation: 1,530m<br>1.5 hrs from airport');
+
+  const pana = L.marker([14.7411, -91.1596], {icon: townIcon}).addTo(map)
+    .bindPopup('<b>Panajachel (Pana)</b><br>Lake gateway town. Shuttles & boats.<br>2.5–3 hrs from Antigua');
+
+  const sanPedro = L.marker([14.6936, -91.2714], {icon: townIcon}).addTo(map)
+    .bindPopup('<b>San Pedro La Laguna</b><br>Backpacker hub on the lake.<br>Your Days 3–4 base.<br>25 min boat from Pana');
+
+  const sanJuan = L.marker([14.6975, -91.2856], {icon: townIcon}).addTo(map)
+    .bindPopup('<b>San Juan La Laguna</b><br>Art co-ops, murals, weavings.<br>20 min walk from San Pedro');
+
+  const sanMarcos = L.marker([14.7239, -91.2578], {icon: townIcon}).addTo(map)
+    .bindPopup('<b>San Marcos La Laguna</b><br>Yoga & wellness vibes.<br>Chill, quieter than San Pedro');
+
+  const santaCruz = L.marker([14.7394, -91.2167], {icon: townIcon}).addTo(map)
+    .bindPopup('<b>Santa Cruz La Laguna</b><br>Cliff jumping, swimming, scenic.<br>Only accessible by boat');
+
+  const jaibalito = L.marker([14.7350, -91.2350], {icon: townIcon}).addTo(map)
+    .bindPopup('<b>Jaibalito</b><br>Tiny, peaceful, off the beaten path.<br>Only accessible by boat');
+
+  // Volcanoes
+  L.marker([14.5008, -90.8756], {icon: volcanoIcon}).addTo(map)
+    .bindPopup('<b>Volcán Acatenango</b><br>3,976m — you climb this one!<br>3rd highest in Central America<br>2-day overnight hike from Antigua');
+
+  L.marker([14.4747, -90.8806], {icon: volcanoIcon}).addTo(map)
+    .bindPopup('<b>Volcán de Fuego</b><br>3,763m — ACTIVE! Erupts every ~15 min<br>You watch from Acatenango basecamp<br>Do NOT climb this one');
+
+  L.marker([14.4653, -90.7431], {icon: volcanoIcon}).addTo(map)
+    .bindPopup('<b>Volcán de Agua</b><br>3,760m — the backdrop behind Antigua<br>Iconic cone shape visible from town');
+
+  L.marker([14.6536, -91.2706], {icon: volcanoIcon}).addTo(map)
+    .bindPopup('<b>Volcán San Pedro</b><br>3,020m — optional hike from San Pedro<br>4–5 hrs round trip, great views');
+
+  L.marker([14.6125, -91.1892], {icon: volcanoIcon}).addTo(map)
+    .bindPopup('<b>Volcán Tolimán</b><br>3,158m — visible across the lake');
+
+  L.marker([14.5833, -91.1861], {icon: volcanoIcon}).addTo(map)
+    .bindPopup('<b>Volcán Atitlán</b><br>3,535m — looms over south shore');
+
+  // Viewpoints
+  L.marker([14.7100, -91.2950], {icon: hikeIcon}).addTo(map)
+    .bindPopup('<b>Indian Nose (Rostro Maya)</b><br>2,200m — THE sunrise viewpoint<br>30 min hike, panoramic lake views<br>~$13 tour from San Pedro');
+
+  L.marker([14.5520, -90.7230], {icon: hikeIcon}).addTo(map)
+    .bindPopup('<b>Cerro de la Cruz</b><br>Antigua viewpoint — short uphill walk<br>See the city + Volcán de Agua');
+
+  // Route lines
+  // Airport to Antigua (shuttle)
+  L.polyline([
+    [14.5833, -90.5275], [14.5586, -90.7295]
+  ], {color: '#4ecdc4', weight: 3, opacity: 0.7}).addTo(map);
+
+  // Antigua to Acatenango (hike)
+  L.polyline([
+    [14.5586, -90.7295], [14.5008, -90.8756]
+  ], {color: '#e74c3c', weight: 3, opacity: 0.7, dashArray: '8,8'}).addTo(map);
+
+  // Antigua to Panajachel (shuttle)
+  L.polyline([
+    [14.5586, -90.7295], [14.60, -90.85], [14.65, -90.95], [14.7411, -91.1596]
+  ], {color: '#4ecdc4', weight: 3, opacity: 0.7}).addTo(map);
+
+  // Panajachel to San Pedro (boat)
+  L.polyline([
+    [14.7411, -91.1596], [14.72, -91.20], [14.6936, -91.2714]
+  ], {color: '#4ecdc4', weight: 3, opacity: 0.7, dashArray: '4,8'}).addTo(map);
+
+  // San Pedro to Indian Nose (hike)
+  L.polyline([
+    [14.6936, -91.2714], [14.7100, -91.2950]
+  ], {color: '#e74c3c', weight: 3, opacity: 0.7, dashArray: '8,8'}).addTo(map);
+
+  // Fit bounds
+  map.fitBounds([
+    [14.45, -91.35],
+    [14.78, -90.48]
+  ], { padding: [30, 30] });
+}
+</script>
+
+</body>
+</html>

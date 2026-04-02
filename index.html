@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guatemala — Apr 30 – May 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --earth: #2C2417;
+  --cream: #F5F0E8;
+  --terracotta: #C4593B;
+  --jade: #3A7D5C;
+  --jade-light: #4A9D72;
+  --gold: #D4A843;
+  --lake: #2E6B8A;
+  --lake-light: #3A89B0;
+  --ash: #8B8177;
+  --sand: #E8DFD0;
+  --linen: #FAF7F2;
+  --volcano: #8B3A2A;
+  --charcoal: #3D3529;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ash) transparent;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--earth);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ============ HERO ============ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--earth);
+  color: var(--cream);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(58, 125, 92, 0.3), transparent),
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(196, 89, 59, 0.2), transparent),
+    radial-gradient(ellipse 90% 70% at 50% 50%, rgba(46, 107, 138, 0.15), transparent);
+  animation: heroShift 12s ease-in-out infinite alternate;
+}
+
+@keyframes heroShift {
+  0% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.3s;
+}
+
+.hero h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(4rem, 12vw, 9rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.5s;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--jade-light);
+}
+
+.hero-dates {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  margin-top: 2rem;
+  color: var(--ash);
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.8s;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ash);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 1.2s;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.hero-scroll .arrow {
+  width: 1px;
+  height: 40px;
+  background: var(--ash);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-scroll .arrow::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--gold);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+
+@keyframes scrollLine {
+  0% { top: -100%; }
+  50% { top: 100%; }
+  100% { top: 100%; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ NAV ============ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(245, 240, 232, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(44, 36, 23, 0.08);
+  padding: 0 2rem;
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0.75rem 0;
+}
+
+.nav-inner::-webkit-scrollbar { display: none; }
+
+.nav-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: none;
+  color: var(--ash);
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 100px;
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover { color: var(--earth); background: var(--sand); }
+.nav-btn.active { color: var(--cream); background: var(--earth); }
+
+/* ============ MAIN ============ */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem 6rem;
+}
+
+/* ============ FLIGHT CARD ============ */
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 1.5rem;
+  padding-top: 4rem;
+}
+
+.flights-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: rgba(44, 36, 23, 0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 4rem;
+}
+
+.flight-card {
+  background: var(--linen);
+  padding: 2rem 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto;
+  align-items: center;
+  gap: 2rem;
+  transition: background 0.3s;
+}
+
+.flight-card:hover { background: white; }
+
+.flight-endpoint {
+  display: flex;
+  flex-direction: column;
+}
+
+.flight-endpoint .city {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.5rem;
+}
+
+.flight-endpoint .detail {
+  font-size: 0.75rem;
+  color: var(--ash);
+  margin-top: 0.25rem;
+}
+
+.flight-endpoint .time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+.flight-endpoint.arrival { text-align: right; }
+
+.flight-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 160px;
+}
+
+.flight-line .code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--terracotta);
+  background: rgba(196, 89, 59, 0.08);
+  padding: 0.25rem 0.75rem;
+  border-radius: 100px;
+}
+
+.flight-line .line {
+  width: 100%;
+  height: 1px;
+  background: var(--ash);
+  position: relative;
+}
+
+.flight-line .line::after {
+  content: '';
+  position: absolute;
+  right: -3px;
+  top: -3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--terracotta);
+}
+
+.flight-line .duration {
+  font-size: 0.7rem;
+  color: var(--ash);
+}
+
+.flight-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-left: 2rem;
+  border-left: 1px solid rgba(44, 36, 23, 0.08);
+}
+
+.flight-meta span {
+  font-size: 0.7rem;
+  color: var(--ash);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ============ ITINERARY ============ */
+.day-section {
+  padding-top: 4rem;
+  margin-bottom: 4rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.day-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.day-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--earth);
+}
+
+.day-number {
+  font-family: 'Instrument Serif', serif;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--earth);
+}
+
+.day-info h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.day-info .date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--ash);
+  text-transform: uppercase;
+}
+
+.day-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--jade);
+  background: rgba(58, 125, 92, 0.08);
+  padding: 0.3rem 0.8rem;
+  border-radius: 100px;
+  margin-top: 0.5rem;
+}
+
+.day-location::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--jade);
+}
+
+/* Activity items */
+.activities {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.activity {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--linen);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.activity::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  transition: background 0.3s;
+}
+
+.activity.type-flight::before { background: var(--terracotta); }
+.activity.type-transport::before { background: var(--lake); }
+.activity.type-hike::before { background: var(--jade); }
+.activity.type-explore::before { background: var(--gold); }
+.activity.type-chill::before { background: var(--ash); }
+
+.activity:hover {
+  background: white;
+  box-shadow: 0 4px 20px rgba(44, 36, 23, 0.06);
+}
+
+.activity-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--ash);
+  min-width: 60px;
+  padding-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.activity-content {
+  flex: 1;
+}
+
+.activity-title {
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
+}
+
+.activity-sub {
+  font-size: 0.8rem;
+  color: var(--ash);
+}
+
+.activity-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 100px;
+  align-self: flex-start;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.tag-flight { background: rgba(196, 89, 59, 0.1); color: var(--terracotta); }
+.tag-transport { background: rgba(46, 107, 138, 0.1); color: var(--lake); }
+.tag-hike { background: rgba(58, 125, 92, 0.1); color: var(--jade); }
+.tag-explore { background: rgba(212, 168, 67, 0.1); color: #a8852f; }
+.tag-chill { background: rgba(139, 129, 119, 0.1); color: var(--ash); }
+.tag-note { background: rgba(139, 58, 42, 0.1); color: var(--volcano); }
+
+/* ============ NOTES (inline editable) ============ */
+.notes-area {
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba(44, 36, 23, 0.02);
+  border: 1px dashed rgba(44, 36, 23, 0.1);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: var(--charcoal);
+  min-height: 2.5rem;
+  outline: none;
+  transition: all 0.3s;
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.5;
+}
+
+.notes-area:empty::before {
+  content: attr(data-placeholder);
+  color: var(--ash);
+  opacity: 0.5;
+}
+
+.notes-area:focus {
+  border-color: var(--jade);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(58, 125, 92, 0.08);
+}
+
+/* ============ CHECKLIST SECTIONS ============ */
+.checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.checklist-card {
+  background: var(--linen);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s;
+}
+
+.checklist-card:hover {
+  background: white;
+  box-shadow: 0 4px 24px rgba(44, 36, 23, 0.06);
+}
+
+.checklist-card h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  margin-bottom: 0.25rem;
+}
+
+.checklist-card .progress-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--ash);
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 2px;
+  background: rgba(44, 36, 23, 0.06);
+  border-radius: 2px;
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--jade);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.check-item input {
+  display: none;
+}
+
+.check-box {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--ash);
+  border-radius: 4px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  margin-top: 1px;
+}
+
+.check-item:hover .check-box {
+  border-color: var(--jade);
+}
+
+.check-item input:checked + .check-box {
+  background: var(--jade);
+  border-color: var(--jade);
+}
+
+.check-item input:checked + .check-box::after {
+  content: '';
+  width: 5px;
+  height: 9px;
+  border: solid var(--cream);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.check-label {
+  font-size: 0.85rem;
+  transition: all 0.25s;
+  line-height: 1.4;
+}
+
+.check-item input:checked ~ .check-label {
+  color: var(--ash);
+  text-decoration: line-through;
+  text-decoration-color: rgba(139, 129, 119, 0.4);
+}
+
+.check-sub {
+  font-size: 0.75rem;
+  color: var(--ash);
+  margin-left: calc(18px + 0.75rem);
+  padding-bottom: 0.25rem;
+}
+
+/* Sub-items indented under a parent */
+.check-item.sub-item {
+  padding-left: 1.5rem;
+}
+
+.check-item.sub-item .check-box {
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+}
+
+/* ============ BUDGET ============ */
+.budget-section {
+  margin-top: 4rem;
+}
+
+.budget-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1px;
+  background: rgba(44, 36, 23, 0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 1.5rem;
+}
+
+.budget-card {
+  background: var(--linen);
+  padding: 1.75rem;
+  text-align: center;
+  transition: background 0.3s;
+}
+
+.budget-card:hover { background: white; }
+
+.budget-card .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 0.5rem;
+}
+
+.budget-card .amount {
+  font-family: 'Instrument Serif', serif;
+  font-size: 2rem;
+}
+
+.budget-card .amount.total {
+  color: var(--terracotta);
+}
+
+.budget-items {
+  margin-top: 1.5rem;
+}
+
+.budget-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(44, 36, 23, 0.06);
+  font-size: 0.85rem;
+}
+
+.budget-row .item-name {
+  color: var(--charcoal);
+}
+
+.budget-row .item-cost {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--ash);
+}
+
+.budget-row .item-cost.booked {
+  color: var(--jade);
+}
+
+/* ============ ADD ITEM ============ */
+.add-item-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.add-item-input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px dashed rgba(44, 36, 23, 0.15);
+  border-radius: 8px;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  color: var(--earth);
+  outline: none;
+  transition: all 0.3s;
+}
+
+.add-item-input:focus {
+  border-color: var(--jade);
+  border-style: solid;
+  background: white;
+}
+
+.add-item-input::placeholder { color: var(--ash); opacity: 0.5; }
+
+.add-item-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.add-item-btn:hover {
+  background: var(--jade);
+}
+
+/* ============ FOOTER ============ */
+.footer {
+  text-align: center;
+  padding: 4rem 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--ash);
+  letter-spacing: 0.15em;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+  .flight-card {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    text-align: center;
+  }
+  .flight-endpoint.arrival { text-align: center; }
+  .flight-meta {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid rgba(44, 36, 23, 0.08);
+    padding-top: 1rem;
+    align-items: center;
+  }
+  .day-header { flex-direction: column; gap: 0.5rem; }
+  .checklist-grid { grid-template-columns: 1fr; }
+  .budget-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ============ PRINT STYLES ============ */
+@media print {
+  .nav, .hero-scroll, .add-item-row, .notes-area { display: none; }
+  .hero { min-height: auto; padding: 2rem; }
+  .day-section { opacity: 1 !important; transform: none !important; page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- ====== HERO ====== -->
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow">April 30 — May 4, 2026</p>
+    <h1>Guate<em>mala</em></h1>
+    <p class="hero-dates">JFK &rarr; GUA &middot; 5 days &middot; Antigua &middot; Acatenango &middot; Lake Atitl&aacute;n</p>
+  </div>
+  <a href="#flights" class="hero-scroll">
+    <span>Scroll</span>
+    <div class="arrow"></div>
+  </a>
+</section>
+
+<!-- ====== NAV ====== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" data-target="flights">Flights</button>
+    <button class="nav-btn" data-target="day-0">Wed 29</button>
+    <button class="nav-btn" data-target="day-1">Thu 30</button>
+    <button class="nav-btn" data-target="day-2">Fri 1</button>
+    <button class="nav-btn" data-target="day-3">Sat 2</button>
+    <button class="nav-btn" data-target="day-4">Sun 3</button>
+    <button class="nav-btn" data-target="day-5">Mon 4</button>
+    <button class="nav-btn" data-target="packing">Packing</button>
+    <button class="nav-btn" data-target="booking">To Book</button>
+    <button class="nav-btn" data-target="budget">Budget</button>
+  </div>
+</nav>
+
+<!-- ====== MAIN ====== -->
+<div class="main">
+
+  <!-- FLIGHTS -->
+  <div id="flights">
+    <p class="section-label">Flight Itinerary &middot; Avianca &middot; Booking CCB2VT</p>
+    <div class="flights-grid">
+      <!-- Outbound -->
+      <div class="flight-card">
+        <div class="flight-endpoint">
+          <span class="city">New York JFK</span>
+          <span class="detail">Terminal 4</span>
+          <span class="time">3:20 AM</span>
+          <span class="detail">Wed Apr 30</span>
+        </div>
+        <div class="flight-line">
+          <span class="code">AV 653</span>
+          <div class="line"></div>
+          <span class="duration">4h 40m &middot; Nonstop</span>
+        </div>
+        <div class="flight-endpoint arrival">
+          <span class="city">Guatemala City</span>
+          <span class="detail">La Aurora Intl</span>
+          <span class="time">6:00 AM</span>
+          <span class="detail">Wed Apr 30</span>
+        </div>
+        <div class="flight-meta">
+          <span>LIGHT fare</span>
+          <span>Carry-on: 1pc / 10kg</span>
+          <span>Checked: $130 USD</span>
+          <span>Ticket: $370.23</span>
+        </div>
+      </div>
+
+      <!-- Return leg 1 -->
+      <div class="flight-card">
+        <div class="flight-endpoint">
+          <span class="city">Guatemala City</span>
+          <span class="detail">La Aurora Intl</span>
+          <span class="time">3:40 PM</span>
+          <span class="detail">Mon May 4</span>
+        </div>
+        <div class="flight-line">
+          <span class="code">AV 555</span>
+          <div class="line"></div>
+          <span class="duration">0h 50m</span>
+        </div>
+        <div class="flight-endpoint arrival">
+          <span class="city">San Salvador</span>
+          <span class="detail">El Salvador Intl</span>
+          <span class="time">4:30 PM</span>
+          <span class="detail">Mon May 4</span>
+        </div>
+        <div class="flight-meta">
+          <span>LIGHT fare</span>
+          <span>Connection</span>
+          <span>2h layover</span>
+        </div>
+      </div>
+
+      <!-- Return leg 2 -->
+      <div class="flight-card">
+        <div class="flight-endpoint">
+          <span class="city">San Salvador</span>
+          <span class="detail">El Salvador Intl</span>
+          <span class="time">6:30 PM</span>
+          <span class="detail">Mon May 4</span>
+        </div>
+        <div class="flight-line">
+          <span class="code">AV 566</span>
+          <div class="line"></div>
+          <span class="duration">4h 45m</span>
+        </div>
+        <div class="flight-endpoint arrival">
+          <span class="city">New York JFK</span>
+          <span class="detail">Terminal 4</span>
+          <span class="time">1:15 AM</span>
+          <span class="detail">Tue May 5</span>
+        </div>
+        <div class="flight-meta">
+          <span>LIGHT fare</span>
+          <span>Carry-on: 1pc / 10kg</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== DAY 0: Wednesday Apr 29 ====== -->
+  <div class="day-section" id="day-0">
+    <div class="day-header">
+      <span class="day-number">00</span>
+      <div class="day-info">
+        <span class="date">Wednesday, April 29</span>
+        <h2>Travel to JFK</h2>
+        <span class="day-location">New York</span>
+      </div>
+    </div>
+    <div class="activities">
+      <div class="activity type-transport">
+        <span class="activity-time">Eve</span>
+        <div class="activity-content">
+          <div class="activity-title">Travel to JFK Terminal 4</div>
+          <div class="activity-sub">Red-eye departs at 3:20 AM — arrive early</div>
+        </div>
+        <span class="activity-tag tag-transport">Transport</span>
+      </div>
+    </div>
+    <div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-day0"></div>
+  </div>
+
+  <!-- ====== DAY 1: Thursday Apr 30 ====== -->
+  <div class="day-section" id="day-1">
+    <div class="day-header">
+      <span class="day-number">01</span>
+      <div class="day-info">
+        <span class="date">Thursday, April 30</span>
+        <h2>Arrival & Antigua</h2>
+        <span class="day-location">Guatemala City &rarr; Antigua</span>
+      </div>
+    </div>
+    <div class="activities">
+      <div class="activity type-flight">
+        <span class="activity-time">3:20a</span>
+        <div class="activity-content">
+          <div class="activity-title">Flight AV653: JFK &rarr; Guatemala City</div>
+          <div class="activity-sub">Arrive 6:00 AM &middot; 4h 40m &middot; Terminal 4</div>
+        </div>
+        <span class="activity-tag tag-flight">Flight</span>
+      </div>
+      <div class="activity type-transport">
+        <span class="activity-time">6:30a</span>
+        <div class="activity-content">
+          <div class="activity-title">Shuttle to Antigua</div>
+          <div class="activity-sub">~1 hour from airport</div>
+        </div>
+        <span class="activity-tag tag-transport">Transport</span>
+      </div>
+      <div class="activity type-chill">
+        <span class="activity-time">AM</span>
+        <div class="activity-content">
+          <div class="activity-title">Check into hostel</div>
+          <div class="activity-sub">TBD — need to book</div>
+        </div>
+        <span class="activity-tag tag-note">Book</span>
+      </div>
+      <div class="activity type-explore">
+        <span class="activity-time">PM</span>
+        <div class="activity-content">
+          <div class="activity-title">Explore Antigua</div>
+          <div class="activity-sub">Colonial architecture, Arco de Santa Catalina, Central Park, local food</div>
+        </div>
+        <span class="activity-tag tag-explore">Explore</span>
+      </div>
+    </div>
+    <div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-day1"></div>
+  </div>
+
+  <!-- ====== DAY 2: Friday May 1 ====== -->
+  <div class="day-section" id="day-2">
+    <div class="day-header">
+      <span class="day-number">02</span>
+      <div class="day-info">
+        <span class="date">Friday, May 1</span>
+        <h2>Acatenango Volcano</h2>
+        <span class="day-location">Antigua &rarr; Acatenango</span>
+      </div>
+    </div>
+    <div class="activities">
+      <div class="activity type-hike">
+        <span class="activity-time">Early</span>
+        <div class="activity-content">
+          <div class="activity-title">Acatenango Volcano Hike — Day 1</div>
+          <div class="activity-sub">Overnight hike, camp near summit. Views of Fuego eruptions at night.</div>
+        </div>
+        <span class="activity-tag tag-hike">Hike</span>
+      </div>
+    </div>
+    <div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-day2"></div>
+  </div>
+
+  <!-- ====== DAY 3: Saturday May 2 ====== -->
+  <div class="day-section" id="day-3">
+    <div class="day-header">
+      <span class="day-number">03</span>
+      <div class="day-info">
+        <span class="date">Saturday, May 2</span>
+        <h2>Summit & Lake Atitl&aacute;n</h2>
+        <span class="day-location">Acatenango &rarr; Antigua &rarr; Panajachel</span>
+      </div>
+    </div>
+    <div class="activities">
+      <div class="activity type-hike">
+        <span class="activity-time">Dawn</span>
+        <div class="activity-content">
+          <div class="activity-title">Acatenango Volcano — Day 2</div>
+          <div class="activity-sub">Sunrise at summit, descend back to Antigua</div>
+        </div>
+        <span class="activity-tag tag-hike">Hike</span>
+      </div>
+      <div class="activity type-transport">
+        <span class="activity-time">PM</span>
+        <div class="activity-content">
+          <div class="activity-title">Shuttle: Antigua &rarr; Panajachel, Lake Atitl&aacute;n</div>
+          <div class="activity-sub">~3 hours &middot; ~$20 USD &middot; Book in advance</div>
+        </div>
+        <span class="activity-tag tag-transport">Transport</span>
+      </div>
+      <div class="activity type-chill">
+        <span class="activity-time">Eve</span>
+        <div class="activity-content">
+          <div class="activity-title">Settle in at Lake Atitl&aacute;n</div>
+          <div class="activity-sub">Lancha from Panajachel to San Pedro or hostel</div>
+        </div>
+        <span class="activity-tag tag-chill">Chill</span>
+      </div>
+    </div>
+    <div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-day3"></div>
+  </div>
+
+  <!-- ====== DAY 4: Sunday May 3 ====== -->
+  <div class="day-section" id="day-4">
+    <div class="day-header">
+      <span class="day-number">04</span>
+      <div class="day-info">
+        <span class="date">Sunday, May 3</span>
+        <h2>Lake Atitl&aacute;n Day</h2>
+        <span class="day-location">Lake Atitl&aacute;n</span>
+      </div>
+    </div>
+    <div class="activities">
+      <div class="activity type-hike">
+        <span class="activity-time">4:00a</span>
+        <div class="activity-content">
+          <div class="activity-title">Indian Nose Sunrise Hike</div>
+          <div class="activity-sub">Departs 4:00–4:30 AM from San Pedro &middot; Incredible sunrise views</div>
+        </div>
+        <span class="activity-tag tag-hike">Hike</span>
+      </div>
+      <div class="activity type-explore">
+        <span class="activity-time">AM</span>
+        <div class="activity-content">
+          <div class="activity-title">Walk through San Juan La Laguna</div>
+          <div class="activity-sub">Art cooperatives, textiles, murals</div>
+        </div>
+        <span class="activity-tag tag-explore">Explore</span>
+      </div>
+      <div class="activity type-hike">
+        <span class="activity-time">Mid</span>
+        <div class="activity-content">
+          <div class="activity-title">Volc&aacute;n San Pedro</div>
+          <div class="activity-sub">Optional — check energy levels after Acatenango</div>
+        </div>
+        <span class="activity-tag tag-hike">Hike</span>
+      </div>
+      <div class="activity type-explore">
+        <span class="activity-time">PM</span>
+        <div class="activity-content">
+          <div class="activity-title">Lancha-Hop Around the Lake</div>
+          <div class="activity-sub">Santa Cruz (swimming &amp; cliff jumping) &rarr; San Marcos (yoga vibes) &rarr; Jaibalito (tiny &amp; peaceful)</div>
+        </div>
+        <span class="activity-tag tag-explore">Explore</span>
+      </div>
+      <div class="activity type-chill">
+        <span class="activity-time">Eve</span>
+        <div class="activity-content">
+          <div class="activity-title">Kayak & Swim on the Lake</div>
+          <div class="activity-sub">Golden hour on Lake Atitl&aacute;n</div>
+        </div>
+        <span class="activity-tag tag-chill">Chill</span>
+      </div>
+    </div>
+    <div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-day4"></div>
+  </div>
+
+  <!-- ====== DAY 5: Monday May 4 ====== -->
+  <div class="day-section" id="day-5">
+    <div class="day-header">
+      <span class="day-number">05</span>
+      <div class="day-info">
+        <span class="date">Monday, May 4</span>
+        <h2>Return Home</h2>
+        <span class="day-location">Lake Atitl&aacute;n &rarr; Guatemala City &rarr; JFK</span>
+      </div>
+    </div>
+    <div class="activities">
+      <div class="activity type-chill">
+        <span class="activity-time">AM</span>
+        <div class="activity-content">
+          <div class="activity-title">Morning at the lake</div>
+          <div class="activity-sub">Last swim, coffee, soak it in</div>
+        </div>
+        <span class="activity-tag tag-chill">Chill</span>
+      </div>
+      <div class="activity type-transport">
+        <span class="activity-time">~9a</span>
+        <div class="activity-content">
+          <div class="activity-title">Lancha: San Pedro &rarr; Panajachel</div>
+          <div class="activity-sub">~25 min by boat</div>
+        </div>
+        <span class="activity-tag tag-transport">Transport</span>
+      </div>
+      <div class="activity type-transport">
+        <span class="activity-time">~9:30a</span>
+        <div class="activity-content">
+          <div class="activity-title">Shuttle: Panajachel &rarr; Guatemala City Airport</div>
+          <div class="activity-sub">~4 hours &middot; ~$30 USD &middot; Arrive ~1:30 PM</div>
+        </div>
+        <span class="activity-tag tag-transport">Transport</span>
+      </div>
+      <div class="activity type-flight">
+        <span class="activity-time">3:40p</span>
+        <div class="activity-content">
+          <div class="activity-title">Flight AV555: Guatemala City &rarr; San Salvador</div>
+          <div class="activity-sub">50 min &middot; Layover 2h</div>
+        </div>
+        <span class="activity-tag tag-flight">Flight</span>
+      </div>
+      <div class="activity type-flight">
+        <span class="activity-time">6:30p</span>
+        <div class="activity-content">
+          <div class="activity-title">Flight AV566: San Salvador &rarr; JFK</div>
+          <div class="activity-sub">Arrive 1:15 AM May 5 &middot; Terminal 4</div>
+        </div>
+        <span class="activity-tag tag-flight">Flight</span>
+      </div>
+    </div>
+    <div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-day5"></div>
+  </div>
+
+  <!-- ====== PACKING LIST ====== -->
+  <div id="packing">
+    <p class="section-label">Packing List</p>
+    <div class="checklist-grid">
+
+      <div class="checklist-card" data-group="pack-tech">
+        <h3>Tech</h3>
+        <span class="progress-text">0 / 5</span>
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Camera</span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">GoPro</span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Lenses</span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Drone?</span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Computer? (hopefully not)</span></label>
+        <div class="add-item-row">
+          <input class="add-item-input" placeholder="Add item..." data-group="pack-tech">
+          <button class="add-item-btn" onclick="addItem(this)">Add</button>
+        </div>
+      </div>
+
+      <div class="checklist-card" data-group="pack-hiking">
+        <h3>Hiking</h3>
+        <span class="progress-text">0 / 3</span>
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Water bottle</span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Water bladder</span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Head lamp</span></label>
+        <div class="add-item-row">
+          <input class="add-item-input" placeholder="Add item..." data-group="pack-hiking">
+          <button class="add-item-btn" onclick="addItem(this)">Add</button>
+        </div>
+      </div>
+
+      <div class="checklist-card" data-group="pack-clothing">
+        <h3>Clothing</h3>
+        <span class="progress-text">0 / 5</span>
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Wool socks</span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Rain jacket</span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Rain pants</span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Hiking boots</span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Source sandals</span></label>
+        <div class="add-item-row">
+          <input class="add-item-input" placeholder="Add item..." data-group="pack-clothing">
+          <button class="add-item-btn" onclick="addItem(this)">Add</button>
+        </div>
+      </div>
+
+      <div class="checklist-card" data-group="pack-gear">
+        <h3>Gear & Essentials</h3>
+        <span class="progress-text">0 / 5</span>
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Mosquito protection</span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Sunscreen</span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Energy gels</span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Debit card</span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Cash (USD + Quetzales)</span></label>
+        <div class="add-item-row">
+          <input class="add-item-input" placeholder="Add item..." data-group="pack-gear">
+          <button class="add-item-btn" onclick="addItem(this)">Add</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ====== THINGS TO BOOK ====== -->
+  <div id="booking">
+    <p class="section-label">Things to Book Ahead of Time</p>
+    <div class="checklist-grid">
+
+      <div class="checklist-card" data-group="book-shuttles">
+        <h3>Shuttles</h3>
+        <span class="progress-text">0 / 3</span>
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Airport &rarr; Antigua shuttle</span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Antigua &rarr; Panajachel (~$20)</span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Panajachel &rarr; GUA Airport (~$30)</span></label>
+        <div class="add-item-row">
+          <input class="add-item-input" placeholder="Add item..." data-group="book-shuttles">
+          <button class="add-item-btn" onclick="addItem(this)">Add</button>
+        </div>
+      </div>
+
+      <div class="checklist-card" data-group="book-stays">
+        <h3>Hostels / Stays</h3>
+        <span class="progress-text">0 / 3</span>
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Antigua hostel (Apr 30)</span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Lake Atitl&aacute;n hostel (May 2–3)</span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Acatenango overnight (included in hike?)</span></label>
+        <div class="add-item-row">
+          <input class="add-item-input" placeholder="Add item..." data-group="book-stays">
+          <button class="add-item-btn" onclick="addItem(this)">Add</button>
+        </div>
+      </div>
+
+      <div class="checklist-card" data-group="book-activities">
+        <h3>Activities / Hikes</h3>
+        <span class="progress-text">0 / 2</span>
+        <div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Acatenango overnight hike tour</span></label>
+        <label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">Indian Nose sunrise hike</span></label>
+        <div class="add-item-row">
+          <input class="add-item-input" placeholder="Add item..." data-group="book-activities">
+          <button class="add-item-btn" onclick="addItem(this)">Add</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ====== BUDGET ====== -->
+  <div id="budget" class="budget-section">
+    <p class="section-label">Budget Tracker</p>
+    <div class="budget-grid">
+      <div class="budget-card">
+        <div class="label">Flights</div>
+        <div class="amount">$370</div>
+      </div>
+      <div class="budget-card">
+        <div class="label">Transport</div>
+        <div class="amount" id="budget-transport">$50</div>
+      </div>
+      <div class="budget-card">
+        <div class="label">Stays</div>
+        <div class="amount" id="budget-stays">TBD</div>
+      </div>
+      <div class="budget-card">
+        <div class="label">Activities</div>
+        <div class="amount" id="budget-activities">TBD</div>
+      </div>
+      <div class="budget-card">
+        <div class="label">Estimated Total</div>
+        <div class="amount total" id="budget-total">$420+</div>
+      </div>
+    </div>
+    <div class="budget-items">
+      <div class="budget-row">
+        <span class="item-name">Flights (JFK &harr; GUA)</span>
+        <span class="item-cost booked">$370.23 &check;</span>
+      </div>
+      <div class="budget-row">
+        <span class="item-name">Shuttle: Antigua &rarr; Panajachel</span>
+        <span class="item-cost">~$20</span>
+      </div>
+      <div class="budget-row">
+        <span class="item-name">Shuttle: Panajachel &rarr; Airport</span>
+        <span class="item-cost">~$30</span>
+      </div>
+      <div class="budget-row">
+        <span class="item-name">Acatenango hike tour</span>
+        <span class="item-cost">~$30–60</span>
+      </div>
+      <div class="budget-row">
+        <span class="item-name">Hostels (3 nights)</span>
+        <span class="item-cost">~$30–60</span>
+      </div>
+      <div class="budget-row">
+        <span class="item-name">Lanchas / local transport</span>
+        <span class="item-cost">~$10–15</span>
+      </div>
+      <div class="budget-row">
+        <span class="item-name">Food & misc</span>
+        <span class="item-cost">~$50–80</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  Guatemala 2026 &middot; 30 days to go
+</footer>
+
+<script>
+// ============ LOCAL STORAGE PERSISTENCE ============
+const STORAGE_KEY = 'guat-planner-v1';
+
+function loadState() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+  } catch { return {}; }
+}
+
+function saveState(state) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+const state = loadState();
+
+// ============ CHECKBOXES ============
+function getCheckId(checkbox) {
+  const card = checkbox.closest('.checklist-card');
+  const group = card.dataset.group;
+  const items = [...card.querySelectorAll('.check-item input[type="checkbox"]')];
+  const index = items.indexOf(checkbox);
+  return `${group}-${index}`;
+}
+
+function updateProgress(card) {
+  const checks = card.querySelectorAll('.check-item input[type="checkbox"]');
+  const checked = [...checks].filter(c => c.checked).length;
+  const total = checks.length;
+  const pct = total ? Math.round((checked / total) * 100) : 0;
+  card.querySelector('.progress-text').textContent = `${checked} / ${total}`;
+  card.querySelector('.progress-fill').style.width = `${pct}%`;
+}
+
+document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
+  const id = getCheckId(cb);
+  if (state[id]) cb.checked = true;
+  cb.addEventListener('change', () => {
+    state[getCheckId(cb)] = cb.checked;
+    saveState(state);
+    updateProgress(cb.closest('.checklist-card'));
+  });
+});
+
+document.querySelectorAll('.checklist-card').forEach(updateProgress);
+
+// ============ ADD ITEM ============
+function addItem(btn) {
+  const row = btn.parentElement;
+  const input = row.querySelector('.add-item-input');
+  const text = input.value.trim();
+  if (!text) return;
+
+  const card = row.closest('.checklist-card');
+  const label = document.createElement('label');
+  label.className = 'check-item';
+  label.innerHTML = `<input type="checkbox"><span class="check-box"></span><span class="check-label">${text}</span>`;
+
+  card.insertBefore(label, row);
+  input.value = '';
+
+  const cb = label.querySelector('input');
+  cb.addEventListener('change', () => {
+    state[getCheckId(cb)] = cb.checked;
+    saveState(state);
+    updateProgress(card);
+  });
+
+  // Save custom items
+  const group = card.dataset.group;
+  if (!state._custom) state._custom = {};
+  if (!state._custom[group]) state._custom[group] = [];
+  state._custom[group].push(text);
+  saveState(state);
+
+  updateProgress(card);
+}
+
+// Restore custom items
+if (state._custom) {
+  Object.entries(state._custom).forEach(([group, items]) => {
+    const card = document.querySelector(`[data-group="${group}"]`);
+    if (!card) return;
+    const row = card.querySelector('.add-item-row');
+    items.forEach(text => {
+      const label = document.createElement('label');
+      label.className = 'check-item';
+      label.innerHTML = `<input type="checkbox"><span class="check-box"></span><span class="check-label">${text}</span>`;
+      card.insertBefore(label, row);
+      const cb = label.querySelector('input');
+      const id = getCheckId(cb);
+      if (state[id]) cb.checked = true;
+      cb.addEventListener('change', () => {
+        state[getCheckId(cb)] = cb.checked;
+        saveState(state);
+        updateProgress(card);
+      });
+    });
+    updateProgress(card);
+  });
+}
+
+// Enter to add
+document.querySelectorAll('.add-item-input').forEach(input => {
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') addItem(input.nextElementSibling);
+  });
+});
+
+// ============ NOTES PERSISTENCE ============
+document.querySelectorAll('.notes-area').forEach(el => {
+  const key = el.dataset.key;
+  if (state[key]) el.innerHTML = state[key];
+  el.addEventListener('input', () => {
+    state[key] = el.innerHTML;
+    saveState(state);
+  });
+});
+
+// ============ NAV SCROLL ============
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById(btn.dataset.target);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Active nav on scroll
+const sections = [...document.querySelectorAll('[id]')].filter(el =>
+  document.querySelector(`.nav-btn[data-target="${el.id}"]`)
+);
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      const btn = document.querySelector(`.nav-btn[data-target="${entry.target.id}"]`);
+      if (btn) btn.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+
+sections.forEach(s => observer.observe(s));
+
+// ============ SCROLL REVEAL ============
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.day-section').forEach(s => revealObserver.observe(s));
+
+// ============ COUNTDOWN ============
+const tripDate = new Date('2026-04-30T03:20:00-04:00');
+function updateCountdown() {
+  const now = new Date();
+  const diff = tripDate - now;
+  const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  const footer = document.querySelector('.footer');
+  if (days > 0) {
+    footer.textContent = `Guatemala 2026 \u00B7 ${days} days to go`;
+  } else if (days === 0) {
+    footer.textContent = `Guatemala 2026 \u00B7 Today!`;
+  } else {
+    footer.textContent = `Guatemala 2026 \u00B7 Memories made`;
+  }
+}
+updateCountdown();
+</script>
+
+</body>
+</html>
