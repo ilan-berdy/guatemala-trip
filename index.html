@@ -504,6 +504,165 @@ body {
   box-shadow: 0 0 0 3px rgba(58, 125, 92, 0.08);
 }
 
+/* ============ REFERENCE LINKS ============ */
+.ref-section {
+  margin-top: 1rem;
+}
+
+.ref-section summary {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ash);
+  cursor: pointer;
+  padding: 0.5rem 0;
+  user-select: none;
+  list-style: none;
+}
+
+.ref-section summary::before {
+  content: '+ ';
+}
+
+.ref-section[open] summary::before {
+  content: '− ';
+}
+
+.ref-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.ref-card {
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--linen);
+  transition: all 0.3s;
+  position: relative;
+}
+
+.ref-card:hover {
+  background: white;
+  box-shadow: 0 4px 20px rgba(44, 36, 23, 0.08);
+}
+
+.ref-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+}
+
+.ref-card .ref-body {
+  padding: 0.65rem 0.75rem;
+}
+
+.ref-card .ref-title {
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+
+.ref-card .ref-desc {
+  font-size: 0.7rem;
+  color: var(--ash);
+  line-height: 1.4;
+}
+
+.ref-card a.ref-link {
+  display: inline-block;
+  margin-top: 0.35rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--lake);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+
+.ref-card a.ref-link:hover {
+  color: var(--lake-light);
+  text-decoration: underline;
+}
+
+.ref-card .delete-ref-btn {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+  background: rgba(0,0,0,0.4);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 0.7rem;
+  line-height: 20px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.ref-card:hover .delete-ref-btn {
+  opacity: 0.7;
+}
+
+.ref-card .delete-ref-btn:hover {
+  opacity: 1;
+  background: var(--terracotta);
+}
+
+.add-ref-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.75rem;
+  background: var(--linen);
+  border-radius: 10px;
+  border: 1px dashed rgba(44, 36, 23, 0.12);
+  min-height: 120px;
+  justify-content: center;
+}
+
+.add-ref-form input {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 6px;
+  background: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: var(--earth);
+  outline: none;
+}
+
+.add-ref-form input:focus {
+  border-color: var(--jade);
+}
+
+.add-ref-form input::placeholder {
+  color: var(--ash);
+  opacity: 0.5;
+}
+
+.add-ref-form button {
+  padding: 0.4rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.add-ref-form button:hover {
+  background: var(--jade);
+}
+
 /* ============ CHECKLIST SECTIONS ============ */
 .checklist-grid {
   display: grid;
@@ -1013,6 +1172,7 @@ body {
         <span class="activity-tag tag-transport">Transport</span>
       </div>
     </div>
+    <details class="ref-section" data-day="day0"><summary>Photos & Links</summary><div class="ref-grid" id="ref-grid-day0"></div></details>
     <div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-day0"></div>
   </div>
 
@@ -1060,6 +1220,7 @@ body {
         <span class="activity-tag tag-explore">Explore</span>
       </div>
     </div>
+    <details class="ref-section" data-day="day1"><summary>Photos & Links</summary><div class="ref-grid" id="ref-grid-day1"></div></details>
     <div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-day1"></div>
   </div>
 
@@ -1083,6 +1244,7 @@ body {
         <span class="activity-tag tag-hike">Hike</span>
       </div>
     </div>
+    <details class="ref-section" data-day="day2"><summary>Photos & Links</summary><div class="ref-grid" id="ref-grid-day2"></div></details>
     <div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-day2"></div>
   </div>
 
@@ -1122,6 +1284,7 @@ body {
         <span class="activity-tag tag-chill">Chill</span>
       </div>
     </div>
+    <details class="ref-section" data-day="day3"><summary>Photos & Links</summary><div class="ref-grid" id="ref-grid-day3"></div></details>
     <div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-day3"></div>
   </div>
 
@@ -1177,6 +1340,7 @@ body {
         <span class="activity-tag tag-chill">Chill</span>
       </div>
     </div>
+    <details class="ref-section" data-day="day4"><summary>Photos & Links</summary><div class="ref-grid" id="ref-grid-day4"></div></details>
     <div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-day4"></div>
   </div>
 
@@ -1232,6 +1396,7 @@ body {
         <span class="activity-tag tag-flight">Flight</span>
       </div>
     </div>
+    <details class="ref-section" data-day="day5"><summary>Photos & Links</summary><div class="ref-grid" id="ref-grid-day5"></div></details>
     <div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-day5"></div>
   </div>
 
@@ -1575,6 +1740,7 @@ renderAllSections();
       Object.assign(state, data.state);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       renderAllSections();
+      ['day0','day1','day2','day3','day4','day5'].forEach(renderRefGrid);
       // Re-apply notes
       document.querySelectorAll('.notes-area').forEach(el => {
         const key = el.dataset.key;
@@ -1583,6 +1749,70 @@ renderAllSections();
     }
   } catch {}
 })();
+
+// ============ REFERENCE CARDS (Photos & Links) ============
+if (!state._refs) state._refs = {};
+
+function renderRefGrid(dayKey) {
+  const grid = document.getElementById(`ref-grid-${dayKey}`);
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  const refs = state._refs[dayKey] || [];
+  refs.forEach((ref, idx) => {
+    const card = document.createElement('div');
+    card.className = 'ref-card';
+    let html = `<button class="delete-ref-btn" onclick="removeRef('${dayKey}', ${idx})">\u00d7</button>`;
+    if (ref.image) html += `<img src="${escapeHtml(ref.image)}" alt="${escapeHtml(ref.title || '')}" loading="lazy" onerror="this.style.display='none'">`;
+    html += `<div class="ref-body">`;
+    if (ref.title) html += `<div class="ref-title">${escapeHtml(ref.title)}</div>`;
+    if (ref.desc) html += `<div class="ref-desc">${escapeHtml(ref.desc)}</div>`;
+    if (ref.url) html += `<a class="ref-link" href="${escapeHtml(ref.url)}" target="_blank" rel="noopener">\u2192 View</a>`;
+    html += `</div>`;
+    card.innerHTML = html;
+    grid.appendChild(card);
+  });
+
+  // Add form
+  const form = document.createElement('div');
+  form.className = 'add-ref-form';
+  form.innerHTML = `
+    <input type="text" placeholder="Title" data-field="title">
+    <input type="text" placeholder="Image URL (optional)" data-field="image">
+    <input type="text" placeholder="Link URL (optional)" data-field="url">
+    <input type="text" placeholder="Short description (optional)" data-field="desc">
+    <button onclick="addRef('${dayKey}', this)">+ Add</button>
+  `;
+  grid.appendChild(form);
+}
+
+function addRef(dayKey, btn) {
+  const form = btn.closest('.add-ref-form');
+  const title = form.querySelector('[data-field="title"]').value.trim();
+  if (!title) return;
+
+  const ref = {
+    title,
+    image: form.querySelector('[data-field="image"]').value.trim(),
+    url: form.querySelector('[data-field="url"]').value.trim(),
+    desc: form.querySelector('[data-field="desc"]').value.trim(),
+  };
+
+  if (!state._refs[dayKey]) state._refs[dayKey] = [];
+  state._refs[dayKey].push(ref);
+  saveState(state);
+  renderRefGrid(dayKey);
+}
+
+function removeRef(dayKey, idx) {
+  if (!state._refs[dayKey]) return;
+  state._refs[dayKey].splice(idx, 1);
+  saveState(state);
+  renderRefGrid(dayKey);
+}
+
+// Render all ref grids on load
+['day0','day1','day2','day3','day4','day5'].forEach(renderRefGrid);
 
 // ============ NOTES PERSISTENCE ============
 document.querySelectorAll('.notes-area').forEach(el => {
