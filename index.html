@@ -2152,7 +2152,10 @@ function loadLocal() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
 }
 
+let _syncReady = false;
+
 function saveState(s) {
+  s._updated = Date.now();
   localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
   clearTimeout(saveState._t);
   saveState._t = setTimeout(() => {
@@ -2160,10 +2163,6 @@ function saveState(s) {
   }, 500);
 }
 
-const state = loadLocal();
-const _hadLocalData = Object.keys(state).length > 0;
-
-// Initialize defaults for rendering (but don't save to Supabase if empty — wait for sync)
 function applyDefaults(s) {
   if (!s._sections) s._sections = JSON.parse(JSON.stringify(DEFAULT_SECTIONS));
   if (!s._itinerary) s._itinerary = JSON.parse(JSON.stringify(DEFAULT_ITINERARY));
@@ -2172,10 +2171,11 @@ function applyDefaults(s) {
   if (!s._stays) s._stays = JSON.parse(JSON.stringify(DEFAULT_STAYS));
   if (!s._food) s._food = JSON.parse(JSON.stringify(DEFAULT_FOOD));
 }
+
+const state = loadLocal();
 applyDefaults(state);
-// Only save to Supabase if we had real local data (prevents overwriting remote with defaults)
-if (_hadLocalData) saveState(state);
-else localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+// Only save locally for initial render — do NOT push to Supabase until sync completes
+localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 
 function escapeHtml(text) {
   const d = document.createElement('div');
@@ -2490,19 +2490,25 @@ try {
   try {
     const { data } = await sb.from('planner_state').select('state').eq('id', 'default').single();
     if (data && data.state && Object.keys(data.state).length > 0) {
-      Object.keys(state).forEach(k => delete state[k]);
-      Object.assign(state, data.state);
-      applyDefaults(state);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      renderItinerary();
-      renderAllSections();
-      renderResearch();
-      renderVenues('stays');
-      renderVenues('food');
-      DAY_KEYS.forEach(renderRefGrid);
-      setupObservers();
+      const remoteTs = data.state._updated || 0;
+      const localTs = state._updated || 0;
+      // Always use remote if it's newer OR if we have no meaningful local timestamp
+      if (remoteTs >= localTs || !localTs) {
+        Object.keys(state).forEach(k => delete state[k]);
+        Object.assign(state, data.state);
+        applyDefaults(state);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        renderItinerary();
+        renderAllSections();
+        renderResearch();
+        renderVenues('stays');
+        renderVenues('food');
+        DAY_KEYS.forEach(renderRefGrid);
+        setupObservers();
+      }
     }
   } catch {}
+  _syncReady = true;
 })();
 
 // ============ NAV SCROLL ============
