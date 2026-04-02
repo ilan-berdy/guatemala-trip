@@ -1316,9 +1316,13 @@ body {
   Guatemala 2026 &middot; 30 days to go
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-// ============ LOCAL STORAGE PERSISTENCE ============
+// ============ SUPABASE + LOCAL STORAGE PERSISTENCE ============
 const STORAGE_KEY = 'guat-planner-v1';
+const SUPABASE_URL = 'https://ahhetzualzvwxtfxpigp.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_bMZ_ZZAsaESd_8SQmXXF9w_80TF-JkG';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 function loadState() {
   try {
@@ -1328,9 +1332,30 @@ function loadState() {
 
 function saveState(state) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  // Debounced sync to Supabase
+  clearTimeout(saveState._timer);
+  saveState._timer = setTimeout(() => {
+    sb.from('planner_state').upsert({ id: 'default', state, updated_at: new Date().toISOString() });
+  }, 1000);
 }
 
+// On load: pull from Supabase if newer, otherwise use localStorage
 const state = loadState();
+
+(async function syncFromRemote() {
+  try {
+    const { data } = await sb.from('planner_state').select('state,updated_at').eq('id', 'default').single();
+    if (data && data.state && Object.keys(data.state).length > 0) {
+      const local = loadState();
+      if (Object.keys(local).length === 0) {
+        // Local is empty, use remote
+        Object.assign(state, data.state);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        location.reload();
+      }
+    }
+  } catch {}
+})();
 
 // ============ CHECKBOXES ============
 function getCheckId(checkbox) {
