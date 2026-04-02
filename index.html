@@ -1735,9 +1735,13 @@ renderAllSections();
 (async function syncFromRemote() {
   try {
     const { data } = await sb.from('planner_state').select('state').eq('id', 'default').single();
-    if (data && data.state && data.state._sections) {
+    if (data && data.state && Object.keys(data.state).length > 0) {
       Object.keys(state).forEach(k => delete state[k]);
       Object.assign(state, data.state);
+      if (!state._sections) {
+        state._sections = JSON.parse(JSON.stringify(DEFAULT_SECTIONS));
+      }
+      if (!state._refs) state._refs = {};
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       renderAllSections();
       ['day0','day1','day2','day3','day4','day5'].forEach(renderRefGrid);
