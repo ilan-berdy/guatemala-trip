@@ -1,8 +1,8 @@
-# Woodstock NY Trip Plan — May 28–31, 2026 (Memorial Day weekend)
+# Woodstock NY Trip Plan — May 28–31, 2026
 
 **Travelers:** Ilan & Kayla · Naomi & John (two couples)  
 **Core dates:** Friday May 29 – Sunday May 31  
-**Travel flex:** Leave **Thursday evening May 28** if **Jon** can work remotely on **Friday** — beats holiday traffic and adds a relaxed Thursday night upstate.
+**Travel flex:** Leave **Thursday evening May 28** if **Jon** can work remotely on **Friday** — beats Friday rush-hour traffic and adds a relaxed Thursday night upstate.
 
 ---
 

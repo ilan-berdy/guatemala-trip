@@ -26,10 +26,11 @@ jobs:
       - name: Inject API keys and trip passwords (per-trip apps)
         env:
           SITE_PASSWORD_GUATEMALA: ${{ secrets.SITE_PASSWORD_GUATEMALA }}
+          SITE_PASSWORD_TRIP: ${{ secrets.SITE_PASSWORD_TRIP }}
           SITE_PASSWORD_WOODSTOCK: ${{ secrets.SITE_PASSWORD_WOODSTOCK }}
         run: |
           sed -i 's/__GEMINI_API_KEY__/${{ secrets.GEMINI_API_KEY }}/g' guatemala/index.html
-          sed -i 's/__GEMINI_API_KEY__/${{ secrets.GEMINI_API_KEY }}/g' woodstock/index.html
+          sed -i 's/__GEMINI_API_KEY__/${{ secrets.GEMINI_API_KEY }}/g' trip/index.html
           python3 << 'PY'
           import json, os, pathlib
           def inject(path: str, placeholder: str, env_key: str) -> None:
@@ -40,8 +41,15 @@ jobs:
               if placeholder not in t:
                   raise SystemExit(f"missing {placeholder} in {path}")
               p.write_text(t.replace(placeholder, blob), encoding="utf-8")
+          def trip_password() -> str:
+              return (os.environ.get("SITE_PASSWORD_TRIP") or os.environ.get("SITE_PASSWORD_WOODSTOCK") or "")
           inject("guatemala/index.html", "__TRIP_PW_JSON_GUATEMALA__", "SITE_PASSWORD_GUATEMALA")
-          inject("woodstock/index.html", "__TRIP_PW_JSON_WOODSTOCK__", "SITE_PASSWORD_WOODSTOCK")
+          p = pathlib.Path("trip/index.html")
+          t = p.read_text(encoding="utf-8")
+          blob = json.dumps({"password": trip_password()}, ensure_ascii=False)
+          if "__TRIP_PW_JSON_TRIP__" not in t:
+              raise SystemExit("missing __TRIP_PW_JSON_TRIP__ in trip/index.html")
+          p.write_text(t.replace("__TRIP_PW_JSON_TRIP__", blob), encoding="utf-8")
           PY
       - name: Setup Pages
         uses: actions/configure-pages@v5
