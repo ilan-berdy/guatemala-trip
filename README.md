@@ -40,28 +40,24 @@ If you used to open the Guatemala app at the **repo root URL**, that URL is now 
 
 **Settings → Secrets and variables → Actions** → ensure **`GEMINI_API_KEY`** exists (same as before). The workflow injects it into `guatemala/index.html` and `woodstock/index.html` at deploy time.
 
-### 4. Per-trip passwords (client-side gate)
+### 4. Per-trip passwords (simple gate)
 
-Each planner asks for a **separate** password. The **SHA-256 hash** of each password is stored in GitHub Actions secrets (not the plain password). The workflow substitutes the placeholder `__SITE_PASS_HASH__` in each `index.html` on deploy.
+Each planner compares the typed password to a value **injected at deploy time** from GitHub Actions secrets (plain text in the built HTML after deploy—fine for casual privacy, not for high-security data).
 
 Add two repository secrets:
 
-| Secret | Used for |
-|--------|-----------|
-| `PASSWORD_HASH_GUATEMALA` | 64-character hex string = SHA-256 of the Guatemala password |
-| `PASSWORD_HASH_WOODSTOCK` | 64-character hex string = SHA-256 of the Woodstock password |
+| Secret | Purpose |
+|--------|---------|
+| `SITE_PASSWORD_GUATEMALA` | Guatemala planner login |
+| `SITE_PASSWORD_WOODSTOCK` | Woodstock planner login |
 
-Generate a hash (pick a strong password, then):
+**GitHub:** Settings → Secrets and variables → Actions → New repository secret.
 
-```bash
-node -e "console.log(require('crypto').createHash('sha256').update('YOUR_PASSWORD_HERE', 'utf8').digest('hex'))"
-```
+**CLI (optional):** `gh secret set SITE_PASSWORD_GUATEMALA` and paste the value when prompted (same for Woodstock).
 
-Use **different** passwords for the two trips if you want them independent.
+**Local preview:** Placeholders in `index.html` are not valid JSON until CI runs, so the gate **does not block** when you open files from disk.
 
-**Local preview:** Opening `index.html` from disk without CI leaves `__SITE_PASS_HASH__` in place; the gate **turns itself off** so you can develop without a password. After push, the deployed site uses the hashes from secrets.
-
-**Limitations:** This is **obscurity, not bank-grade security**—anyone can read the page source and brute-force weak passwords against the hash. It keeps casual visitors out. For sensitive data, do not rely on this alone.
+**Limitations:** Client-side only; anyone with the deployed page can inspect it. Use strong, unique secrets if that matters to you.
 
 ### 5. Optional: rename the GitHub repo
 
@@ -76,4 +72,4 @@ The separate `Woodstock` project folder on disk was **copied** into `woodstock/`
 1. Copy `guatemala/` or `woodstock/` to `your-trip/`.
 2. Change `STORAGE_KEY`, Supabase `upsert` `id`, titles, and `manifest.json`.
 3. Add a card to root `index.html`.
-4. Extend the deploy step in `.github/workflows/static.yml`: `sed` for `__GEMINI_API_KEY__` and, if you use the same gate pattern, `__SITE_PASS_HASH__` with a new secret (and a unique `COOKIE_NAME` in that trip’s HTML).
+4. Extend the deploy step in `.github/workflows/static.yml`: `sed` for `__GEMINI_API_KEY__`, and add a `json.dumps` inject for a new `__TRIP_PW_JSON_*__` placeholder plus a `SITE_PASSWORD_*` secret (and a unique `COOKIE_NAME` in that trip’s HTML).

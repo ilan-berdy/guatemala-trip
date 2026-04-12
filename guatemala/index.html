@@ -2953,23 +2953,25 @@ if (aiMessages.length > 0) renderAIMessages();
     <style>@keyframes trip-auth-shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}.trip-auth-shake{animation:trip-auth-shake 0.45s ease-in-out}</style>
   </div>
 </div>
+<script type="application/json" id="trip-site-config-guat">__TRIP_PW_JSON_GUATEMALA__</script>
 <script>
 (function(){
-  var PASS_HASH = '__SITE_PASS_HASH__';
   var COOKIE_NAME = 'trip_auth_guatemala';
   var COOKIE_DAYS = 14;
   function getCookie(n){var m=document.cookie.match(new RegExp('(?:^|; )'+n.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'=([^;]*)'));return m?decodeURIComponent(m[1]):null;}
   function setCookie(n,v,d){var e=new Date();e.setDate(e.getDate()+d);document.cookie=n+'='+encodeURIComponent(v)+';expires='+e.toUTCString()+';path=/;SameSite=Strict'}
-  function sha256(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(function(buf){return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('')});}
   var gate=document.getElementById('trip-auth-gate');
   if(!gate)return;
-  if(!PASS_HASH||PASS_HASH.indexOf('__')===0){gate.remove();return;}
+  var cfgEl=document.getElementById('trip-site-config-guat');
+  var EXPECTED='';
+  try{EXPECTED=JSON.parse(cfgEl.textContent).password||'';}catch(e){gate.remove();return;}
+  if(!EXPECTED){gate.remove();return;}
   var inp=document.getElementById('trip-auth-input');
   var errEl=document.getElementById('trip-auth-error');
   if(getCookie(COOKIE_NAME)==='1'){gate.remove();return;}
   gate.style.display='flex';
   document.getElementById('trip-auth-toggle').onclick=function(){var show=inp.type==='password';inp.type=show?'text':'password';document.getElementById('trip-eye-off').style.display=show?'none':'inline';document.getElementById('trip-eye-on').style.display=show?'inline':'none';inp.focus();};
-  document.getElementById('trip-auth-btn').onclick=function(){sha256(inp.value).then(function(h){if(h===PASS_HASH){setCookie(COOKIE_NAME,'1',COOKIE_DAYS);gate.remove();}else{errEl.style.display='block';errEl.classList.remove('trip-auth-shake');void errEl.offsetWidth;errEl.classList.add('trip-auth-shake');}});};
+  document.getElementById('trip-auth-btn').onclick=function(){if(inp.value===EXPECTED){setCookie(COOKIE_NAME,'1',COOKIE_DAYS);gate.remove();}else{errEl.style.display='block';errEl.classList.remove('trip-auth-shake');void errEl.offsetWidth;errEl.classList.add('trip-auth-shake');}};
   inp.onkeydown=function(e){if(e.key==='Enter')document.getElementById('trip-auth-btn').click();};
 })();
 </script>
