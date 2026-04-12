@@ -851,7 +851,9 @@ body {
 .venue-card .vc-desc {
   font-size: 0.8rem;
   color: var(--ash);
-  line-height: 1.4;
+  line-height: 1.45;
+  white-space: pre-line;
+  word-break: break-word;
 }
 
 .venue-card .vc-delete {
@@ -2719,7 +2721,7 @@ function appendVenueCard(grid, type, v, idx) {
   html += `<div class="vc-location">${escapeHtml(v.location)}</div>`;
   html += `<div class="vc-name">${v.url ? `<a href="${escapeHtml(v.url)}" target="_blank" rel="noopener">${escapeHtml(v.name)}</a>` : escapeHtml(v.name)}</div>`;
   if (v.price) html += `<div class="vc-price">${escapeHtml(v.price)}</div>`;
-  if (v.desc) html += `<div class="vc-desc">${escapeHtml(v.desc)}</div>`;
+  if (v.desc) html += `<div class="vc-desc">${escapeHtml(prettifyImportedStayDescription(v.desc))}</div>`;
   if (type === 'stays') {
     const s = v.strategy === 'walkable' || v.strategy === 'drive' || v.strategy === 'unsorted' ? v.strategy : 'unsorted';
     html += `<div class="vc-strategy-row"><span class="vc-strategy-label">Column</span><select class="vc-strategy-select" onchange="setStayStrategy(${idx}, this.value)">
@@ -2845,6 +2847,22 @@ function guessNightlyFromText(text) {
   return `~$${m[1].replace(/,/g, '')}/night (from page text — verify before booking)`;
 }
 
+/** Clean Jina/Airbnb scrape: drop bare URLs, fix glued sentences, light structure — safe for saved cards too. */
+function prettifyImportedStayDescription(raw) {
+  if (!raw || typeof raw !== 'string') return '';
+  let t = raw.replace(/\u00a0/g, ' ');
+  t = t.replace(/!\[[^\]]*\]\([^)]*\)/g, '');
+  t = t.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1');
+  t = t.replace(/\(?https?:\/\/[^\s<>"')]+/gi, '');
+  t = t.replace(/\s*\)\s*/g, ' ');
+  t = t.replace(/([.!?])([A-Za-z])/g, '$1 $2');
+  t = t.replace(/([a-z])([A-Z][a-z]{2,})/g, '$1 $2');
+  t = t.split('\n').map(line => line.replace(/[^\S ]+/g, ' ').trim()).join('\n');
+  t = t.replace(/[^\S\n]+/g, ' ');
+  t = t.replace(/\n{3,}/g, '\n\n');
+  return t.trim();
+}
+
 /**
  * Pulls real listing title, hero photo, and summary via Jina Reader (reads public Airbnb HTML).
  * Microlink/OpenGraph fail on Airbnb; this path works for side-by-side shortlist cards.
@@ -2883,13 +2901,17 @@ async function fetchAirbnbViaJina(canonicalUrl) {
   let detailBlurb = '';
   const block = text.match(/## Entire [^\n]+\n+([\s\S]*?)(?=\n## |$)/);
   if (block) {
-    detailBlurb = block[1].replace(/!\[[^\]]*\]\([^)]+\)/g, '').replace(/\n{3,}/g, '\n\n').trim().slice(0, 500);
+    detailBlurb = prettifyImportedStayDescription(
+      block[1].replace(/!\[[^\]]*\]\([^)]+\)/g, '').replace(/\n{3,}/g, '\n\n').trim()
+    ).slice(0, 900);
   }
 
   if (!name && !image && !summaryLine) throw new Error('could not parse listing');
 
   const priceHint = guessNightlyFromText(text);
-  return { name, image, summaryLine, detailBlurb, priceHint };
+  const summaryClean = summaryLine ? prettifyImportedStayDescription(summaryLine).slice(0, 280) : '';
+  const detailClean = detailBlurb;
+  return { name, image, summaryLine: summaryClean, detailBlurb: detailClean, priceHint };
 }
 
 let _airbnbImportToken = 0;
@@ -2927,7 +2949,7 @@ async function applyAirbnbLink(rawInput) {
     if (j.detailBlurb) parts.push(j.detailBlurb);
     parts.push('—');
     parts.push(base.desc);
-    document.getElementById('stay-desc').value = parts.join('\n\n').slice(0, 2500);
+    document.getElementById('stay-desc').value = prettifyImportedStayDescription(parts.join('\n\n')).slice(0, 2500);
     setStayImportStatus('Loaded title, cover photo & details — pick a column, then Add listing.', false);
   } catch (err) {
     if (myToken !== _airbnbImportToken) return;
