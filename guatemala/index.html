@@ -1,0 +1,2941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Guatemala — Apr 30 – May 4</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Guatemala">
+<meta name="theme-color" content="#2C2417">
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --earth: #2C2417;
+  --cream: #F5F0E8;
+  --terracotta: #C4593B;
+  --jade: #3A7D5C;
+  --jade-light: #4A9D72;
+  --gold: #D4A843;
+  --lake: #2E6B8A;
+  --lake-light: #3A89B0;
+  --ash: #8B8177;
+  --sand: #E8DFD0;
+  --linen: #FAF7F2;
+  --volcano: #8B3A2A;
+  --charcoal: #3D3529;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ash) transparent;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--earth);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ============ HERO ============ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--earth);
+  color: var(--cream);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(58, 125, 92, 0.3), transparent),
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(196, 89, 59, 0.2), transparent),
+    radial-gradient(ellipse 90% 70% at 50% 50%, rgba(46, 107, 138, 0.15), transparent);
+  animation: heroShift 12s ease-in-out infinite alternate;
+}
+
+@keyframes heroShift {
+  0% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.3s;
+}
+
+.hero h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(4rem, 12vw, 9rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.5s;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--jade-light);
+}
+
+.hero-dates {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  margin-top: 2rem;
+  color: var(--ash);
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.8s;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ash);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 1.2s;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.hero-scroll .arrow {
+  width: 1px;
+  height: 40px;
+  background: var(--ash);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-scroll .arrow::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--gold);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+
+@keyframes scrollLine {
+  0% { top: -100%; }
+  50% { top: 100%; }
+  100% { top: 100%; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ NAV ============ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(245, 240, 232, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(44, 36, 23, 0.08);
+  padding: 0 2rem;
+  /* Push below Dynamic Island / notch in standalone PWA mode */
+  padding-top: env(safe-area-inset-top, 0);
+  padding-top: constant(safe-area-inset-top); /* iOS 11.0-11.1 */
+}
+
+@supports (padding-top: env(safe-area-inset-top)) {
+  .nav { padding-top: env(safe-area-inset-top); }
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0.75rem 0;
+}
+
+.nav-inner::-webkit-scrollbar { display: none; }
+
+.nav-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: none;
+  color: var(--ash);
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 100px;
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover { color: var(--earth); background: var(--sand); }
+.nav-btn.active { color: var(--cream); background: var(--earth); }
+
+/* ============ MAIN ============ */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem 6rem;
+}
+
+/* ============ FLIGHT CARD ============ */
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 1.5rem;
+  padding-top: 4rem;
+}
+
+.flights-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: rgba(44, 36, 23, 0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 4rem;
+}
+
+.flight-card {
+  background: var(--linen);
+  padding: 2rem 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto;
+  align-items: center;
+  gap: 2rem;
+  transition: background 0.3s;
+}
+
+.flight-card:hover { background: white; }
+
+.flight-endpoint {
+  display: flex;
+  flex-direction: column;
+}
+
+.flight-endpoint .city {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.5rem;
+}
+
+.flight-endpoint .detail {
+  font-size: 0.75rem;
+  color: var(--ash);
+  margin-top: 0.25rem;
+}
+
+.flight-endpoint .time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+.flight-endpoint.arrival { text-align: right; }
+
+.flight-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 160px;
+}
+
+.flight-line .code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--terracotta);
+  background: rgba(196, 89, 59, 0.08);
+  padding: 0.25rem 0.75rem;
+  border-radius: 100px;
+}
+
+.flight-line .line {
+  width: 100%;
+  height: 1px;
+  background: var(--ash);
+  position: relative;
+}
+
+.flight-line .line::after {
+  content: '';
+  position: absolute;
+  right: -3px;
+  top: -3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--terracotta);
+}
+
+.flight-line .duration {
+  font-size: 0.7rem;
+  color: var(--ash);
+}
+
+.flight-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-left: 2rem;
+  border-left: 1px solid rgba(44, 36, 23, 0.08);
+}
+
+.flight-meta span {
+  font-size: 0.7rem;
+  color: var(--ash);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ============ ITINERARY ============ */
+.day-section {
+  padding-top: 4rem;
+  margin-bottom: 4rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.day-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.day-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--earth);
+}
+
+.day-number {
+  font-family: 'Instrument Serif', serif;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--earth);
+}
+
+.day-info h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.day-info .date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--ash);
+  text-transform: uppercase;
+}
+
+.day-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--jade);
+  background: rgba(58, 125, 92, 0.08);
+  padding: 0.3rem 0.8rem;
+  border-radius: 100px;
+  margin-top: 0.5rem;
+}
+
+.day-location::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--jade);
+}
+
+/* Activity items */
+.activities {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.activity {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--linen);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.activity::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  transition: background 0.3s;
+}
+
+.activity.type-flight::before { background: var(--terracotta); }
+.activity.type-transport::before { background: var(--lake); }
+.activity.type-hike::before { background: var(--jade); }
+.activity.type-explore::before { background: var(--gold); }
+.activity.type-chill::before { background: var(--ash); }
+
+.activity:hover {
+  background: white;
+  box-shadow: 0 4px 20px rgba(44, 36, 23, 0.06);
+}
+
+.activity-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--ash);
+  min-width: 60px;
+  padding-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.activity-content {
+  flex: 1;
+}
+
+.activity-title {
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
+}
+
+.activity-sub {
+  font-size: 0.8rem;
+  color: var(--ash);
+}
+
+.activity-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 100px;
+  align-self: flex-start;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.tag-flight { background: rgba(196, 89, 59, 0.1); color: var(--terracotta); }
+.tag-transport { background: rgba(46, 107, 138, 0.1); color: var(--lake); }
+.tag-hike { background: rgba(58, 125, 92, 0.1); color: var(--jade); }
+.tag-explore { background: rgba(212, 168, 67, 0.1); color: #a8852f; }
+.tag-chill { background: rgba(139, 129, 119, 0.1); color: var(--ash); }
+.tag-note { background: rgba(139, 58, 42, 0.1); color: var(--volcano); }
+
+/* ============ NOTES (inline editable) ============ */
+.notes-area {
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba(44, 36, 23, 0.02);
+  border: 1px dashed rgba(44, 36, 23, 0.1);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: var(--charcoal);
+  min-height: 2.5rem;
+  outline: none;
+  transition: all 0.3s;
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.5;
+}
+
+.notes-area:empty::before {
+  content: attr(data-placeholder);
+  color: var(--ash);
+  opacity: 0.5;
+}
+
+.notes-area:focus {
+  border-color: var(--jade);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(58, 125, 92, 0.08);
+}
+
+/* ============ REFERENCE LINKS ============ */
+.ref-section {
+  margin-top: 1rem;
+}
+
+.ref-section summary {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ash);
+  cursor: pointer;
+  padding: 0.5rem 0;
+  user-select: none;
+  list-style: none;
+}
+
+.ref-section summary::before {
+  content: '+ ';
+}
+
+.ref-section[open] summary::before {
+  content: '− ';
+}
+
+.ref-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.ref-card {
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--linen);
+  transition: all 0.3s;
+  position: relative;
+}
+
+.ref-card:hover {
+  background: white;
+  box-shadow: 0 4px 20px rgba(44, 36, 23, 0.08);
+}
+
+.ref-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+}
+
+.ref-card .ref-body {
+  padding: 0.65rem 0.75rem;
+}
+
+.ref-card .ref-title {
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+
+.ref-card .ref-desc {
+  font-size: 0.7rem;
+  color: var(--ash);
+  line-height: 1.4;
+}
+
+.ref-card a.ref-link {
+  display: inline-block;
+  margin-top: 0.35rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--lake);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+
+.ref-card a.ref-link:hover {
+  color: var(--lake-light);
+  text-decoration: underline;
+}
+
+.ref-card .delete-ref-btn {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+  background: rgba(0,0,0,0.4);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 0.7rem;
+  line-height: 20px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.ref-card:hover .delete-ref-btn {
+  opacity: 0.7;
+}
+
+.ref-card .delete-ref-btn:hover {
+  opacity: 1;
+  background: var(--terracotta);
+}
+
+.add-ref-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.75rem;
+  background: var(--linen);
+  border-radius: 10px;
+  border: 1px dashed rgba(44, 36, 23, 0.12);
+  min-height: 120px;
+  justify-content: center;
+}
+
+.add-ref-form input {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 6px;
+  background: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: var(--earth);
+  outline: none;
+}
+
+.add-ref-form input:focus {
+  border-color: var(--jade);
+}
+
+.add-ref-form input::placeholder {
+  color: var(--ash);
+  opacity: 0.5;
+}
+
+.add-ref-form button {
+  padding: 0.4rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.add-ref-form button:hover {
+  background: var(--jade);
+}
+
+/* ============ RESEARCH TRACKER ============ */
+.research-board {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.research-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--linen);
+  border-radius: 12px;
+  transition: all 0.3s;
+  position: relative;
+  align-items: flex-start;
+}
+
+.research-item:hover {
+  background: white;
+  box-shadow: 0 4px 20px rgba(44, 36, 23, 0.06);
+}
+
+.research-item .ri-status {
+  flex-shrink: 0;
+  padding: 0.2rem 0.5rem;
+  border-radius: 100px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  margin-top: 0.1rem;
+}
+
+.ri-status.considering { background: rgba(212, 168, 67, 0.15); color: #a8852f; }
+.ri-status.booked { background: rgba(58, 125, 92, 0.15); color: var(--jade); }
+.ri-status.skipped { background: rgba(139, 129, 119, 0.15); color: var(--ash); text-decoration: line-through; }
+
+.research-item .ri-body { flex: 1; min-width: 0; }
+.research-item .ri-title { font-weight: 500; font-size: 0.9rem; }
+.research-item .ri-title a { color: var(--earth); text-decoration: none; }
+.research-item .ri-title a:hover { color: var(--lake); text-decoration: underline; }
+.research-item .ri-meta { font-size: 0.75rem; color: var(--ash); margin-top: 0.15rem; }
+.research-item .ri-notes { font-size: 0.8rem; color: var(--charcoal); margin-top: 0.35rem; line-height: 1.4; }
+.research-item .ri-cat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ash);
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.research-item .ri-delete {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  color: var(--ash);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+  font-size: 0.9rem;
+}
+
+.research-item:hover .ri-delete { opacity: 0.4; }
+.research-item .ri-delete:hover { opacity: 1; color: var(--terracotta); }
+
+.add-research-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background: var(--linen);
+  border-radius: 12px;
+  border: 1px dashed rgba(44, 36, 23, 0.12);
+}
+
+.add-research-form input, .add-research-form select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 8px;
+  background: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  color: var(--earth);
+  outline: none;
+}
+
+.add-research-form input:focus, .add-research-form select:focus {
+  border-color: var(--jade);
+}
+
+.add-research-form input.full-width { grid-column: 1 / -1; }
+
+.add-research-form button {
+  grid-column: 1 / -1;
+  padding: 0.5rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.add-research-form button:hover { background: var(--jade); }
+
+/* ============ STAYS & FOOD ============ */
+.venue-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.venue-card {
+  background: var(--linen);
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.venue-card:hover {
+  background: white;
+  box-shadow: 0 4px 20px rgba(44, 36, 23, 0.06);
+}
+
+.venue-card .vc-location {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 0.35rem;
+}
+
+.venue-card .vc-name {
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin-bottom: 0.15rem;
+}
+
+.venue-card .vc-name a { color: var(--earth); text-decoration: none; }
+.venue-card .vc-name a:hover { color: var(--lake); text-decoration: underline; }
+
+.venue-card .vc-price {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--jade);
+  margin-bottom: 0.25rem;
+}
+
+.venue-card .vc-desc {
+  font-size: 0.8rem;
+  color: var(--ash);
+  line-height: 1.4;
+}
+
+.venue-card .vc-delete {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  color: var(--ash);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+  font-size: 0.9rem;
+}
+
+.venue-card:hover .vc-delete { opacity: 0.4; }
+.venue-card .vc-delete:hover { opacity: 1; color: var(--terracotta); }
+
+.add-venue-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  padding: 1.25rem;
+  background: var(--linen);
+  border-radius: 12px;
+  border: 1px dashed rgba(44, 36, 23, 0.12);
+  margin-top: 1.5rem;
+}
+
+.add-venue-form input, .add-venue-form select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 8px;
+  background: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  color: var(--earth);
+  outline: none;
+}
+
+.add-venue-form input:focus, .add-venue-form select:focus { border-color: var(--jade); }
+.add-venue-form input.full-width { grid-column: 1 / -1; }
+
+.add-venue-form button {
+  grid-column: 1 / -1;
+  padding: 0.5rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.add-venue-form button:hover { background: var(--jade); }
+
+/* ============ ADD ACTIVITY ============ */
+.add-activity-form {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  align-items: center;
+}
+
+.add-activity-form input, .add-activity-form select {
+  padding: 0.45rem 0.6rem;
+  border: 1px dashed rgba(44, 36, 23, 0.15);
+  border-radius: 8px;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  color: var(--earth);
+  outline: none;
+}
+
+.add-activity-form input:focus, .add-activity-form select:focus {
+  border-color: var(--jade);
+  border-style: solid;
+  background: white;
+}
+
+.add-activity-form button {
+  padding: 0.45rem 0.75rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.add-activity-form button:hover { background: var(--jade); }
+
+.activity .delete-activity-btn {
+  background: none;
+  border: none;
+  color: var(--ash);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0 0.25rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.activity:hover .delete-activity-btn { opacity: 0.4; }
+.activity .delete-activity-btn:hover { opacity: 1; color: var(--terracotta); }
+
+/* ============ CHECKLIST SECTIONS ============ */
+.checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.checklist-card {
+  background: var(--linen);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.checklist-card:hover {
+  background: white;
+  box-shadow: 0 4px 24px rgba(44, 36, 23, 0.06);
+}
+
+.checklist-card h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  margin-bottom: 0.25rem;
+}
+
+.checklist-card .progress-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--ash);
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 2px;
+  background: rgba(44, 36, 23, 0.06);
+  border-radius: 2px;
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--jade);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+.delete-item-btn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--ash);
+  cursor: pointer;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  padding: 0 0.25rem;
+  opacity: 0;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.check-item:hover .delete-item-btn {
+  opacity: 0.4;
+}
+
+.delete-item-btn:hover {
+  opacity: 1 !important;
+  color: var(--terracotta);
+}
+
+.check-item input {
+  display: none;
+}
+
+.check-box {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--ash);
+  border-radius: 4px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  margin-top: 1px;
+}
+
+.check-item:hover .check-box {
+  border-color: var(--jade);
+}
+
+.check-item input:checked + .check-box {
+  background: var(--jade);
+  border-color: var(--jade);
+}
+
+.check-item input:checked + .check-box::after {
+  content: '';
+  width: 5px;
+  height: 9px;
+  border: solid var(--cream);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.check-label {
+  font-size: 0.85rem;
+  transition: all 0.25s;
+  line-height: 1.4;
+}
+
+.check-item input:checked ~ .check-label {
+  color: var(--ash);
+  text-decoration: line-through;
+  text-decoration-color: rgba(139, 129, 119, 0.4);
+}
+
+.check-sub {
+  font-size: 0.75rem;
+  color: var(--ash);
+  margin-left: calc(18px + 0.75rem);
+  padding-bottom: 0.25rem;
+}
+
+/* Sub-items indented under a parent */
+.check-item.sub-item {
+  padding-left: 1.5rem;
+}
+
+.check-item.sub-item .check-box {
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+}
+
+/* ============ BUDGET ============ */
+.budget-section {
+  margin-top: 4rem;
+}
+
+.budget-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1px;
+  background: rgba(44, 36, 23, 0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 1.5rem;
+}
+
+.budget-card {
+  background: var(--linen);
+  padding: 1.75rem;
+  text-align: center;
+  transition: background 0.3s;
+}
+
+.budget-card:hover { background: white; }
+
+.budget-card .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 0.5rem;
+}
+
+.budget-card .amount {
+  font-family: 'Instrument Serif', serif;
+  font-size: 2rem;
+}
+
+.budget-card .amount.total {
+  color: var(--terracotta);
+}
+
+.budget-items {
+  margin-top: 1.5rem;
+}
+
+.budget-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(44, 36, 23, 0.06);
+  font-size: 0.85rem;
+}
+
+.budget-row .item-name {
+  color: var(--charcoal);
+}
+
+.budget-row .item-cost {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--ash);
+}
+
+.budget-row .item-cost.booked {
+  color: var(--jade);
+}
+
+/* ============ ADD ITEM ============ */
+.add-item-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.add-item-input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px dashed rgba(44, 36, 23, 0.15);
+  border-radius: 8px;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  color: var(--earth);
+  outline: none;
+  transition: all 0.3s;
+}
+
+.add-item-input:focus {
+  border-color: var(--jade);
+  border-style: solid;
+  background: white;
+}
+
+.add-item-input::placeholder { color: var(--ash); opacity: 0.5; }
+
+.add-item-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.add-item-btn:hover {
+  background: var(--jade);
+}
+
+.add-section-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.add-section-input {
+  flex: 1;
+  padding: 0.65rem 1rem;
+  border: 1px dashed rgba(44, 36, 23, 0.15);
+  border-radius: 12px;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  color: var(--earth);
+  outline: none;
+  transition: all 0.3s;
+}
+
+.add-section-input:focus {
+  border-color: var(--jade);
+  border-style: solid;
+  background: white;
+}
+
+.add-section-input::placeholder { color: var(--ash); opacity: 0.5; }
+
+.add-section-btn {
+  padding: 0.65rem 1.25rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.add-section-btn:hover {
+  background: var(--jade);
+}
+
+.remove-section-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--ash);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.25rem;
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+.checklist-card:hover .remove-section-btn {
+  opacity: 0.5;
+}
+
+.remove-section-btn:hover {
+  opacity: 1 !important;
+  color: var(--terracotta);
+}
+
+/* ============ FOOTER ============ */
+.footer {
+  text-align: center;
+  padding: 4rem 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--ash);
+  letter-spacing: 0.15em;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 4rem; }
+  .main { padding: 0 1rem; }
+  .flight-card {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    text-align: center;
+  }
+  .flight-endpoint.arrival { text-align: center; }
+  .flight-meta {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid rgba(44, 36, 23, 0.08);
+    padding-top: 1rem;
+    align-items: center;
+  }
+  .day-header { flex-direction: column; gap: 0.5rem; }
+  .day-number { font-size: 3rem; }
+  .activity { flex-wrap: wrap; gap: 0.5rem; padding: 1rem; }
+  .activity-time { min-width: auto; }
+  .activity-tag { margin-left: auto; }
+  .checklist-grid { grid-template-columns: 1fr; }
+  .budget-grid { grid-template-columns: 1fr 1fr; }
+  .ref-grid { grid-template-columns: 1fr 1fr; }
+  .venue-grid { grid-template-columns: 1fr; }
+  .add-venue-form { grid-template-columns: 1fr; }
+  .add-research-form { grid-template-columns: 1fr; }
+  .add-activity-form { grid-template-columns: 1fr; }
+  .add-activity-form select { width: 100%; }
+  .research-item { flex-wrap: wrap; }
+  .nav { padding: 0 0.75rem; }
+  .nav-inner { gap: 0.15rem; padding: 0.5rem 0; }
+  .nav-btn { font-size: 0.5rem; padding: 0.35rem 0.5rem; letter-spacing: 0.05em; }
+  .converter-widget { flex-direction: column; }
+  .converter-arrow { transform: rotate(90deg); padding: 0; }
+  .weather-grid { grid-template-columns: repeat(3, 1fr); }
+  .weather-locations { flex-wrap: wrap; }
+  .ai-msg { max-width: 95%; }
+}
+
+/* ============ CURRENCY CONVERTER ============ */
+.converter-widget {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.converter-input-group {
+  flex: 1;
+  min-width: 180px;
+  position: relative;
+}
+
+.converter-input-group label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 0.4rem;
+}
+
+.converter-input-group input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 12px;
+  background: var(--linen);
+  font-family: 'Instrument Serif', serif;
+  font-size: 2rem;
+  color: var(--earth);
+  outline: none;
+  transition: all 0.3s;
+}
+
+.converter-input-group input:focus {
+  border-color: var(--jade);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(58, 125, 92, 0.08);
+}
+
+.converter-arrow {
+  font-size: 1.5rem;
+  color: var(--ash);
+  padding-top: 1.2rem;
+}
+
+.converter-rate {
+  width: 100%;
+  margin-top: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--ash);
+  letter-spacing: 0.05em;
+}
+
+.converter-quick-amounts {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.quick-amount-btn {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 100px;
+  background: var(--linen);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--earth);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.quick-amount-btn:hover {
+  background: var(--earth);
+  color: var(--cream);
+  border-color: var(--earth);
+}
+
+.converter-cheat-sheet {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.cheat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0.9rem;
+  background: var(--linen);
+  border-radius: 8px;
+  font-size: 0.8rem;
+}
+
+.cheat-item .cheat-usd {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--jade);
+}
+
+.cheat-item .cheat-gtq {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--ash);
+}
+
+/* ============ WEATHER ============ */
+.weather-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.weather-card {
+  background: var(--linen);
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: all 0.3s;
+  text-align: center;
+}
+
+.weather-card:hover {
+  background: white;
+  box-shadow: 0 4px 20px rgba(44, 36, 23, 0.06);
+}
+
+.weather-card .wc-day {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 0.5rem;
+}
+
+.weather-card .wc-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.weather-card .wc-temp {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.8rem;
+  color: var(--earth);
+}
+
+.weather-card .wc-temp-range {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--ash);
+  margin-top: 0.15rem;
+}
+
+.weather-card .wc-detail {
+  font-size: 0.75rem;
+  color: var(--ash);
+  margin-top: 0.5rem;
+  line-height: 1.4;
+}
+
+.weather-locations {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.weather-loc-btn {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 100px;
+  background: var(--linen);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ash);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.weather-loc-btn.active {
+  background: var(--earth);
+  color: var(--cream);
+  border-color: var(--earth);
+}
+
+.weather-summary {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background: var(--linen);
+  border-radius: 12px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--charcoal);
+}
+
+.weather-summary strong {
+  color: var(--earth);
+}
+
+.weather-loading {
+  text-align: center;
+  padding: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--ash);
+}
+
+/* ============ AI ASSISTANT ============ */
+.ai-chat-container {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ai-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow-y: visible;
+  padding-right: 0.5rem;
+}
+
+.ai-msg {
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  max-width: 85%;
+  word-wrap: break-word;
+}
+
+.ai-msg.user {
+  background: var(--earth);
+  color: var(--cream);
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.ai-msg.assistant {
+  background: var(--linen);
+  color: var(--charcoal);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.ai-msg.assistant p { margin: 0.4rem 0; }
+.ai-msg.assistant p:first-child { margin-top: 0; }
+.ai-msg.assistant p:last-child { margin-bottom: 0; }
+.ai-msg.assistant strong { color: var(--earth); }
+.ai-msg.assistant ul, .ai-msg.assistant ol { margin: 0.4rem 0; padding-left: 1.25rem; }
+.ai-msg.assistant li { margin: 0.2rem 0; }
+
+.ai-msg.system {
+  background: rgba(212, 168, 67, 0.1);
+  color: var(--ash);
+  align-self: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-align: center;
+  max-width: 100%;
+}
+
+.ai-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ai-input {
+  flex: 1;
+  padding: 0.85rem 1.1rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 12px;
+  background: var(--linen);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  color: var(--earth);
+  outline: none;
+  transition: all 0.3s;
+  resize: none;
+}
+
+.ai-input:focus {
+  border-color: var(--jade);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(58, 125, 92, 0.08);
+}
+
+.ai-send-btn {
+  padding: 0.85rem 1.5rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.ai-send-btn:hover { background: var(--jade); }
+.ai-send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.ai-key-setup {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background: rgba(212, 168, 67, 0.08);
+  border-radius: 12px;
+  flex-wrap: wrap;
+}
+
+.ai-key-setup label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ash);
+  white-space: nowrap;
+}
+
+.ai-key-setup input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 8px;
+  background: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--earth);
+  outline: none;
+}
+
+.ai-key-setup input:focus { border-color: var(--jade); }
+
+.ai-key-setup button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+}
+
+.ai-key-setup button:hover { background: var(--jade); }
+
+.ai-suggestions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.ai-suggestion-btn {
+  padding: 0.5rem 0.9rem;
+  border: 1px dashed rgba(44, 36, 23, 0.15);
+  border-radius: 100px;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: var(--ash);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ai-suggestion-btn:hover {
+  border-color: var(--jade);
+  color: var(--jade);
+  border-style: solid;
+}
+
+/* ============ PRINT STYLES ============ */
+@media print {
+  .nav, .hero-scroll, .add-item-row, .notes-area { display: none; }
+  .hero { min-height: auto; padding: 2rem; }
+  .day-section { opacity: 1 !important; transform: none !important; page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- ====== HERO ====== -->
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow">April 30 — May 4, 2026</p>
+    <h1>Guate<em>mala</em></h1>
+    <p class="hero-dates">JFK &rarr; GUA &middot; 5 days &middot; Antigua &middot; Acatenango &middot; Lake Atitl&aacute;n</p>
+  </div>
+  <a href="#flights" class="hero-scroll">
+    <span>Scroll</span>
+    <div class="arrow"></div>
+  </a>
+</section>
+
+<!-- ====== NAV ====== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" data-target="flights">Flights</button>
+    <button class="nav-btn" data-target="day-0">Wed 29</button>
+    <button class="nav-btn" data-target="day-1">Thu 30</button>
+    <button class="nav-btn" data-target="day-2">Fri 1</button>
+    <button class="nav-btn" data-target="day-3">Sat 2</button>
+    <button class="nav-btn" data-target="day-4">Sun 3</button>
+    <button class="nav-btn" data-target="day-5">Mon 4</button>
+    <button class="nav-btn" data-target="packing">Packing</button>
+    <button class="nav-btn" data-target="booking">To Book</button>
+    <button class="nav-btn" data-target="research">Research</button>
+    <button class="nav-btn" data-target="stays">Stays</button>
+    <button class="nav-btn" data-target="food">Food</button>
+    <button class="nav-btn" data-target="budget">Budget</button>
+    <button class="nav-btn" data-target="convert">GTQ/USD</button>
+    <button class="nav-btn" data-target="weather">Weather</button>
+    <button class="nav-btn" data-target="ai-assistant">Ask AI</button>
+  </div>
+</nav>
+
+<!-- ====== MAIN ====== -->
+<div class="main">
+
+  <!-- FLIGHTS -->
+  <div id="flights">
+    <p class="section-label">Flight Itinerary &middot; Avianca &middot; Booking CCB2VT</p>
+    <div class="flights-grid">
+      <!-- Outbound -->
+      <div class="flight-card">
+        <div class="flight-endpoint">
+          <span class="city">New York JFK</span>
+          <span class="detail">Terminal 4</span>
+          <span class="time">3:20 AM</span>
+          <span class="detail">Wed Apr 30</span>
+        </div>
+        <div class="flight-line">
+          <span class="code">AV 653</span>
+          <div class="line"></div>
+          <span class="duration">4h 40m &middot; Nonstop</span>
+        </div>
+        <div class="flight-endpoint arrival">
+          <span class="city">Guatemala City</span>
+          <span class="detail">La Aurora Intl</span>
+          <span class="time">6:00 AM</span>
+          <span class="detail">Wed Apr 30</span>
+        </div>
+        <div class="flight-meta">
+          <span>LIGHT fare</span>
+          <span>Carry-on: 1pc / 10kg</span>
+          <span>Checked: $130 USD</span>
+          <span>Ticket: $370.23</span>
+        </div>
+      </div>
+
+      <!-- Return leg 1 -->
+      <div class="flight-card">
+        <div class="flight-endpoint">
+          <span class="city">Guatemala City</span>
+          <span class="detail">La Aurora Intl</span>
+          <span class="time">3:40 PM</span>
+          <span class="detail">Mon May 4</span>
+        </div>
+        <div class="flight-line">
+          <span class="code">AV 555</span>
+          <div class="line"></div>
+          <span class="duration">0h 50m</span>
+        </div>
+        <div class="flight-endpoint arrival">
+          <span class="city">San Salvador</span>
+          <span class="detail">El Salvador Intl</span>
+          <span class="time">4:30 PM</span>
+          <span class="detail">Mon May 4</span>
+        </div>
+        <div class="flight-meta">
+          <span>LIGHT fare</span>
+          <span>Connection</span>
+          <span>2h layover</span>
+        </div>
+      </div>
+
+      <!-- Return leg 2 -->
+      <div class="flight-card">
+        <div class="flight-endpoint">
+          <span class="city">San Salvador</span>
+          <span class="detail">El Salvador Intl</span>
+          <span class="time">6:30 PM</span>
+          <span class="detail">Mon May 4</span>
+        </div>
+        <div class="flight-line">
+          <span class="code">AV 566</span>
+          <div class="line"></div>
+          <span class="duration">4h 45m</span>
+        </div>
+        <div class="flight-endpoint arrival">
+          <span class="city">New York JFK</span>
+          <span class="detail">Terminal 4</span>
+          <span class="time">1:15 AM</span>
+          <span class="detail">Tue May 5</span>
+        </div>
+        <div class="flight-meta">
+          <span>LIGHT fare</span>
+          <span>Carry-on: 1pc / 10kg</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Days are rendered by JS from state._itinerary -->
+  <div id="days-container"></div>
+
+  <!-- ====== PACKING LIST ====== -->
+  <div id="packing">
+    <p class="section-label">Packing List</p>
+    <div class="checklist-grid" id="packing-grid"></div>
+    <div class="add-section-row">
+      <input class="add-section-input" id="add-packing-section" placeholder="New category (e.g. Toiletries)...">
+      <button class="add-section-btn" onclick="addSection('packing')">+ Category</button>
+    </div>
+  </div>
+
+  <!-- ====== THINGS TO BOOK ====== -->
+  <div id="booking">
+    <p class="section-label">Things to Book Ahead of Time</p>
+    <div class="checklist-grid" id="booking-grid"></div>
+    <div class="add-section-row">
+      <input class="add-section-input" id="add-booking-section" placeholder="New category (e.g. Insurance)...">
+      <button class="add-section-btn" onclick="addSection('booking')">+ Category</button>
+    </div>
+  </div>
+
+  <!-- ====== RESEARCH TRACKER ====== -->
+  <div id="research">
+    <p class="section-label">Research & Considering</p>
+    <div class="research-board" id="research-board"></div>
+    <div class="add-research-form">
+      <input type="text" placeholder="Name (e.g. V-Hiking Tour)" id="ri-title">
+      <input type="text" placeholder="Price (e.g. $78)" id="ri-price">
+      <input type="text" placeholder="URL" id="ri-url" class="full-width">
+      <input type="text" placeholder="Notes" id="ri-notes" class="full-width">
+      <select id="ri-cat">
+        <option value="tour">Tour</option>
+        <option value="hostel">Hostel</option>
+        <option value="transport">Transport</option>
+        <option value="food">Food</option>
+        <option value="gear">Gear</option>
+        <option value="other">Other</option>
+      </select>
+      <select id="ri-day">
+        <option value="">Any day</option>
+        <option value="day1">Day 1 — Antigua</option>
+        <option value="day2">Day 2 — Acatenango</option>
+        <option value="day3">Day 3 — Summit & Lake</option>
+        <option value="day4">Day 4 — Lake Atitlán</option>
+        <option value="day5">Day 5 — Return</option>
+      </select>
+      <button onclick="addResearchItem()">+ Add to Research</button>
+    </div>
+  </div>
+
+  <!-- ====== STAYS ====== -->
+  <div id="stays">
+    <p class="section-label">Where to Stay</p>
+    <div class="venue-grid" id="stays-grid"></div>
+    <div class="add-venue-form">
+      <input type="text" placeholder="Name" id="stay-name">
+      <input type="text" placeholder="Price (e.g. $9/night)" id="stay-price">
+      <select id="stay-location">
+        <option value="Antigua">Antigua</option>
+        <option value="San Pedro La Laguna">San Pedro La Laguna</option>
+        <option value="Panajachel">Panajachel</option>
+        <option value="Other">Other</option>
+      </select>
+      <input type="text" placeholder="URL" id="stay-url">
+      <input type="text" placeholder="Notes (vibe, amenities...)" id="stay-desc" class="full-width">
+      <button onclick="addVenue('stays')">+ Add Stay</button>
+    </div>
+  </div>
+
+  <!-- ====== FOOD ====== -->
+  <div id="food">
+    <p class="section-label">Where to Eat</p>
+    <div class="venue-grid" id="food-grid"></div>
+    <div class="add-venue-form">
+      <input type="text" placeholder="Name" id="food-name">
+      <input type="text" placeholder="Price range (e.g. $3-5)" id="food-price">
+      <select id="food-location">
+        <option value="Antigua">Antigua</option>
+        <option value="San Pedro La Laguna">San Pedro La Laguna</option>
+        <option value="Panajachel">Panajachel</option>
+        <option value="Other">Other</option>
+      </select>
+      <input type="text" placeholder="URL" id="food-url">
+      <input type="text" placeholder="What to get, notes..." id="food-desc" class="full-width">
+      <button onclick="addVenue('food')">+ Add Spot</button>
+    </div>
+  </div>
+
+  <!-- ====== BUDGET ====== -->
+  <div id="budget" class="budget-section">
+    <p class="section-label">Budget Tracker</p>
+    <div class="budget-grid">
+      <div class="budget-card">
+        <div class="label">Flights</div>
+        <div class="amount">$370</div>
+      </div>
+      <div class="budget-card">
+        <div class="label">Transport</div>
+        <div class="amount" id="budget-transport">$50</div>
+      </div>
+      <div class="budget-card">
+        <div class="label">Stays</div>
+        <div class="amount" id="budget-stays">TBD</div>
+      </div>
+      <div class="budget-card">
+        <div class="label">Activities</div>
+        <div class="amount" id="budget-activities">TBD</div>
+      </div>
+      <div class="budget-card">
+        <div class="label">Estimated Total</div>
+        <div class="amount total" id="budget-total">$420+</div>
+      </div>
+    </div>
+    <div class="budget-items">
+      <div class="budget-row">
+        <span class="item-name">Flights (JFK &harr; GUA)</span>
+        <span class="item-cost booked">$370.23 &check;</span>
+      </div>
+      <div class="budget-row">
+        <span class="item-name">Shuttle: Antigua &rarr; Panajachel</span>
+        <span class="item-cost">~$20</span>
+      </div>
+      <div class="budget-row">
+        <span class="item-name">Shuttle: Panajachel &rarr; Airport</span>
+        <span class="item-cost">~$30</span>
+      </div>
+      <div class="budget-row">
+        <span class="item-name">Acatenango hike tour</span>
+        <span class="item-cost">~$30–60</span>
+      </div>
+      <div class="budget-row">
+        <span class="item-name">Hostels (3 nights)</span>
+        <span class="item-cost">~$30–60</span>
+      </div>
+      <div class="budget-row">
+        <span class="item-name">Lanchas / local transport</span>
+        <span class="item-cost">~$10–15</span>
+      </div>
+      <div class="budget-row">
+        <span class="item-name">Food & misc</span>
+        <span class="item-cost">~$50–80</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== CURRENCY CONVERTER ====== -->
+  <div id="convert">
+    <p class="section-label">Currency Converter &middot; Guatemalan Quetzal</p>
+    <div class="converter-widget">
+      <div class="converter-input-group">
+        <label>US Dollars (USD)</label>
+        <input type="number" id="usd-input" placeholder="0.00" step="0.01" min="0">
+      </div>
+      <span class="converter-arrow">&harr;</span>
+      <div class="converter-input-group">
+        <label>Quetzales (GTQ)</label>
+        <input type="number" id="gtq-input" placeholder="0.00" step="0.01" min="0">
+      </div>
+    </div>
+    <div class="converter-rate" id="converter-rate">Loading exchange rate...</div>
+    <div class="converter-quick-amounts" id="quick-amounts"></div>
+    <div class="converter-cheat-sheet" id="cheat-sheet"></div>
+  </div>
+
+  <!-- ====== WEATHER ====== -->
+  <div id="weather">
+    <p class="section-label">Weather Forecast &middot; Apr 30 &ndash; May 4</p>
+    <div class="weather-locations">
+      <button class="weather-loc-btn active" data-loc="antigua" data-lat="14.5586" data-lon="-90.7295">Antigua</button>
+      <button class="weather-loc-btn" data-loc="atitlan" data-lat="14.6875" data-lon="-91.2069">Lake Atitl&aacute;n</button>
+    </div>
+    <div class="weather-grid" id="weather-grid">
+      <div class="weather-loading">Fetching forecast data...</div>
+    </div>
+    <div class="weather-summary" id="weather-summary"></div>
+  </div>
+
+  <!-- ====== AI ASSISTANT ====== -->
+  <div id="ai-assistant">
+    <p class="section-label">Trip Assistant &middot; Ask About Guatemala</p>
+    <div class="ai-chat-container">
+      <div class="ai-key-setup" id="ai-key-setup">
+        <label>Anthropic API Key</label>
+        <input type="password" id="ai-key-input" placeholder="sk-ant-...">
+        <button onclick="saveAIKey()">Save</button>
+      </div>
+      <div class="ai-suggestions" id="ai-suggestions">
+        <button class="ai-suggestion-btn" onclick="askAI(this.textContent)">Best time to exchange money?</button>
+        <button class="ai-suggestion-btn" onclick="askAI(this.textContent)">Safety tips for Lake Atitl&aacute;n</button>
+        <button class="ai-suggestion-btn" onclick="askAI(this.textContent)">What to bring for Acatenango?</button>
+        <button class="ai-suggestion-btn" onclick="askAI(this.textContent)">Tipping customs in Guatemala</button>
+        <button class="ai-suggestion-btn" onclick="askAI(this.textContent)">Best food to try in Antigua</button>
+      </div>
+      <div class="ai-messages" id="ai-messages"></div>
+      <div class="ai-input-row">
+        <input class="ai-input" id="ai-input" placeholder="Ask anything about your Guatemala trip..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAIMessage()}">
+        <button class="ai-send-btn" id="ai-send-btn" onclick="sendAIMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  Guatemala 2026 &middot; 30 days to go
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const STORAGE_KEY = 'guat-planner-v1';
+const SUPABASE_URL = 'https://ahhetzualzvwxtfxpigp.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFoaGV0enVhbHp2d3h0ZnhwaWdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwODE3NzIsImV4cCI6MjA5MDY1Nzc3Mn0.mWGbX7Zvkj93z3sSThMEGhxwWT5j7L3C1-ogn0kWL2U';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const DAY_KEYS = ['day0','day1','day2','day3','day4','day5'];
+
+const DEFAULT_SECTIONS = {
+  packing: [
+    { id: 'pack-tech', title: 'Tech', items: ['Camera', 'GoPro', 'Lenses', 'Drone?', 'Computer? (hopefully not)'] },
+    { id: 'pack-hiking', title: 'Hiking', items: ['Water bottle', 'Water bladder', 'Head lamp'] },
+    { id: 'pack-clothing', title: 'Clothing', items: ['Wool socks', 'Rain jacket', 'Rain pants', 'Hiking boots', 'Source sandals'] },
+    { id: 'pack-gear', title: 'Gear & Essentials', items: ['Mosquito protection', 'Sunscreen', 'Energy gels', 'Debit card', 'Cash (USD + Quetzales)'] },
+  ],
+  booking: [
+    { id: 'book-shuttles', title: 'Shuttles', items: ['Airport \u2192 Antigua shuttle', 'Antigua \u2192 Panajachel (~$20)', 'Panajachel \u2192 GUA Airport (~$30)'] },
+    { id: 'book-stays', title: 'Hostels / Stays', items: ['Antigua hostel (Apr 30)', 'Lake Atitl\u00e1n hostel (May 2\u20133)', 'Acatenango overnight (included in hike?)'] },
+    { id: 'book-activities', title: 'Activities / Hikes', items: ['Acatenango overnight hike tour', 'Indian Nose sunrise hike'] },
+  ]
+};
+
+const DEFAULT_ITINERARY = [
+  { dayId: 'day0', num: '00', date: 'Wednesday, April 29', title: 'Travel to JFK', location: 'New York',
+    activities: [
+      { time: 'Eve', title: 'Travel to JFK Terminal 4', sub: 'Red-eye departs at 3:20 AM \u2014 arrive early', type: 'transport' }
+    ]},
+  { dayId: 'day1', num: '01', date: 'Thursday, April 30', title: 'Arrival & Antigua', location: 'Guatemala City \u2192 Antigua',
+    activities: [
+      { time: '3:20a', title: 'Flight AV653: JFK \u2192 Guatemala City', sub: 'Arrive 6:00 AM \u00b7 4h 40m \u00b7 Terminal 4', type: 'flight' },
+      { time: '6:30a', title: 'Shuttle to Antigua', sub: '~1 hour from airport', type: 'transport' },
+      { time: 'AM', title: 'Check into hostel', sub: 'TBD \u2014 need to book', type: 'chill' },
+      { time: 'PM', title: 'Explore Antigua', sub: 'Colonial architecture, Arco de Santa Catalina, Central Park, local food', type: 'explore' }
+    ]},
+  { dayId: 'day2', num: '02', date: 'Friday, May 1', title: 'Acatenango Volcano', location: 'Antigua \u2192 Acatenango',
+    activities: [
+      { time: 'Early', title: 'Acatenango Volcano Hike \u2014 Day 1', sub: 'Overnight hike, camp near summit. Views of Fuego eruptions at night.', type: 'hike' }
+    ]},
+  { dayId: 'day3', num: '03', date: 'Saturday, May 2', title: 'Summit & Lake Atitl\u00e1n', location: 'Acatenango \u2192 Antigua \u2192 Panajachel',
+    activities: [
+      { time: 'Dawn', title: 'Acatenango Volcano \u2014 Day 2', sub: 'Sunrise at summit, descend back to Antigua', type: 'hike' },
+      { time: 'PM', title: 'Shuttle: Antigua \u2192 Panajachel, Lake Atitl\u00e1n', sub: '~3 hours \u00b7 ~$20 USD \u00b7 Book in advance', type: 'transport' },
+      { time: 'Eve', title: 'Settle in at Lake Atitl\u00e1n', sub: 'Lancha from Panajachel to San Pedro or hostel', type: 'chill' }
+    ]},
+  { dayId: 'day4', num: '04', date: 'Sunday, May 3', title: 'Lake Atitl\u00e1n Day', location: 'Lake Atitl\u00e1n',
+    activities: [
+      { time: '4:00a', title: 'Indian Nose Sunrise Hike', sub: 'Departs 4:00\u20134:30 AM from San Pedro \u00b7 Incredible sunrise views', type: 'hike' },
+      { time: 'AM', title: 'Walk through San Juan La Laguna', sub: 'Art cooperatives, textiles, murals', type: 'explore' },
+      { time: 'Mid', title: 'Volc\u00e1n San Pedro', sub: 'Optional \u2014 check energy levels after Acatenango', type: 'hike' },
+      { time: 'PM', title: 'Lancha-Hop Around the Lake', sub: 'Santa Cruz (swimming & cliff jumping) \u2192 San Marcos (yoga vibes) \u2192 Jaibalito (tiny & peaceful)', type: 'explore' },
+      { time: 'Eve', title: 'Kayak & Swim on the Lake', sub: 'Golden hour on Lake Atitl\u00e1n', type: 'chill' }
+    ]},
+  { dayId: 'day5', num: '05', date: 'Monday, May 4', title: 'Return Home', location: 'Lake Atitl\u00e1n \u2192 Guatemala City \u2192 JFK',
+    activities: [
+      { time: 'AM', title: 'Morning at the lake', sub: 'Last swim, coffee, soak it in', type: 'chill' },
+      { time: '~9a', title: 'Lancha: San Pedro \u2192 Panajachel', sub: '~25 min by boat', type: 'transport' },
+      { time: '~9:30a', title: 'Shuttle: Panajachel \u2192 Guatemala City Airport', sub: '~4 hours \u00b7 ~$30 USD \u00b7 Arrive ~1:30 PM', type: 'transport' },
+      { time: '3:40p', title: 'Flight AV555: Guatemala City \u2192 San Salvador', sub: '50 min \u00b7 Layover 2h', type: 'flight' },
+      { time: '6:30p', title: 'Flight AV566: San Salvador \u2192 JFK', sub: 'Arrive 1:15 AM May 5 \u00b7 Terminal 4', type: 'flight' }
+    ]}
+];
+
+const DEFAULT_STAYS = [
+  { name: 'Tropicana Hostel', price: '$9/night', location: 'Antigua', url: 'https://tropicanahostel.com/', desc: 'Pool, rooftop bar with volcano views, on-site tour agency. THE social hostel. Books Acatenango hikes.' },
+  { name: 'ZooLa', price: '$8-13/night', location: 'San Pedro La Laguna', url: 'https://www.hostelworld.com/st/hostels/p/271267/zoola-san-pedro/', desc: 'Hammocks over the water, swimming dock, lakefront restaurant. The reason people extend their stay.' },
+  { name: "Mr. Mullet's", price: '<$8/night', location: 'San Pedro La Laguna', url: 'https://www.hostelworld.com/st/hostels/p/96498/mr-mullets/', desc: 'Rooftop bar, volcano views, instant-friends vibe. Epicenter of San Pedro backpacker scene.' },
+  { name: 'Bigfoot Hostel', price: '$7-10/night', location: 'San Pedro La Laguna', url: '', desc: 'Adventure-focused. Runs Indian Nose tours, Volcán San Pedro hikes. Very social.' },
+];
+
+const DEFAULT_FOOD = [
+  { name: 'Mercado Central', price: '$2-4', location: 'Antigua', url: '', desc: 'Full comedor meals for 25Q. Pepián de pollo, enchiladas guatemaltecas, fresh tortillas. 100+ stalls.' },
+  { name: 'The Fifth Dimension', price: '$4-8', location: 'San Pedro La Laguna', url: '', desc: 'Vegetarian/vegan, massive portions. One of the best restaurants in town.' },
+  { name: 'Shanti Shanti', price: '$4-7', location: 'San Pedro La Laguna', url: '', desc: 'Surprisingly legit Indian food. Great curries and naan.' },
+  { name: 'ZooLa Restaurant', price: '$5-8', location: 'San Pedro La Laguna', url: '', desc: 'Lakefront dining. Perfect for a sunset meal.' },
+  { name: 'Comedor Stalls', price: '$2-3', location: 'San Pedro La Laguna', url: '', desc: 'Local Guatemalan food — rice, beans, chicken, tortillas. Cheapest option everywhere.' },
+];
+
+function loadLocal() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+}
+
+let _syncReady = false;
+
+function saveState(s) {
+  s._updated = Date.now();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
+  clearTimeout(saveState._t);
+  saveState._t = setTimeout(() => {
+    sb.from('planner_state').upsert({ id: 'default', state: s, updated_at: new Date().toISOString() });
+  }, 500);
+}
+
+function applyDefaults(s) {
+  if (!s._sections) s._sections = JSON.parse(JSON.stringify(DEFAULT_SECTIONS));
+  if (!s._itinerary) s._itinerary = JSON.parse(JSON.stringify(DEFAULT_ITINERARY));
+  if (!s._refs) s._refs = {};
+  if (!s._research) s._research = [];
+  if (!s._stays) s._stays = JSON.parse(JSON.stringify(DEFAULT_STAYS));
+  if (!s._food) s._food = JSON.parse(JSON.stringify(DEFAULT_FOOD));
+}
+
+const state = loadLocal();
+applyDefaults(state);
+// Only save locally for initial render — do NOT push to Supabase until sync completes
+localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+
+function escapeHtml(text) {
+  const d = document.createElement('div');
+  d.textContent = text;
+  return d.innerHTML;
+}
+
+// ============ ITINERARY (Data-driven days) ============
+function renderItinerary() {
+  const container = document.getElementById('days-container');
+  container.innerHTML = '';
+
+  state._itinerary.forEach((day, dayIdx) => {
+    const section = document.createElement('div');
+    section.className = 'day-section';
+    section.id = `day-${dayIdx}`;
+
+    let html = `<div class="day-header"><span class="day-number">${escapeHtml(day.num)}</span><div class="day-info"><span class="date">${escapeHtml(day.date)}</span><h2>${escapeHtml(day.title)}</h2><span class="day-location">${escapeHtml(day.location)}</span></div></div>`;
+    html += `<div class="activities">`;
+    day.activities.forEach((act, actIdx) => {
+      html += `<div class="activity type-${act.type}"><span class="activity-time">${escapeHtml(act.time)}</span><div class="activity-content"><div class="activity-title">${escapeHtml(act.title)}</div><div class="activity-sub">${escapeHtml(act.sub)}</div></div><span class="activity-tag tag-${act.type}">${escapeHtml(act.type)}</span><button class="delete-activity-btn" onclick="removeActivity(${dayIdx}, ${actIdx})" title="Remove">\u00d7</button></div>`;
+    });
+    html += `</div>`;
+    html += `<div class="add-activity-form"><input type="text" placeholder="Time" data-field="time"><input type="text" placeholder="Activity title" data-field="title"><select data-field="type"><option value="explore">Explore</option><option value="hike">Hike</option><option value="transport">Transport</option><option value="flight">Flight</option><option value="chill">Chill</option></select><input type="text" placeholder="Details (optional)" data-field="sub" style="grid-column:1/-1"><button onclick="addActivity(${dayIdx}, this)" style="grid-column:1/-1">+ Add Activity</button></div>`;
+    html += `<details class="ref-section" open data-day="${day.dayId}"><summary>Photos & Links</summary><div class="ref-grid" id="ref-grid-${day.dayId}"></div></details>`;
+    html += `<div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-${day.dayId}"></div>`;
+
+    section.innerHTML = html;
+    container.appendChild(section);
+    // Make visible (CSS starts at opacity:0 for scroll-reveal)
+    requestAnimationFrame(() => section.classList.add('visible'));
+
+    // Wire notes
+    const notesEl = section.querySelector('.notes-area');
+    const nk = notesEl.dataset.key;
+    if (state[nk]) notesEl.innerHTML = state[nk];
+    notesEl.addEventListener('input', () => { state[nk] = notesEl.innerHTML; saveState(state); });
+  });
+}
+
+function reRenderAll() {
+  renderItinerary();
+  DAY_KEYS.forEach(renderRefGrid);
+  setupObservers();
+}
+
+function addActivity(dayIdx, btn) {
+  const form = btn.closest('.add-activity-form');
+  const title = form.querySelector('[data-field="title"]').value.trim();
+  if (!title) return;
+  state._itinerary[dayIdx].activities.push({
+    time: form.querySelector('[data-field="time"]').value.trim() || '?',
+    title,
+    sub: form.querySelector('[data-field="sub"]').value.trim(),
+    type: form.querySelector('[data-field="type"]').value,
+  });
+  saveState(state);
+  reRenderAll();
+}
+
+function removeActivity(dayIdx, actIdx) {
+  state._itinerary[dayIdx].activities.splice(actIdx, 1);
+  saveState(state);
+  reRenderAll();
+}
+
+// ============ CHECKLIST SECTIONS (Packing & Booking) ============
+function renderCard(section, gridEl) {
+  const card = document.createElement('div');
+  card.className = 'checklist-card';
+  card.dataset.group = section.id;
+  let html = `<button class="remove-section-btn" onclick="removeSection('${section.id}')" title="Remove category">\u00d7</button>`;
+  html += `<h3>${escapeHtml(section.title)}</h3><span class="progress-text">0 / 0</span><div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>`;
+  section.items.forEach(item => {
+    html += `<label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">${escapeHtml(item)}</span><button class="delete-item-btn" onclick="removeItem(event, this)" title="Remove">\u00d7</button></label>`;
+  });
+  html += `<div class="add-item-row"><input class="add-item-input" placeholder="Add item..." data-group="${section.id}"><button class="add-item-btn" onclick="addItem(this)">Add</button></div>`;
+  card.innerHTML = html;
+  gridEl.appendChild(card);
+  card.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
+    const id = getCheckId(cb);
+    if (state[id]) cb.checked = true;
+    cb.addEventListener('change', () => { state[getCheckId(cb)] = cb.checked; saveState(state); updateProgress(card); });
+  });
+  card.querySelector('.add-item-input').addEventListener('keydown', e => { if (e.key === 'Enter') addItem(card.querySelector('.add-item-btn')); });
+  updateProgress(card);
+}
+
+function renderAllSections() {
+  ['packing-grid','booking-grid'].forEach(id => document.getElementById(id).innerHTML = '');
+  (state._sections.packing || []).forEach(s => renderCard(s, document.getElementById('packing-grid')));
+  (state._sections.booking || []).forEach(s => renderCard(s, document.getElementById('booking-grid')));
+}
+
+function getCheckId(cb) {
+  const card = cb.closest('.checklist-card');
+  return `${card.dataset.group}-${[...card.querySelectorAll('.check-item input[type="checkbox"]')].indexOf(cb)}`;
+}
+
+function updateProgress(card) {
+  const checks = card.querySelectorAll('.check-item input[type="checkbox"]');
+  const checked = [...checks].filter(c => c.checked).length;
+  const pct = checks.length ? Math.round((checked / checks.length) * 100) : 0;
+  card.querySelector('.progress-text').textContent = `${checked} / ${checks.length}`;
+  card.querySelector('.progress-fill').style.width = `${pct}%`;
+}
+
+function addItem(btn) {
+  const row = btn.parentElement, input = row.querySelector('.add-item-input'), text = input.value.trim();
+  if (!text) return;
+  const card = row.closest('.checklist-card'), group = card.dataset.group;
+  const type = group.startsWith('pack-') ? 'packing' : 'booking';
+  const section = state._sections[type].find(s => s.id === group);
+  if (section) { section.items.push(text); saveState(state); }
+  const label = document.createElement('label');
+  label.className = 'check-item';
+  label.innerHTML = `<input type="checkbox"><span class="check-box"></span><span class="check-label">${escapeHtml(text)}</span><button class="delete-item-btn" onclick="removeItem(event, this)">\u00d7</button>`;
+  card.insertBefore(label, row);
+  input.value = '';
+  label.querySelector('input').addEventListener('change', () => { state[getCheckId(label.querySelector('input'))] = label.querySelector('input').checked; saveState(state); updateProgress(card); });
+  updateProgress(card);
+}
+
+function removeItem(event, btn) {
+  event.preventDefault(); event.stopPropagation();
+  const label = btn.closest('.check-item'), card = label.closest('.checklist-card'), group = card.dataset.group;
+  const type = group.startsWith('pack-') ? 'packing' : 'booking';
+  const section = state._sections[type].find(s => s.id === group);
+  if (!section) return;
+  const allItems = [...card.querySelectorAll('.check-item')], idx = allItems.indexOf(label);
+  if (idx >= 0 && idx < section.items.length) {
+    section.items.splice(idx, 1);
+    const old = {}; allItems.forEach((it, i) => { if (it.querySelector('input')?.checked) old[i] = true; });
+    Object.keys(state).forEach(k => { if (k.startsWith(group + '-')) delete state[k]; });
+    let ni = 0; allItems.forEach((it, i) => { if (i === idx) return; if (old[i]) state[`${group}-${ni}`] = true; ni++; });
+    saveState(state);
+  }
+  label.remove(); updateProgress(card);
+}
+
+function addSection(type) {
+  const input = document.getElementById(`add-${type}-section`), title = input.value.trim();
+  if (!title) return;
+  const prefix = type === 'packing' ? 'pack-' : 'book-';
+  const id = prefix + title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  if (state._sections[type].some(s => s.id === id)) return;
+  const section = { id, title, items: [] };
+  state._sections[type].push(section); saveState(state);
+  renderCard(section, document.getElementById(`${type}-grid`));
+  input.value = '';
+}
+
+function removeSection(sectionId) {
+  if (!confirm('Remove this category and all its items?')) return;
+  const type = sectionId.startsWith('pack-') ? 'packing' : 'booking';
+  state._sections[type] = state._sections[type].filter(s => s.id !== sectionId);
+  Object.keys(state).forEach(k => { if (k.startsWith(sectionId + '-')) delete state[k]; });
+  saveState(state);
+  document.querySelector(`[data-group="${sectionId}"]`)?.remove();
+}
+
+document.querySelectorAll('.add-section-input').forEach(input => {
+  const type = input.id.includes('packing') ? 'packing' : 'booking';
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') addSection(type); });
+});
+
+// ============ RESEARCH TRACKER ============
+function renderResearch() {
+  const board = document.getElementById('research-board');
+  board.innerHTML = '';
+  state._research.forEach((item, idx) => {
+    const el = document.createElement('div');
+    el.className = 'research-item';
+    let html = `<button class="ri-delete" onclick="removeResearch(${idx})">\u00d7</button>`;
+    html += `<button class="ri-status ${item.status}" onclick="cycleResearchStatus(${idx})">${item.status}</button>`;
+    html += `<div class="ri-body">`;
+    html += `<div class="ri-title">${item.url ? `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener">${escapeHtml(item.title)}</a>` : escapeHtml(item.title)}</div>`;
+    const meta = [item.price, item.day].filter(Boolean).join(' \u00b7 ');
+    if (meta) html += `<div class="ri-meta">${escapeHtml(meta)}</div>`;
+    if (item.notes) html += `<div class="ri-notes">${escapeHtml(item.notes)}</div>`;
+    html += `</div>`;
+    html += `<span class="ri-cat">${escapeHtml(item.cat)}</span>`;
+    el.innerHTML = html;
+    board.appendChild(el);
+  });
+}
+
+function addResearchItem() {
+  const title = document.getElementById('ri-title').value.trim();
+  if (!title) return;
+  state._research.push({
+    title,
+    price: document.getElementById('ri-price').value.trim(),
+    url: document.getElementById('ri-url').value.trim(),
+    notes: document.getElementById('ri-notes').value.trim(),
+    cat: document.getElementById('ri-cat').value,
+    day: document.getElementById('ri-day').value,
+    status: 'considering',
+  });
+  saveState(state);
+  renderResearch();
+  ['ri-title','ri-price','ri-url','ri-notes'].forEach(id => document.getElementById(id).value = '');
+}
+
+function removeResearch(idx) {
+  state._research.splice(idx, 1); saveState(state); renderResearch();
+}
+
+function cycleResearchStatus(idx) {
+  const cycle = ['considering', 'booked', 'skipped'];
+  const cur = cycle.indexOf(state._research[idx].status);
+  state._research[idx].status = cycle[(cur + 1) % cycle.length];
+  saveState(state); renderResearch();
+}
+
+// ============ STAYS & FOOD (Venues) ============
+function renderVenues(type) {
+  const grid = document.getElementById(`${type}-grid`);
+  grid.innerHTML = '';
+  (state[`_${type}`] || []).forEach((v, idx) => {
+    const card = document.createElement('div');
+    card.className = 'venue-card';
+    let html = `<button class="vc-delete" onclick="removeVenue('${type}', ${idx})">\u00d7</button>`;
+    html += `<div class="vc-location">${escapeHtml(v.location)}</div>`;
+    html += `<div class="vc-name">${v.url ? `<a href="${escapeHtml(v.url)}" target="_blank" rel="noopener">${escapeHtml(v.name)}</a>` : escapeHtml(v.name)}</div>`;
+    if (v.price) html += `<div class="vc-price">${escapeHtml(v.price)}</div>`;
+    if (v.desc) html += `<div class="vc-desc">${escapeHtml(v.desc)}</div>`;
+    card.innerHTML = html;
+    grid.appendChild(card);
+  });
+}
+
+function addVenue(type) {
+  const name = document.getElementById(`${type === 'stays' ? 'stay' : 'food'}-name`).value.trim();
+  if (!name) return;
+  const prefix = type === 'stays' ? 'stay' : 'food';
+  if (!state[`_${type}`]) state[`_${type}`] = [];
+  state[`_${type}`].push({
+    name,
+    price: document.getElementById(`${prefix}-price`).value.trim(),
+    location: document.getElementById(`${prefix}-location`).value,
+    url: document.getElementById(`${prefix}-url`).value.trim(),
+    desc: document.getElementById(`${prefix}-desc`).value.trim(),
+  });
+  saveState(state); renderVenues(type);
+  [`${prefix}-name`,`${prefix}-price`,`${prefix}-url`,`${prefix}-desc`].forEach(id => document.getElementById(id).value = '');
+}
+
+function removeVenue(type, idx) {
+  state[`_${type}`].splice(idx, 1); saveState(state); renderVenues(type);
+}
+
+// ============ REFERENCE CARDS ============
+function renderRefGrid(dayKey) {
+  const grid = document.getElementById(`ref-grid-${dayKey}`);
+  if (!grid) return;
+  grid.innerHTML = '';
+  (state._refs[dayKey] || []).forEach((ref, idx) => {
+    const card = document.createElement('div');
+    card.className = 'ref-card';
+    let html = `<button class="delete-ref-btn" onclick="removeRef('${dayKey}', ${idx})">\u00d7</button>`;
+    if (ref.image) html += `<img src="${escapeHtml(ref.image)}" alt="${escapeHtml(ref.title || '')}" loading="lazy" onerror="this.style.display='none'">`;
+    html += `<div class="ref-body">`;
+    if (ref.title) html += `<div class="ref-title">${escapeHtml(ref.title)}</div>`;
+    if (ref.desc) html += `<div class="ref-desc">${escapeHtml(ref.desc)}</div>`;
+    if (ref.url) html += `<a class="ref-link" href="${escapeHtml(ref.url)}" target="_blank" rel="noopener">\u2192 View</a>`;
+    html += `</div>`;
+    card.innerHTML = html;
+    grid.appendChild(card);
+  });
+  const form = document.createElement('div');
+  form.className = 'add-ref-form';
+  form.innerHTML = `<input type="text" placeholder="Title" data-field="title"><input type="text" placeholder="Image URL (optional)" data-field="image"><input type="text" placeholder="Link URL (optional)" data-field="url"><input type="text" placeholder="Short description (optional)" data-field="desc"><button onclick="addRef('${dayKey}', this)">+ Add</button>`;
+  grid.appendChild(form);
+}
+
+function addRef(dayKey, btn) {
+  const form = btn.closest('.add-ref-form');
+  const title = form.querySelector('[data-field="title"]').value.trim();
+  if (!title) return;
+  if (!state._refs[dayKey]) state._refs[dayKey] = [];
+  state._refs[dayKey].push({
+    title,
+    image: form.querySelector('[data-field="image"]').value.trim(),
+    url: form.querySelector('[data-field="url"]').value.trim(),
+    desc: form.querySelector('[data-field="desc"]').value.trim(),
+  });
+  saveState(state); renderRefGrid(dayKey);
+}
+
+function removeRef(dayKey, idx) {
+  if (!state._refs[dayKey]) return;
+  state._refs[dayKey].splice(idx, 1); saveState(state); renderRefGrid(dayKey);
+}
+
+// ============ INITIAL RENDER ============
+try {
+  renderItinerary();
+  renderAllSections();
+  renderResearch();
+  renderVenues('stays');
+  renderVenues('food');
+  DAY_KEYS.forEach(renderRefGrid);
+  console.log('Initial render OK. Days:', state._itinerary?.length, 'Refs:', Object.keys(state._refs || {}).length);
+} catch (e) {
+  console.error('RENDER ERROR:', e);
+  document.getElementById('days-container').innerHTML = '<p style="padding:2rem;color:red">Render error: ' + e.message + '</p>';
+}
+
+// ============ SUPABASE SYNC ============
+(async function syncFromRemote() {
+  try {
+    const { data } = await sb.from('planner_state').select('state').eq('id', 'default').single();
+    if (data && data.state && Object.keys(data.state).length > 0) {
+      const remoteTs = data.state._updated || 0;
+      const localTs = state._updated || 0;
+      // Always use remote if it's newer OR if we have no meaningful local timestamp
+      if (remoteTs >= localTs || !localTs) {
+        Object.keys(state).forEach(k => delete state[k]);
+        Object.assign(state, data.state);
+        applyDefaults(state);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        renderItinerary();
+        renderAllSections();
+        renderResearch();
+        renderVenues('stays');
+        renderVenues('food');
+        DAY_KEYS.forEach(renderRefGrid);
+        setupObservers();
+      }
+    }
+  } catch {}
+  _syncReady = true;
+})();
+
+// ============ NAV SCROLL ============
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById(btn.dataset.target);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// Re-setup observers after dynamic render
+function setupObservers() {
+  const sections = [...document.querySelectorAll('[id]')].filter(el =>
+    document.querySelector(`.nav-btn[data-target="${el.id}"]`)
+  );
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        const btn = document.querySelector(`.nav-btn[data-target="${entry.target.id}"]`);
+        if (btn) btn.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.day-section').forEach(s => revealObserver.observe(s));
+}
+setupObservers();
+
+// ============ COUNTDOWN ============
+const tripDate = new Date('2026-04-30T03:20:00-04:00');
+function updateCountdown() {
+  const now = new Date(), diff = tripDate - now;
+  const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  const footer = document.querySelector('.footer');
+  footer.textContent = days > 0 ? `Guatemala 2026 \u00B7 ${days} days to go` : days === 0 ? `Guatemala 2026 \u00B7 Today!` : `Guatemala 2026 \u00B7 Memories made`;
+}
+updateCountdown();
+
+// ============ CURRENCY CONVERTER ============
+let gtqRate = 7.75; // fallback rate
+const usdInput = document.getElementById('usd-input');
+const gtqInput = document.getElementById('gtq-input');
+const rateDisplay = document.getElementById('converter-rate');
+
+(async function fetchRate() {
+  try {
+    const r = await fetch('https://open.er-api.com/v6/latest/USD');
+    const d = await r.json();
+    if (d.rates && d.rates.GTQ) {
+      gtqRate = d.rates.GTQ;
+      rateDisplay.textContent = `1 USD = ${gtqRate.toFixed(2)} GTQ · Updated ${new Date(d.time_last_update_utc).toLocaleDateString()}`;
+    }
+  } catch {
+    rateDisplay.textContent = `1 USD ≈ ${gtqRate.toFixed(2)} GTQ · Offline rate`;
+  }
+  buildCheatSheet();
+})();
+
+usdInput.addEventListener('input', () => {
+  const v = parseFloat(usdInput.value);
+  gtqInput.value = isNaN(v) ? '' : (v * gtqRate).toFixed(2);
+});
+gtqInput.addEventListener('input', () => {
+  const v = parseFloat(gtqInput.value);
+  usdInput.value = isNaN(v) ? '' : (v / gtqRate).toFixed(2);
+});
+
+function setUSD(amount) {
+  usdInput.value = amount;
+  gtqInput.value = (amount * gtqRate).toFixed(2);
+}
+
+const quickAmounts = [1, 5, 10, 20, 50, 100];
+const quickContainer = document.getElementById('quick-amounts');
+quickAmounts.forEach(a => {
+  const btn = document.createElement('button');
+  btn.className = 'quick-amount-btn';
+  btn.textContent = `$${a}`;
+  btn.onclick = () => setUSD(a);
+  quickContainer.appendChild(btn);
+});
+
+function buildCheatSheet() {
+  const sheet = document.getElementById('cheat-sheet');
+  const items = [
+    { label: 'Street food', gtq: 15 },
+    { label: 'Local meal', gtq: 35 },
+    { label: 'Coffee', gtq: 10 },
+    { label: 'Beer', gtq: 20 },
+    { label: 'Tuk-tuk ride', gtq: 10 },
+    { label: 'Lancha boat', gtq: 25 },
+    { label: 'Hostel dorm', gtq: 60 },
+    { label: 'Shuttle', gtq: 150 },
+  ];
+  sheet.innerHTML = items.map(i => `<div class="cheat-item"><span>${i.label}</span><span><span class="cheat-gtq">Q${i.gtq}</span> · <span class="cheat-usd">$${(i.gtq / gtqRate).toFixed(2)}</span></span></div>`).join('');
+}
+
+// ============ WEATHER FORECAST ============
+const weatherCache = {};
+const TRIP_DATES = ['2026-04-30','2026-05-01','2026-05-02','2026-05-03','2026-05-04'];
+const DAY_NAMES = ['Thu Apr 30','Fri May 1','Sat May 2','Sun May 3','Mon May 4'];
+
+const weatherIcons = {
+  0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️',
+  45: '🌫️', 48: '🌫️',
+  51: '🌦️', 53: '🌦️', 55: '🌧️',
+  61: '🌧️', 63: '🌧️', 65: '🌧️',
+  80: '🌦️', 81: '🌧️', 82: '⛈️',
+  95: '⛈️', 96: '⛈️', 99: '⛈️',
+};
+
+const weatherDescs = {
+  0: 'Clear sky', 1: 'Mostly clear', 2: 'Partly cloudy', 3: 'Overcast',
+  45: 'Foggy', 48: 'Rime fog',
+  51: 'Light drizzle', 53: 'Drizzle', 55: 'Heavy drizzle',
+  61: 'Light rain', 63: 'Rain', 65: 'Heavy rain',
+  80: 'Light showers', 81: 'Showers', 82: 'Heavy showers',
+  95: 'Thunderstorm', 96: 'Hail storm', 99: 'Severe hail',
+};
+
+function getWeatherIcon(code) {
+  return weatherIcons[code] || '🌡️';
+}
+
+async function fetchWeather(lat, lon, locKey) {
+  if (weatherCache[locKey]) return weatherCache[locKey];
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum&temperature_unit=fahrenheit&start_date=2026-04-30&end_date=2026-05-04&timezone=America/Guatemala`;
+  try {
+    const r = await fetch(url);
+    const d = await r.json();
+    weatherCache[locKey] = d.daily;
+    return d.daily;
+  } catch {
+    return null;
+  }
+}
+
+function renderWeather(data) {
+  const grid = document.getElementById('weather-grid');
+  const summary = document.getElementById('weather-summary');
+  if (!data) {
+    grid.innerHTML = '<div class="weather-loading">Weather data not yet available for these dates. Check back closer to the trip.</div>';
+    summary.innerHTML = '<strong>May in Guatemala:</strong> Rainy season begins. Expect warm days (75–85°F / 24–30°C), cooler highlands (60–75°F / 15–24°C). Afternoon showers are common — mornings are usually clear. Pack a rain jacket and layers for Acatenango (near-freezing at summit).';
+    return;
+  }
+  grid.innerHTML = data.time.map((date, i) => {
+    const code = data.weather_code[i];
+    const hi = Math.round(data.temperature_2m_max[i]);
+    const lo = Math.round(data.temperature_2m_min[i]);
+    const rain = data.precipitation_probability_max[i];
+    const mm = data.precipitation_sum[i];
+    return `<div class="weather-card">
+      <div class="wc-day">${DAY_NAMES[i]}</div>
+      <div class="wc-icon">${getWeatherIcon(code)}</div>
+      <div class="wc-temp">${hi}°F</div>
+      <div class="wc-temp-range">${lo}° / ${hi}°</div>
+      <div class="wc-detail">${weatherDescs[code] || 'Unknown'}<br>${rain}% rain · ${mm}mm</div>
+    </div>`;
+  }).join('');
+  const avgHi = Math.round(data.temperature_2m_max.reduce((a,b) => a+b, 0) / data.temperature_2m_max.length);
+  const avgLo = Math.round(data.temperature_2m_min.reduce((a,b) => a+b, 0) / data.temperature_2m_min.length);
+  const maxRain = Math.max(...data.precipitation_probability_max);
+  summary.innerHTML = `<strong>Trip average:</strong> Highs around ${avgHi}°F, lows around ${avgLo}°F. Rain chance up to ${maxRain}%. <strong>Pack tip:</strong> Layers for Acatenango summit (can drop below 40°F), rain jacket for afternoon showers, light clothes for lakeside days.`;
+}
+
+document.querySelectorAll('.weather-loc-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    document.querySelectorAll('.weather-loc-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const grid = document.getElementById('weather-grid');
+    grid.innerHTML = '<div class="weather-loading">Loading...</div>';
+    const data = await fetchWeather(btn.dataset.lat, btn.dataset.lon, btn.dataset.loc);
+    renderWeather(data);
+  });
+});
+
+// Initial weather load
+(async () => {
+  const btn = document.querySelector('.weather-loc-btn.active');
+  const data = await fetchWeather(btn.dataset.lat, btn.dataset.lon, btn.dataset.loc);
+  renderWeather(data);
+})();
+
+// ============ AI ASSISTANT ============
+const GEMINI_BUILTIN_KEY = '__GEMINI_API_KEY__';
+const AI_KEY_STORAGE = 'guat-ai-key';
+const AI_HISTORY_STORAGE = 'guat-ai-history';
+let aiMessages = [];
+
+try { aiMessages = JSON.parse(localStorage.getItem(AI_HISTORY_STORAGE)) || []; } catch { aiMessages = []; }
+
+function getAIKey() {
+  // Prefer built-in key injected at deploy time, fall back to localStorage
+  if (GEMINI_BUILTIN_KEY && !GEMINI_BUILTIN_KEY.startsWith('__')) return GEMINI_BUILTIN_KEY;
+  return localStorage.getItem(AI_KEY_STORAGE) || '';
+}
+
+function saveAIKey() {
+  const key = document.getElementById('ai-key-input').value.trim();
+  if (!key) return;
+  localStorage.setItem(AI_KEY_STORAGE, key);
+  document.getElementById('ai-key-input').value = '';
+  updateAIKeyUI();
+  addSystemMessage('API key saved. Ask me anything about your trip!');
+}
+
+function updateAIKeyUI() {
+  const setup = document.getElementById('ai-key-setup');
+  // Hide setup entirely if built-in key is present
+  if (GEMINI_BUILTIN_KEY && !GEMINI_BUILTIN_KEY.startsWith('__')) {
+    setup.style.display = 'none';
+    return;
+  }
+  const key = getAIKey();
+  if (key) {
+    setup.innerHTML = `<label>Gemini API Key</label><span style="font-family:'JetBrains Mono';font-size:0.7rem;color:var(--jade)">✓ Key saved</span><button onclick="localStorage.removeItem('${AI_KEY_STORAGE}');updateAIKeyUI()" style="padding:0.4rem 0.75rem;border:none;background:rgba(196,89,59,0.1);color:var(--terracotta);border-radius:8px;font-family:'JetBrains Mono';font-size:0.6rem;cursor:pointer">Remove</button>`;
+  } else {
+    setup.innerHTML = `<label>Google AI API Key</label><input type="password" id="ai-key-input" placeholder="AIza..."><button onclick="saveAIKey()">Save</button><span style="font-size:0.7rem;color:var(--ash)">Free from <a href="https://aistudio.google.com/apikey" target="_blank" style="color:var(--lake)">Google AI Studio</a></span>`;
+  }
+}
+
+function addSystemMessage(text) {
+  const el = document.createElement('div');
+  el.className = 'ai-msg system';
+  el.textContent = text;
+  document.getElementById('ai-messages').appendChild(el);
+  scrollAIToBottom();
+}
+
+function renderAIMessages() {
+  const container = document.getElementById('ai-messages');
+  container.innerHTML = '';
+  aiMessages.forEach(m => {
+    const el = document.createElement('div');
+    el.className = `ai-msg ${m.role}`;
+    if (m.role === 'assistant') {
+      el.innerHTML = simpleMarkdown(m.content);
+    } else {
+      el.textContent = m.content;
+    }
+    container.appendChild(el);
+  });
+  scrollAIToBottom();
+}
+
+function simpleMarkdown(text) {
+  // Escape HTML first to prevent injection
+  const escaped = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return escaped
+    // Links: [text](url)
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener" style="color:var(--lake);text-decoration:underline">$1</a>')
+    // Bare URLs
+    .replace(/(^|[\s(])(https?:\/\/[^\s)<]+)/g, '$1<a href="$2" target="_blank" rel="noopener" style="color:var(--lake);text-decoration:underline">$2</a>')
+    // Bold
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    // Italic
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    // Numbered lists
+    .replace(/^\d+\.\s+(.+)$/gm, '<li>$1</li>')
+    // Bullet lists
+    .replace(/^[-*]\s+(.+)$/gm, '<li>$1</li>')
+    // Wrap consecutive <li> in <ul>
+    .replace(/((?:<li>.*?<\/li>\n?)+)/g, '<ul>$1</ul>')
+    // Paragraphs
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/\n/g, '<br>')
+    .replace(/^(.+)$/s, '<p>$1</p>');
+}
+
+function scrollAIToBottom() {
+  const c = document.getElementById('ai-messages');
+  c.scrollTop = c.scrollHeight;
+}
+
+function buildTripContext() {
+  let ctx = `You are a helpful Guatemala travel assistant. You have FULL access to the traveler's current trip plan. Answer based on this data — don't say you don't have information if it's below.
+
+=== FLIGHTS ===
+OUTBOUND: Avianca AV653, JFK Terminal 4 → Guatemala City La Aurora
+  Departs: Wed Apr 30, 3:20 AM — Arrives: 6:00 AM (4h 40m, Nonstop)
+  LIGHT fare, Carry-on: 1pc/10kg, Checked bag: $130 USD, Ticket: $370.23, Booking: CCB2VT
+
+RETURN LEG 1: AV555, Guatemala City → San Salvador
+  Departs: Mon May 4, 3:40 PM — Arrives: 4:30 PM (0h 50m), 2h layover
+
+RETURN LEG 2: AV566, San Salvador → JFK Terminal 4
+  Departs: Mon May 4, 6:30 PM — Arrives: Tue May 5, 1:15 AM (4h 45m)
+
+=== DAILY ITINERARY ===\n`;
+
+  (state._itinerary || []).forEach(day => {
+    ctx += `\n${day.date} — ${day.title} (${day.location}):\n`;
+    day.activities.forEach(a => {
+      ctx += `  ${a.time}: ${a.title} — ${a.sub} [${a.type}]\n`;
+    });
+  });
+
+  ctx += `\n=== PACKING LIST ===\n`;
+  (state._sections?.packing || []).forEach(s => {
+    const checked = s.items.map((item, i) => {
+      const isChecked = state[`${s.id}-${i}`];
+      return `${isChecked ? '✓' : '☐'} ${item}`;
+    });
+    ctx += `${s.title}: ${checked.join(', ')}\n`;
+  });
+
+  ctx += `\n=== THINGS TO BOOK ===\n`;
+  (state._sections?.booking || []).forEach(s => {
+    const checked = s.items.map((item, i) => {
+      const isChecked = state[`${s.id}-${i}`];
+      return `${isChecked ? '✓ DONE' : '☐ TODO'} ${item}`;
+    });
+    ctx += `${s.title}: ${checked.join(', ')}\n`;
+  });
+
+  ctx += `\n=== RESEARCH (things being considered) ===\n`;
+  (state._research || []).forEach(r => {
+    ctx += `[${r.status}] ${r.title} — ${r.price || 'no price'} — ${r.notes || ''} (${r.cat})\n`;
+  });
+
+  ctx += `\n=== WHERE TO STAY ===\n`;
+  (state._stays || []).forEach(v => {
+    ctx += `${v.name} (${v.location}) — ${v.price} — ${v.desc}\n`;
+  });
+
+  ctx += `\n=== WHERE TO EAT ===\n`;
+  (state._food || []).forEach(v => {
+    ctx += `${v.name} (${v.location}) — ${v.price} — ${v.desc}\n`;
+  });
+
+  ctx += `\n=== BUDGET ===
+Flights: $370.23 (booked)
+Shuttle Antigua→Panajachel: ~$20
+Shuttle Panajachel→Airport: ~$30
+Acatenango hike tour: ~$30–60
+Hostels (3 nights): ~$30–60
+Lanchas/local transport: ~$10–15
+Food & misc: ~$50–80
+
+=== TRAVELER ===
+Solo male traveler from NYC. Budget backpacker. Hostels $7-13/night.
+Currency: Guatemalan Quetzal (GTQ), ~${gtqRate.toFixed(2)} per USD.
+Season: Early rainy season — warm days, cool highlands, afternoon showers.
+
+Keep answers concise and practical. Reference specific items from the plan above when relevant. If asked "what am I forgetting" or similar, compare the packing/booking lists against what's typical for this type of trip.`;
+
+  return ctx;
+}
+
+async function sendAIMessage() {
+  const input = document.getElementById('ai-input');
+  const text = input.value.trim();
+  if (!text) return;
+
+  const key = getAIKey();
+  if (!key) {
+    addSystemMessage('Please add your Google AI API key above first (free from Google AI Studio)');
+    return;
+  }
+
+  aiMessages.push({ role: 'user', content: text });
+  input.value = '';
+  renderAIMessages();
+
+  const btn = document.getElementById('ai-send-btn');
+  btn.disabled = true;
+  btn.textContent = '...';
+
+  try {
+    const geminiMessages = aiMessages.map(m => ({
+      role: m.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: m.content }]
+    }));
+
+    const tripCtx = buildTripContext();
+
+    // Prepend system context as first user message if first real message
+    if (geminiMessages.length === 1) {
+      geminiMessages.unshift(
+        { role: 'user', parts: [{ text: tripCtx + '\n\nPlease acknowledge you understand the trip details briefly.' }] },
+        { role: 'model', parts: [{ text: 'Got it! I have all your Guatemala trip details — flights, daily itinerary, packing list, bookings, hostels, food spots, and budget. Ready to help with anything. What would you like to know?' }] }
+      );
+    }
+
+    const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: geminiMessages,
+        generationConfig: { maxOutputTokens: 1024, temperature: 0.7 },
+        systemInstruction: { parts: [{ text: tripCtx }] },
+      }),
+    });
+
+    const data = await resp.json();
+
+    if (data.error) {
+      throw new Error(data.error.message || 'API error');
+    }
+
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response received.';
+    aiMessages.push({ role: 'assistant', content: reply });
+    localStorage.setItem(AI_HISTORY_STORAGE, JSON.stringify(aiMessages));
+    renderAIMessages();
+  } catch (err) {
+    addSystemMessage(`Error: ${err.message}`);
+    aiMessages.pop(); // remove failed user message
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Send';
+}
+
+function askAI(text) {
+  document.getElementById('ai-input').value = text;
+  sendAIMessage();
+}
+
+// Initialize AI UI
+updateAIKeyUI();
+if (aiMessages.length > 0) renderAIMessages();
+</script>
+
+</body>
+</html>

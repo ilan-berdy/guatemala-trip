@@ -23,8 +23,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Inject API key
-        run: sed -i 's/__GEMINI_API_KEY__/${{ secrets.GEMINI_API_KEY }}/' index.html
+      - name: Inject API key (per-trip apps)
+        run: |
+          sed -i 's/__GEMINI_API_KEY__/${{ secrets.GEMINI_API_KEY }}/g' guatemala/index.html
+          sed -i 's/__GEMINI_API_KEY__/${{ secrets.GEMINI_API_KEY }}/g' woodstock/index.html
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

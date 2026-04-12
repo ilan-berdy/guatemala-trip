@@ -1,0 +1,3400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Woodstock NY — May 28 – May 31</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Woodstock">
+<meta name="theme-color" content="#1e2d24">
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --earth: #1e2d24;
+  --cream: #f4f1eb;
+  --terracotta: #8b4a3c;
+  --jade: #2d6a4f;
+  --jade-light: #40916c;
+  --gold: #c9a227;
+  --lake: #2a5f7a;
+  --lake-light: #3d7a9a;
+  --ash: #7a756c;
+  --sand: #e0d9cc;
+  --linen: #faf8f4;
+  --volcano: #6b3a2e;
+  --charcoal: #2a332d;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ash) transparent;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--earth);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ============ HERO ============ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--earth);
+  color: var(--cream);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(45, 106, 79, 0.35), transparent),
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(139, 74, 60, 0.22), transparent),
+    radial-gradient(ellipse 90% 70% at 50% 50%, rgba(42, 95, 122, 0.14), transparent);
+  animation: heroShift 12s ease-in-out infinite alternate;
+}
+
+@keyframes heroShift {
+  0% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.3s;
+}
+
+.hero h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(4rem, 12vw, 9rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.5s;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--jade-light);
+}
+
+.hero-dates {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  margin-top: 2rem;
+  color: var(--ash);
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 0.8s;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ash);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-family: 'JetBrains Mono', monospace;
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards 1.2s;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.hero-scroll .arrow {
+  width: 1px;
+  height: 40px;
+  background: var(--ash);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-scroll .arrow::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--gold);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+
+@keyframes scrollLine {
+  0% { top: -100%; }
+  50% { top: 100%; }
+  100% { top: 100%; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ NAV ============ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(245, 240, 232, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(44, 36, 23, 0.08);
+  padding: 0 2rem;
+  /* Push below Dynamic Island / notch in standalone PWA mode */
+  padding-top: env(safe-area-inset-top, 0);
+  padding-top: constant(safe-area-inset-top); /* iOS 11.0-11.1 */
+}
+
+@supports (padding-top: env(safe-area-inset-top)) {
+  .nav { padding-top: env(safe-area-inset-top); }
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0.75rem 0;
+}
+
+.nav-inner::-webkit-scrollbar { display: none; }
+
+.nav-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: none;
+  color: var(--ash);
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 100px;
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover { color: var(--earth); background: var(--sand); }
+.nav-btn.active { color: var(--cream); background: var(--earth); }
+
+/* ============ MAIN ============ */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem 6rem;
+}
+
+/* ============ FLIGHT CARD ============ */
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 1.5rem;
+  padding-top: 4rem;
+}
+
+.flights-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: rgba(44, 36, 23, 0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 4rem;
+}
+
+.flight-card {
+  background: var(--linen);
+  padding: 2rem 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto;
+  align-items: center;
+  gap: 2rem;
+  transition: background 0.3s;
+}
+
+.flight-card:hover { background: white; }
+
+.flight-endpoint {
+  display: flex;
+  flex-direction: column;
+}
+
+.flight-endpoint .city {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.5rem;
+}
+
+.flight-endpoint .detail {
+  font-size: 0.75rem;
+  color: var(--ash);
+  margin-top: 0.25rem;
+}
+
+.flight-endpoint .time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+.flight-endpoint.arrival { text-align: right; }
+
+.flight-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 160px;
+}
+
+.flight-line .code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--terracotta);
+  background: rgba(196, 89, 59, 0.08);
+  padding: 0.25rem 0.75rem;
+  border-radius: 100px;
+}
+
+.flight-line .line {
+  width: 100%;
+  height: 1px;
+  background: var(--ash);
+  position: relative;
+}
+
+.flight-line .line::after {
+  content: '';
+  position: absolute;
+  right: -3px;
+  top: -3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--terracotta);
+}
+
+.flight-line .duration {
+  font-size: 0.7rem;
+  color: var(--ash);
+}
+
+.flight-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-left: 2rem;
+  border-left: 1px solid rgba(44, 36, 23, 0.08);
+}
+
+.flight-meta span {
+  font-size: 0.7rem;
+  color: var(--ash);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ============ ITINERARY ============ */
+.day-section {
+  padding-top: 4rem;
+  margin-bottom: 4rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.day-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.day-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--earth);
+}
+
+.day-number {
+  font-family: 'Instrument Serif', serif;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--earth);
+}
+
+.day-info h2 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.day-info .date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--ash);
+  text-transform: uppercase;
+}
+
+.day-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--jade);
+  background: rgba(58, 125, 92, 0.08);
+  padding: 0.3rem 0.8rem;
+  border-radius: 100px;
+  margin-top: 0.5rem;
+}
+
+.day-location::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--jade);
+}
+
+/* Activity items */
+.activities {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.activity {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--linen);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+.activity::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  transition: background 0.3s;
+}
+
+.activity.type-flight::before { background: var(--terracotta); }
+.activity.type-transport::before { background: var(--lake); }
+.activity.type-hike::before { background: var(--jade); }
+.activity.type-explore::before { background: var(--gold); }
+.activity.type-chill::before { background: var(--ash); }
+
+.activity:hover {
+  background: white;
+  box-shadow: 0 4px 20px rgba(44, 36, 23, 0.06);
+}
+
+.activity-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--ash);
+  min-width: 60px;
+  padding-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.activity-content {
+  flex: 1;
+}
+
+.activity-title {
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
+}
+
+.activity-sub {
+  font-size: 0.8rem;
+  color: var(--ash);
+}
+
+.activity-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 100px;
+  align-self: flex-start;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.tag-flight { background: rgba(196, 89, 59, 0.1); color: var(--terracotta); }
+.tag-transport { background: rgba(46, 107, 138, 0.1); color: var(--lake); }
+.tag-hike { background: rgba(58, 125, 92, 0.1); color: var(--jade); }
+.tag-explore { background: rgba(212, 168, 67, 0.1); color: #a8852f; }
+.tag-chill { background: rgba(139, 129, 119, 0.1); color: var(--ash); }
+.tag-note { background: rgba(139, 58, 42, 0.1); color: var(--volcano); }
+
+/* ============ NOTES (inline editable) ============ */
+.notes-area {
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba(44, 36, 23, 0.02);
+  border: 1px dashed rgba(44, 36, 23, 0.1);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: var(--charcoal);
+  min-height: 2.5rem;
+  outline: none;
+  transition: all 0.3s;
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.5;
+}
+
+.notes-area:empty::before {
+  content: attr(data-placeholder);
+  color: var(--ash);
+  opacity: 0.5;
+}
+
+.notes-area:focus {
+  border-color: var(--jade);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(58, 125, 92, 0.08);
+}
+
+/* ============ REFERENCE LINKS ============ */
+.ref-section {
+  margin-top: 1rem;
+}
+
+.ref-section summary {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ash);
+  cursor: pointer;
+  padding: 0.5rem 0;
+  user-select: none;
+  list-style: none;
+}
+
+.ref-section summary::before {
+  content: '+ ';
+}
+
+.ref-section[open] summary::before {
+  content: '− ';
+}
+
+.ref-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.ref-card {
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--linen);
+  transition: all 0.3s;
+  position: relative;
+}
+
+.ref-card:hover {
+  background: white;
+  box-shadow: 0 4px 20px rgba(44, 36, 23, 0.08);
+}
+
+.ref-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+}
+
+.venue-card .vc-cover {
+  width: calc(100% + 2.5rem);
+  margin: -1.25rem -1.25rem 0.85rem -1.25rem;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+}
+
+.ref-card .ref-body {
+  padding: 0.65rem 0.75rem;
+}
+
+.ref-card .ref-title {
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+
+.ref-card .ref-desc {
+  font-size: 0.7rem;
+  color: var(--ash);
+  line-height: 1.4;
+}
+
+.ref-card a.ref-link {
+  display: inline-block;
+  margin-top: 0.35rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--lake);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+
+.ref-card a.ref-link:hover {
+  color: var(--lake-light);
+  text-decoration: underline;
+}
+
+.ref-card .delete-ref-btn {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+  background: rgba(0,0,0,0.4);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 0.7rem;
+  line-height: 20px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.ref-card:hover .delete-ref-btn {
+  opacity: 0.7;
+}
+
+.ref-card .delete-ref-btn:hover {
+  opacity: 1;
+  background: var(--terracotta);
+}
+
+.add-ref-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.75rem;
+  background: var(--linen);
+  border-radius: 10px;
+  border: 1px dashed rgba(44, 36, 23, 0.12);
+  min-height: 120px;
+  justify-content: center;
+}
+
+.add-ref-form input {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 6px;
+  background: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: var(--earth);
+  outline: none;
+}
+
+.add-ref-form input:focus {
+  border-color: var(--jade);
+}
+
+.add-ref-form input::placeholder {
+  color: var(--ash);
+  opacity: 0.5;
+}
+
+.add-ref-form button {
+  padding: 0.4rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.add-ref-form button:hover {
+  background: var(--jade);
+}
+
+/* ============ RESEARCH TRACKER ============ */
+.research-board {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.research-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--linen);
+  border-radius: 12px;
+  transition: all 0.3s;
+  position: relative;
+  align-items: flex-start;
+}
+
+.research-item:hover {
+  background: white;
+  box-shadow: 0 4px 20px rgba(44, 36, 23, 0.06);
+}
+
+.research-item .ri-status {
+  flex-shrink: 0;
+  padding: 0.2rem 0.5rem;
+  border-radius: 100px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  margin-top: 0.1rem;
+}
+
+.ri-status.considering { background: rgba(212, 168, 67, 0.15); color: #a8852f; }
+.ri-status.booked { background: rgba(58, 125, 92, 0.15); color: var(--jade); }
+.ri-status.skipped { background: rgba(139, 129, 119, 0.15); color: var(--ash); text-decoration: line-through; }
+
+.research-item .ri-body { flex: 1; min-width: 0; }
+.research-item .ri-title { font-weight: 500; font-size: 0.9rem; }
+.research-item .ri-title a { color: var(--earth); text-decoration: none; }
+.research-item .ri-title a:hover { color: var(--lake); text-decoration: underline; }
+.research-item .ri-meta { font-size: 0.75rem; color: var(--ash); margin-top: 0.15rem; }
+.research-item .ri-notes { font-size: 0.8rem; color: var(--charcoal); margin-top: 0.35rem; line-height: 1.4; }
+.research-item .ri-cat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ash);
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.research-item .ri-delete {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  color: var(--ash);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+  font-size: 0.9rem;
+}
+
+.research-item:hover .ri-delete { opacity: 0.4; }
+.research-item .ri-delete:hover { opacity: 1; color: var(--terracotta); }
+
+.add-research-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background: var(--linen);
+  border-radius: 12px;
+  border: 1px dashed rgba(44, 36, 23, 0.12);
+}
+
+.add-research-form input, .add-research-form select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 8px;
+  background: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  color: var(--earth);
+  outline: none;
+}
+
+.add-research-form input:focus, .add-research-form select:focus {
+  border-color: var(--jade);
+}
+
+.add-research-form input.full-width { grid-column: 1 / -1; }
+
+.add-research-form button {
+  grid-column: 1 / -1;
+  padding: 0.5rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.add-research-form button:hover { background: var(--jade); }
+
+/* ============ STAYS & FOOD ============ */
+.venue-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.venue-card {
+  background: var(--linen);
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.venue-card:hover {
+  background: white;
+  box-shadow: 0 4px 20px rgba(44, 36, 23, 0.06);
+}
+
+.venue-card .vc-location {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 0.35rem;
+}
+
+.venue-card .vc-name {
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin-bottom: 0.15rem;
+}
+
+.venue-card .vc-name a { color: var(--earth); text-decoration: none; }
+.venue-card .vc-name a:hover { color: var(--lake); text-decoration: underline; }
+
+.venue-card .vc-price {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--jade);
+  margin-bottom: 0.25rem;
+}
+
+.venue-card .vc-desc {
+  font-size: 0.8rem;
+  color: var(--ash);
+  line-height: 1.4;
+}
+
+.venue-card .vc-delete {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 2;
+  background: none;
+  border: none;
+  color: var(--ash);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s;
+  font-size: 0.9rem;
+}
+
+.venue-card:hover .vc-delete { opacity: 0.4; }
+.venue-card .vc-delete:hover { opacity: 1; color: var(--terracotta); }
+
+.venue-card .vc-strategy-row {
+  margin-top: 0.75rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(44, 36, 23, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.venue-card .vc-strategy-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ash);
+}
+
+.venue-card .vc-strategy-select {
+  flex: 1;
+  min-width: 140px;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid rgba(44, 36, 23, 0.12);
+  border-radius: 8px;
+  background: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: var(--earth);
+  cursor: pointer;
+}
+
+.venue-card .vc-strategy-select:focus {
+  outline: none;
+  border-color: var(--jade);
+}
+
+.add-venue-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  padding: 1.25rem;
+  background: var(--linen);
+  border-radius: 12px;
+  border: 1px dashed rgba(44, 36, 23, 0.12);
+  margin-top: 1.5rem;
+}
+
+.add-venue-form input, .add-venue-form select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 8px;
+  background: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  color: var(--earth);
+  outline: none;
+}
+
+.add-venue-form input:focus, .add-venue-form select:focus { border-color: var(--jade); }
+.add-venue-form input.full-width { grid-column: 1 / -1; }
+
+.stay-import-hint {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--jade);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.stay-import-hint.is-error {
+  color: var(--terracotta);
+}
+
+.stay-import-open-wrap {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.stay-import-open-link {
+  color: var(--lake);
+  font-weight: 500;
+}
+
+.add-venue-form button {
+  grid-column: 1 / -1;
+  padding: 0.5rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.add-venue-form button:hover { background: var(--jade); }
+
+/* ============ LODGING STRATEGY (compare options) ============ */
+.section-lead {
+  max-width: 42rem;
+  margin: -0.5rem auto 1.75rem;
+  font-size: 0.9rem;
+  color: var(--ash);
+  line-height: 1.55;
+}
+
+.lodging-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: stretch;
+}
+
+@media (max-width: 768px) {
+  .lodging-compare { grid-template-columns: 1fr; }
+}
+
+.lodging-option {
+  background: var(--linen);
+  border-radius: 16px;
+  padding: 1.35rem 1.5rem 1.25rem;
+  border: 1px solid rgba(44, 36, 23, 0.06);
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.lodging-option--walkable {
+  border-top: 3px solid var(--jade);
+}
+
+.lodging-option--drive {
+  border-top: 3px solid var(--lake);
+}
+
+.lodging-option h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+  color: var(--earth);
+}
+
+.lodging-option .lodging-tagline {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 0.75rem;
+}
+
+.lodging-pros {
+  margin: 0 0 1rem 1rem;
+  padding: 0;
+  font-size: 0.8rem;
+  color: var(--charcoal);
+  line-height: 1.55;
+}
+
+.lodging-pros li { margin-bottom: 0.35rem; }
+
+.lodging-option .venue-grid {
+  margin-top: 0;
+  flex: 1;
+}
+
+.lodging-unassigned-wrap {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed rgba(44, 36, 23, 0.12);
+}
+
+.lodging-unassigned-wrap .lodging-unassigned-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 0.5rem;
+}
+
+.lodging-unassigned-wrap .section-lead {
+  margin: 0 0 1rem;
+  max-width: none;
+}
+
+/* ============ ADD ACTIVITY ============ */
+.add-activity-form {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  align-items: center;
+}
+
+.add-activity-form input, .add-activity-form select {
+  padding: 0.45rem 0.6rem;
+  border: 1px dashed rgba(44, 36, 23, 0.15);
+  border-radius: 8px;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  color: var(--earth);
+  outline: none;
+}
+
+.add-activity-form input:focus, .add-activity-form select:focus {
+  border-color: var(--jade);
+  border-style: solid;
+  background: white;
+}
+
+.add-activity-form button {
+  padding: 0.45rem 0.75rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.add-activity-form button:hover { background: var(--jade); }
+
+.activity .delete-activity-btn {
+  background: none;
+  border: none;
+  color: var(--ash);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0 0.25rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.activity:hover .delete-activity-btn { opacity: 0.4; }
+.activity .delete-activity-btn:hover { opacity: 1; color: var(--terracotta); }
+
+/* ============ CHECKLIST SECTIONS ============ */
+.checklist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.checklist-card {
+  background: var(--linen);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.checklist-card:hover {
+  background: white;
+  box-shadow: 0 4px 24px rgba(44, 36, 23, 0.06);
+}
+
+.checklist-card h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  margin-bottom: 0.25rem;
+}
+
+.checklist-card .progress-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--ash);
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 2px;
+  background: rgba(44, 36, 23, 0.06);
+  border-radius: 2px;
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--jade);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+.delete-item-btn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--ash);
+  cursor: pointer;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  padding: 0 0.25rem;
+  opacity: 0;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.check-item:hover .delete-item-btn {
+  opacity: 0.4;
+}
+
+.delete-item-btn:hover {
+  opacity: 1 !important;
+  color: var(--terracotta);
+}
+
+.check-item input {
+  display: none;
+}
+
+.check-box {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--ash);
+  border-radius: 4px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  margin-top: 1px;
+}
+
+.check-item:hover .check-box {
+  border-color: var(--jade);
+}
+
+.check-item input:checked + .check-box {
+  background: var(--jade);
+  border-color: var(--jade);
+}
+
+.check-item input:checked + .check-box::after {
+  content: '';
+  width: 5px;
+  height: 9px;
+  border: solid var(--cream);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.check-label {
+  font-size: 0.85rem;
+  transition: all 0.25s;
+  line-height: 1.4;
+}
+
+.check-item input:checked ~ .check-label {
+  color: var(--ash);
+  text-decoration: line-through;
+  text-decoration-color: rgba(139, 129, 119, 0.4);
+}
+
+.check-sub {
+  font-size: 0.75rem;
+  color: var(--ash);
+  margin-left: calc(18px + 0.75rem);
+  padding-bottom: 0.25rem;
+}
+
+/* Sub-items indented under a parent */
+.check-item.sub-item {
+  padding-left: 1.5rem;
+}
+
+.check-item.sub-item .check-box {
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+}
+
+/* ============ BUDGET ============ */
+.budget-section {
+  margin-top: 4rem;
+}
+
+.budget-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1px;
+  background: rgba(44, 36, 23, 0.06);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 1.5rem;
+}
+
+.budget-card {
+  background: var(--linen);
+  padding: 1.75rem;
+  text-align: center;
+  transition: background 0.3s;
+}
+
+.budget-card:hover { background: white; }
+
+.budget-card .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 0.5rem;
+}
+
+.budget-card .amount {
+  font-family: 'Instrument Serif', serif;
+  font-size: 2rem;
+}
+
+.budget-card .amount.total {
+  color: var(--terracotta);
+}
+
+.budget-items {
+  margin-top: 1.5rem;
+}
+
+.budget-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(44, 36, 23, 0.06);
+  font-size: 0.85rem;
+}
+
+.budget-row .item-name {
+  color: var(--charcoal);
+}
+
+.budget-row .item-cost {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--ash);
+}
+
+.budget-row .item-cost.booked {
+  color: var(--jade);
+}
+
+/* ============ ADD ITEM ============ */
+.add-item-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.add-item-input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px dashed rgba(44, 36, 23, 0.15);
+  border-radius: 8px;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  color: var(--earth);
+  outline: none;
+  transition: all 0.3s;
+}
+
+.add-item-input:focus {
+  border-color: var(--jade);
+  border-style: solid;
+  background: white;
+}
+
+.add-item-input::placeholder { color: var(--ash); opacity: 0.5; }
+
+.add-item-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.add-item-btn:hover {
+  background: var(--jade);
+}
+
+.add-section-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.add-section-input {
+  flex: 1;
+  padding: 0.65rem 1rem;
+  border: 1px dashed rgba(44, 36, 23, 0.15);
+  border-radius: 12px;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  color: var(--earth);
+  outline: none;
+  transition: all 0.3s;
+}
+
+.add-section-input:focus {
+  border-color: var(--jade);
+  border-style: solid;
+  background: white;
+}
+
+.add-section-input::placeholder { color: var(--ash); opacity: 0.5; }
+
+.add-section-btn {
+  padding: 0.65rem 1.25rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.add-section-btn:hover {
+  background: var(--jade);
+}
+
+.remove-section-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--ash);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.25rem;
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+.checklist-card:hover .remove-section-btn {
+  opacity: 0.5;
+}
+
+.remove-section-btn:hover {
+  opacity: 1 !important;
+  color: var(--terracotta);
+}
+
+/* ============ FOOTER ============ */
+.footer {
+  text-align: center;
+  padding: 4rem 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--ash);
+  letter-spacing: 0.15em;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 4rem; }
+  .main { padding: 0 1rem; }
+  .flight-card {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    text-align: center;
+  }
+  .flight-endpoint.arrival { text-align: center; }
+  .flight-meta {
+    border-left: none;
+    padding-left: 0;
+    border-top: 1px solid rgba(44, 36, 23, 0.08);
+    padding-top: 1rem;
+    align-items: center;
+  }
+  .day-header { flex-direction: column; gap: 0.5rem; }
+  .day-number { font-size: 3rem; }
+  .activity { flex-wrap: wrap; gap: 0.5rem; padding: 1rem; }
+  .activity-time { min-width: auto; }
+  .activity-tag { margin-left: auto; }
+  .checklist-grid { grid-template-columns: 1fr; }
+  .budget-grid { grid-template-columns: 1fr 1fr; }
+  .ref-grid { grid-template-columns: 1fr 1fr; }
+  .venue-grid { grid-template-columns: 1fr; }
+  .add-venue-form { grid-template-columns: 1fr; }
+  .add-research-form { grid-template-columns: 1fr; }
+  .add-activity-form { grid-template-columns: 1fr; }
+  .add-activity-form select { width: 100%; }
+  .research-item { flex-wrap: wrap; }
+  .nav { padding: 0 0.75rem; }
+  .nav-inner { gap: 0.15rem; padding: 0.5rem 0; }
+  .nav-btn { font-size: 0.5rem; padding: 0.35rem 0.5rem; letter-spacing: 0.05em; }
+  .converter-widget { flex-direction: column; }
+  .converter-arrow { transform: rotate(90deg); padding: 0; }
+  .weather-grid { grid-template-columns: repeat(3, 1fr); }
+  .weather-locations { flex-wrap: wrap; }
+  .ai-msg { max-width: 95%; }
+}
+
+/* ============ CURRENCY CONVERTER ============ */
+.converter-widget {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.converter-input-group {
+  flex: 1;
+  min-width: 180px;
+  position: relative;
+}
+
+.converter-input-group label {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 0.4rem;
+}
+
+.converter-input-group input {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 12px;
+  background: var(--linen);
+  font-family: 'Instrument Serif', serif;
+  font-size: 2rem;
+  color: var(--earth);
+  outline: none;
+  transition: all 0.3s;
+}
+
+.converter-input-group input:focus {
+  border-color: var(--jade);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(58, 125, 92, 0.08);
+}
+
+.converter-arrow {
+  font-size: 1.5rem;
+  color: var(--ash);
+  padding-top: 1.2rem;
+}
+
+.converter-rate {
+  width: 100%;
+  margin-top: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--ash);
+  letter-spacing: 0.05em;
+}
+
+.converter-quick-amounts {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.quick-amount-btn {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 100px;
+  background: var(--linen);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--earth);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.quick-amount-btn:hover {
+  background: var(--earth);
+  color: var(--cream);
+  border-color: var(--earth);
+}
+
+.converter-cheat-sheet {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.cheat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0.9rem;
+  background: var(--linen);
+  border-radius: 8px;
+  font-size: 0.8rem;
+}
+
+.cheat-item .cheat-usd {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--jade);
+}
+
+.cheat-item .cheat-gtq {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--ash);
+}
+
+/* ============ WEATHER ============ */
+.weather-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.weather-card {
+  background: var(--linen);
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: all 0.3s;
+  text-align: center;
+}
+
+.weather-card:hover {
+  background: white;
+  box-shadow: 0 4px 20px rgba(44, 36, 23, 0.06);
+}
+
+.weather-card .wc-day {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ash);
+  margin-bottom: 0.5rem;
+}
+
+.weather-card .wc-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.weather-card .wc-temp {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.8rem;
+  color: var(--earth);
+}
+
+.weather-card .wc-temp-range {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--ash);
+  margin-top: 0.15rem;
+}
+
+.weather-card .wc-detail {
+  font-size: 0.75rem;
+  color: var(--ash);
+  margin-top: 0.5rem;
+  line-height: 1.4;
+}
+
+.weather-locations {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.weather-loc-btn {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 100px;
+  background: var(--linen);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ash);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.weather-loc-btn.active {
+  background: var(--earth);
+  color: var(--cream);
+  border-color: var(--earth);
+}
+
+.weather-summary {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background: var(--linen);
+  border-radius: 12px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--charcoal);
+}
+
+.weather-summary strong {
+  color: var(--earth);
+}
+
+.weather-loading {
+  text-align: center;
+  padding: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--ash);
+}
+
+/* ============ AI ASSISTANT ============ */
+.ai-chat-container {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ai-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow-y: visible;
+  padding-right: 0.5rem;
+}
+
+.ai-msg {
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  max-width: 85%;
+  word-wrap: break-word;
+}
+
+.ai-msg.user {
+  background: var(--earth);
+  color: var(--cream);
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.ai-msg.assistant {
+  background: var(--linen);
+  color: var(--charcoal);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.ai-msg.assistant p { margin: 0.4rem 0; }
+.ai-msg.assistant p:first-child { margin-top: 0; }
+.ai-msg.assistant p:last-child { margin-bottom: 0; }
+.ai-msg.assistant strong { color: var(--earth); }
+.ai-msg.assistant ul, .ai-msg.assistant ol { margin: 0.4rem 0; padding-left: 1.25rem; }
+.ai-msg.assistant li { margin: 0.2rem 0; }
+
+.ai-msg.system {
+  background: rgba(212, 168, 67, 0.1);
+  color: var(--ash);
+  align-self: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-align: center;
+  max-width: 100%;
+}
+
+.ai-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ai-input {
+  flex: 1;
+  padding: 0.85rem 1.1rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 12px;
+  background: var(--linen);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  color: var(--earth);
+  outline: none;
+  transition: all 0.3s;
+  resize: none;
+}
+
+.ai-input:focus {
+  border-color: var(--jade);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(58, 125, 92, 0.08);
+}
+
+.ai-send-btn {
+  padding: 0.85rem 1.5rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.ai-send-btn:hover { background: var(--jade); }
+.ai-send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.ai-key-setup {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background: rgba(212, 168, 67, 0.08);
+  border-radius: 12px;
+  flex-wrap: wrap;
+}
+
+.ai-key-setup label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ash);
+  white-space: nowrap;
+}
+
+.ai-key-setup input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(44, 36, 23, 0.1);
+  border-radius: 8px;
+  background: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--earth);
+  outline: none;
+}
+
+.ai-key-setup input:focus { border-color: var(--jade); }
+
+.ai-key-setup button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: var(--earth);
+  color: var(--cream);
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+}
+
+.ai-key-setup button:hover { background: var(--jade); }
+
+.ai-suggestions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.ai-suggestion-btn {
+  padding: 0.5rem 0.9rem;
+  border: 1px dashed rgba(44, 36, 23, 0.15);
+  border-radius: 100px;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: var(--ash);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ai-suggestion-btn:hover {
+  border-color: var(--jade);
+  color: var(--jade);
+  border-style: solid;
+}
+
+/* ============ PRINT STYLES ============ */
+@media print {
+  .nav, .hero-scroll, .add-item-row, .notes-area { display: none; }
+  .hero { min-height: auto; padding: 2rem; }
+  .day-section { opacity: 1 !important; transform: none !important; page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<!-- ====== HERO ====== -->
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow">May 28 &mdash; May 31, 2026 &middot; Memorial Day weekend</p>
+    <h1>Wood<em>stock</em></h1>
+    <p class="hero-dates">NYC &rarr; Hudson Valley &middot; Thu eve option &middot; Ilan &amp; Kayla &middot; Naomi &amp; John</p>
+  </div>
+  <a href="#flights" class="hero-scroll">
+    <span>Scroll</span>
+    <div class="arrow"></div>
+  </a>
+</section>
+
+<!-- ====== NAV ====== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" data-target="flights">Travel</button>
+    <button class="nav-btn" data-target="day-0">Thu 28</button>
+    <button class="nav-btn" data-target="day-1">Fri 29</button>
+    <button class="nav-btn" data-target="day-2">Sat 30</button>
+    <button class="nav-btn" data-target="day-3">Sun 31</button>
+    <button class="nav-btn" data-target="packing">Packing</button>
+    <button class="nav-btn" data-target="booking">To Book</button>
+    <button class="nav-btn" data-target="research">Research</button>
+    <button class="nav-btn" data-target="stays">Stays</button>
+    <button class="nav-btn" data-target="food">Food</button>
+    <button class="nav-btn" data-target="budget">Budget</button>
+    <button class="nav-btn" data-target="convert">Costs</button>
+    <button class="nav-btn" data-target="weather">Weather</button>
+    <button class="nav-btn" data-target="ai-assistant">Ask AI</button>
+  </div>
+</nav>
+
+<!-- ====== MAIN ====== -->
+<div class="main">
+
+  <!-- TRAVEL (driving from NYC) -->
+  <div id="flights">
+    <p class="section-label">Getting there &middot; Road trip from NYC &middot; ~2&ndash;2.5 hrs</p>
+    <div class="flights-grid">
+      <div class="flight-card">
+        <div class="flight-endpoint">
+          <span class="city">New York City</span>
+          <span class="detail">Thu eve (if Jon can work remote Fri) or Fri AM</span>
+          <span class="time">TBD</span>
+          <span class="detail">May 28 &ndash; 29</span>
+        </div>
+        <div class="flight-line">
+          <span class="code">Drive</span>
+          <div class="line"></div>
+          <span class="duration">I-87 N &middot; NY Thruway</span>
+        </div>
+        <div class="flight-endpoint arrival">
+          <span class="city">Woodstock, NY</span>
+          <span class="detail">Ulster County</span>
+          <span class="time">Arrive</span>
+          <span class="detail">Thu late or Fri</span>
+        </div>
+        <div class="flight-meta">
+          <span>4 travelers &middot; 2 couples</span>
+          <span>Thu night = beat holiday Friday traffic</span>
+          <span>Split gas &amp; tolls</span>
+        </div>
+      </div>
+
+      <div class="flight-card">
+        <div class="flight-endpoint">
+          <span class="city">Woodstock, NY</span>
+          <span class="detail">Checkout</span>
+          <span class="time">Late AM</span>
+          <span class="detail">Sun May 31</span>
+        </div>
+        <div class="flight-line">
+          <span class="code">Drive</span>
+          <div class="line"></div>
+          <span class="duration">South on I-87</span>
+        </div>
+        <div class="flight-endpoint arrival">
+          <span class="city">New York City</span>
+          <span class="detail">Drop-off TBD</span>
+          <span class="time">Afternoon</span>
+          <span class="detail">Sun May 31</span>
+        </div>
+        <div class="flight-meta">
+          <span>End of long weekend</span>
+          <span>Sunday traffic: plan buffer</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Days are rendered by JS from state._itinerary -->
+  <div id="days-container"></div>
+
+  <!-- ====== PACKING LIST ====== -->
+  <div id="packing">
+    <p class="section-label">Packing List</p>
+    <div class="checklist-grid" id="packing-grid"></div>
+    <div class="add-section-row">
+      <input class="add-section-input" id="add-packing-section" placeholder="New category (e.g. Toiletries)...">
+      <button class="add-section-btn" onclick="addSection('packing')">+ Category</button>
+    </div>
+  </div>
+
+  <!-- ====== THINGS TO BOOK ====== -->
+  <div id="booking">
+    <p class="section-label">Things to Book Ahead of Time</p>
+    <div class="checklist-grid" id="booking-grid"></div>
+    <div class="add-section-row">
+      <input class="add-section-input" id="add-booking-section" placeholder="New category (e.g. Insurance)...">
+      <button class="add-section-btn" onclick="addSection('booking')">+ Category</button>
+    </div>
+  </div>
+
+  <!-- ====== RESEARCH TRACKER ====== -->
+  <div id="research">
+    <p class="section-label">Research & Considering</p>
+    <div class="research-board" id="research-board"></div>
+    <div class="add-research-form">
+      <input type="text" placeholder="Name (e.g. V-Hiking Tour)" id="ri-title">
+      <input type="text" placeholder="Price (e.g. $78)" id="ri-price">
+      <input type="text" placeholder="URL" id="ri-url" class="full-width">
+      <input type="text" placeholder="Notes" id="ri-notes" class="full-width">
+      <select id="ri-cat">
+        <option value="tour">Tour</option>
+        <option value="hostel">Hostel</option>
+        <option value="transport">Transport</option>
+        <option value="food">Food</option>
+        <option value="gear">Gear</option>
+        <option value="other">Other</option>
+      </select>
+      <select id="ri-day">
+        <option value="">Any day</option>
+        <option value="day0">Day 0 — Thu (optional eve)</option>
+        <option value="day1">Day 1 — Fri May 29</option>
+        <option value="day2">Day 2 — Sat May 30</option>
+        <option value="day3">Day 3 — Sun May 31</option>
+      </select>
+      <button onclick="addResearchItem()">+ Add to Research</button>
+    </div>
+  </div>
+
+  <!-- ====== STAYS ====== -->
+  <div id="stays">
+    <p class="section-label">Where to Stay</p>
+    <p class="section-lead">These cards are <strong>options you&rsquo;re comparing</strong> — nothing here is booked until someone confirms and pays. <strong>Listing photos</strong> appear when you paste an Airbnb link (real listing images) — we don&rsquo;t use stock photos for stays. Sort into walkable vs a short drive, or leave in <strong>Still deciding</strong> until the group picks.</p>
+    <div class="lodging-compare">
+      <div class="lodging-option lodging-option--walkable">
+        <h3>In or beside the village</h3>
+        <p class="lodging-tagline">Walkable to Tinker St. &middot; minimal driving after you park</p>
+        <ul class="lodging-pros">
+          <li>Stroll to coffee, dinner, and shops without a DD rotation</li>
+          <li>Great if you want late evenings in town and easy mornings</li>
+          <li>Often smaller or pricier per bedroom for peak summer weekends</li>
+        </ul>
+        <div class="venue-grid" id="stays-grid-walkable"></div>
+      </div>
+      <div class="lodging-option lodging-option--drive">
+        <h3>A few minutes out</h3>
+        <p class="lodging-tagline">Short drive into town &middot; often whole-house rentals</p>
+        <ul class="lodging-pros">
+          <li>More space, yards, and parking for two cars — often better for four adults</li>
+          <li>Quieter nights; plan on driving for dinner or carpooling</li>
+          <li>Watch winter/spring mud season on mountain roads (June is usually fine)</li>
+        </ul>
+        <div class="venue-grid" id="stays-grid-drive"></div>
+      </div>
+    </div>
+    <div class="lodging-unassigned-wrap" id="stays-unassigned-wrap" hidden>
+      <p class="lodging-unassigned-label">Still deciding</p>
+      <p class="section-lead">These listings are not tied to a column yet — edit strategy when you add more detail or pick a favorite.</p>
+      <div class="venue-grid" id="stays-grid-unassigned"></div>
+    </div>
+    <div class="add-venue-form" id="stay-add-form">
+      <input type="url" inputmode="url" placeholder="Paste an Airbnb URL to shortlist a candidate (not a booking — just saves the link &amp; trip filters)" id="stay-airbnb-paste" class="full-width">
+      <p class="stay-import-hint" id="stay-import-status" hidden></p>
+      <p class="stay-import-open-wrap" id="stay-import-open" hidden><a class="stay-import-open-link" id="stay-import-open-link" href="#" target="_blank" rel="noopener noreferrer">Open this listing on Airbnb</a></p>
+      <input type="hidden" id="stay-import-image" value="">
+      <input type="text" placeholder="Label (e.g. Option A) — or leave filled from Airbnb" id="stay-name">
+      <input type="text" placeholder="Nightly $ (estimate — confirm before booking)" id="stay-price">
+      <select id="stay-strategy">
+        <option value="walkable">Column: Walkable / in village</option>
+        <option value="drive">Column: Short drive out</option>
+        <option value="unsorted" selected>Still deciding (either works)</option>
+      </select>
+      <select id="stay-location">
+        <option value="Woodstock">Woodstock</option>
+        <option value="Saugerties">Saugerties</option>
+        <option value="Phoenicia">Phoenicia</option>
+        <option value="Kingston">Kingston</option>
+        <option value="Other">Other</option>
+      </select>
+      <input type="text" placeholder="Listing URL (same as paste field — for manual edits)" id="stay-url">
+      <input type="text" placeholder="Notes: pros/cons, who&rsquo;s checked it, still TBD…" id="stay-desc" class="full-width">
+      <button type="button" onclick="addVenue('stays')">+ Add listing</button>
+    </div>
+  </div>
+
+  <!-- ====== FOOD ====== -->
+  <div id="food">
+    <p class="section-label">Where to Eat</p>
+    <div class="venue-grid" id="food-grid"></div>
+    <div class="add-venue-form">
+      <input type="text" placeholder="Name" id="food-name">
+      <input type="text" placeholder="Price range (e.g. $3-5)" id="food-price">
+      <select id="food-location">
+        <option value="Woodstock">Woodstock</option>
+        <option value="Saugerties">Saugerties</option>
+        <option value="Phoenicia">Phoenicia</option>
+        <option value="Kingston">Kingston</option>
+        <option value="Other">Other</option>
+      </select>
+      <input type="text" placeholder="URL" id="food-url">
+      <input type="text" placeholder="What to get, notes..." id="food-desc" class="full-width">
+      <button onclick="addVenue('food')">+ Add Spot</button>
+    </div>
+  </div>
+
+  <!-- ====== BUDGET ====== -->
+  <div id="budget" class="budget-section">
+    <p class="section-label">Budget Tracker</p>
+    <div class="budget-grid">
+      <div class="budget-card">
+        <div class="label">Gas &amp; tolls</div>
+        <div class="amount">~$80&ndash;120</div>
+      </div>
+      <div class="budget-card">
+        <div class="label">Lodging</div>
+        <div class="amount" id="budget-transport">split 4 ways</div>
+      </div>
+      <div class="budget-card">
+        <div class="label">Stays</div>
+        <div class="amount" id="budget-stays">TBD</div>
+      </div>
+      <div class="budget-card">
+        <div class="label">Food &amp; outings</div>
+        <div class="amount" id="budget-activities">TBD</div>
+      </div>
+      <div class="budget-card">
+        <div class="label">Ballpark (per person)</div>
+        <div class="amount total" id="budget-total">$200&ndash;400+</div>
+      </div>
+    </div>
+    <div class="budget-items">
+      <div class="budget-row">
+        <span class="item-name">Airbnb / house rental (3 nights, &divide;4)</span>
+        <span class="item-cost">TBD</span>
+      </div>
+      <div class="budget-row">
+        <span class="item-name">Gas &amp; tolls (I-87, split)</span>
+        <span class="item-cost">~$20&ndash;35 pp</span>
+      </div>
+      <div class="budget-row">
+        <span class="item-name">Dinners in town</span>
+        <span class="item-cost">~$40&ndash;80 pp</span>
+      </div>
+      <div class="budget-row">
+        <span class="item-name">Hikes / swimming / misc</span>
+        <span class="item-cost">~$0&ndash;40</span>
+      </div>
+      <div class="budget-row">
+        <span class="item-name">Groceries &amp; breakfast in</span>
+        <span class="item-cost">~$30&ndash;60 pp</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== COST BALLPARKS (USD) ====== -->
+  <div id="convert">
+    <p class="section-label">Cost ballparks &middot; Hudson Valley weekend (USD)</p>
+    <p style="max-width:42rem;margin:0 auto 1rem;font-size:0.9rem;color:var(--ash);">Everything is in US dollars. Tweak numbers as you lock in the house and restaurants.</p>
+    <div class="converter-rate" id="converter-rate">Splitting 4 ways: assign one person to book lodging and settle up with Venmo after.</div>
+    <div class="converter-quick-amounts" id="quick-amounts"></div>
+    <div class="converter-cheat-sheet" id="cheat-sheet"></div>
+  </div>
+
+  <!-- ====== WEATHER ====== -->
+  <div id="weather">
+    <p class="section-label">Weather Forecast &middot; May 28 &ndash; May 31</p>
+    <div class="weather-locations">
+      <button class="weather-loc-btn active" data-loc="woodstock" data-lat="42.0381" data-lon="-74.1182">Woodstock</button>
+      <button class="weather-loc-btn" data-loc="catskills" data-lat="42.1279" data-lon="-74.3640">Phoenicia area</button>
+    </div>
+    <div class="weather-grid" id="weather-grid">
+      <div class="weather-loading">Fetching forecast data...</div>
+    </div>
+    <div class="weather-summary" id="weather-summary"></div>
+  </div>
+
+  <!-- ====== AI ASSISTANT ====== -->
+  <div id="ai-assistant">
+    <p class="section-label">Trip Assistant &middot; Ask About Woodstock &amp; the Catskills</p>
+    <div class="ai-chat-container">
+      <div class="ai-key-setup" id="ai-key-setup">
+        <label>Anthropic API Key</label>
+        <input type="password" id="ai-key-input" placeholder="sk-ant-...">
+        <button onclick="saveAIKey()">Save</button>
+      </div>
+      <div class="ai-suggestions" id="ai-suggestions">
+        <button class="ai-suggestion-btn" onclick="askAI(this.textContent)">Easy hikes near Woodstock?</button>
+        <button class="ai-suggestion-btn" onclick="askAI(this.textContent)">Rainy-day backup ideas?</button>
+        <button class="ai-suggestion-btn" onclick="askAI(this.textContent)">Where to swim in the Catskills?</button>
+        <button class="ai-suggestion-btn" onclick="askAI(this.textContent)">Coffee or brunch in Woodstock?</button>
+        <button class="ai-suggestion-btn" onclick="askAI(this.textContent)">How to split costs fairly for 4 people?</button>
+      </div>
+      <div class="ai-messages" id="ai-messages"></div>
+      <div class="ai-input-row">
+        <input class="ai-input" id="ai-input" placeholder="Ask anything about your Woodstock weekend..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAIMessage()}">
+        <button class="ai-send-btn" id="ai-send-btn" onclick="sendAIMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  Woodstock 2026 &middot; trip countdown
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const STORAGE_KEY = 'woodstock-planner-v1';
+const SUPABASE_URL = 'https://ahhetzualzvwxtfxpigp.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFoaGV0enVhbHp2d3h0ZnhwaWdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUwODE3NzIsImV4cCI6MjA5MDY1Nzc3Mn0.mWGbX7Zvkj93z3sSThMEGhxwWT5j7L3C1-ogn0kWL2U';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const DAY_KEYS = ['day0','day1','day2','day3'];
+
+const DEFAULT_SECTIONS = {
+  packing: [
+    { id: 'pack-clothing', title: 'Clothing', items: ['Layers for cool evenings', 'Rain jacket', 'Swimsuit', 'Comfortable walking shoes', 'Hiking shoes or boots'] },
+    { id: 'pack-outdoor', title: 'Outdoors', items: ['Day pack', 'Water bottles', 'Sunscreen', 'Bug spray', 'Quick-dry towel'] },
+    { id: 'pack-tech', title: 'Tech & misc', items: ['Phone chargers', 'Portable speaker?', 'Board games / cards', 'Cash & card'] },
+    { id: 'pack-group', title: 'House / group', items: ['Coffee & breakfast supplies', 'Snacks for the drive', 'Paper towels / trash bags'] },
+  ],
+  booking: [
+    { id: 'book-stay', title: 'Lodging', items: ['Book Airbnb or house (3 nights)', 'Confirm check-in time & parking'] },
+    { id: 'book-car', title: 'Cars & logistics', items: ['Jon: can you work remote Fri? (drives Thu eve plan)', 'Who drives up / back?', 'EZ-Pass / tolls', 'Groceries stop Thu or Fri?'] },
+    { id: 'book-fun', title: 'Reservations', items: ['Dinner reservation (Sat?)', 'Any paid tour or spa'] },
+  ]
+};
+
+const DEFAULT_ITINERARY = [
+  { dayId: 'day0', num: '01', date: 'Thursday, May 28', title: 'Optional: leave Thursday night', location: 'NYC \u2192 Woodstock',
+    activities: [
+      { time: 'Eve', title: 'Drive up after work (if Jon can work remotely Friday)', sub: 'Skip Friday traffic; confirm Jon\u2019s schedule first', type: 'transport' },
+      { time: 'Alt', title: 'Or stay in NYC Thursday', sub: 'Meet early Friday instead \u2014 same itinerary, shifted', type: 'chill' },
+      { time: 'Night', title: 'Check in & unwind', sub: 'If you arrive Thu, low-key night at the house', type: 'chill' }
+    ]},
+  { dayId: 'day1', num: '02', date: 'Friday, May 29', title: 'Memorial Day weekend kicks off', location: 'Woodstock',
+    activities: [
+      { time: 'AM', title: 'Arrive or slow morning', sub: 'If you didn\u2019t come Thu, drive up Fri AM / midday', type: 'transport' },
+      { time: 'PM', title: 'Town & stretch legs', sub: 'Main St., coffee, first real meal together', type: 'explore' },
+      { time: 'Eve', title: 'Easy group dinner', sub: 'Holiday weekend \u2014 consider reservations', type: 'explore' }
+    ]},
+  { dayId: 'day2', num: '03', date: 'Saturday, May 30', title: 'Peak day in the Catskills', location: 'Hudson Valley',
+    activities: [
+      { time: 'AM', title: 'Coffee & Main St.', sub: 'Shops, maybe farmers market', type: 'explore' },
+      { time: 'Mid', title: 'Hike or swim', sub: 'Overlook trail, Kaaterskill area, or a swimming hole', type: 'hike' },
+      { time: 'Eve', title: 'Saturday night out or cook in', sub: 'Best night for a special dinner if you booked one', type: 'explore' }
+    ]},
+  { dayId: 'day3', num: '04', date: 'Sunday, May 31', title: 'Pack up & head home', location: 'Woodstock \u2192 NYC',
+    activities: [
+      { time: 'AM', title: 'Coffee & last stroll', sub: 'Pack, strip beds if the host asks', type: 'chill' },
+      { time: 'Late AM', title: 'Drive back to NYC', sub: 'Sunday holiday traffic \u2014 leave buffer; lunch stop optional', type: 'transport' }
+    ]}
+];
+
+/** No placeholder images — covers only when pasted from Airbnb (real listing photos) or a direct image URL you add. */
+const DEFAULT_STAYS = [
+  { name: 'Airbnb / house rental (pick one)', price: 'split 4 ways', location: 'Woodstock', url: '', desc: 'Aim for 3+ BR, 2 baths if possible. Paste an Airbnb link above to pull real photos.', strategy: 'unsorted' },
+  { name: 'The Herwood Inn', price: 'inn · suites', location: 'Woodstock', url: 'https://www.theherwoodinn.com/', desc: '148 Tinker St. Boutique inn — suites & cottages; two-night minimum. Verify pet rules on site.', strategy: 'walkable' },
+  { name: 'Hotel Dylan', price: '$$', location: 'Woodstock', url: 'https://thehoteldylan.com/', desc: 'Boutique hotel, seasonal pool, ~5 min to village — Novogratz-designed rooms.', strategy: 'walkable' },
+  { name: 'Whole-house / cabin (outside village)', price: 'varies', location: 'Woodstock area', url: '', desc: 'Often the best fit for four adults — paste an Airbnb/VRBO link to attach real listing photos.', strategy: 'drive' },
+];
+
+const DEFAULT_FOOD = [
+  { name: 'Shindig', price: '$$', location: 'Woodstock', url: 'https://www.shindigwoodstock.com/', desc: 'Seasonal, cozy, great for a nicer group dinner.' },
+  { name: 'Garden Cafe', price: '$$', location: 'Woodstock', url: '', desc: 'Classic Woodstock vegetarian-friendly spot on Tinker St.' },
+  { name: 'Bread Alone', price: '$', location: 'Woodstock', url: 'https://breadalone.com/', desc: 'Bakery & cafe — easy breakfast or sandwiches.' },
+  { name: 'Phoenicia Diner', price: '$$', location: 'Phoenicia', url: 'https://phoeniciadiner.com/', desc: 'Worth the short drive — iconic brunch.' },
+  { name: 'Peekamoose', price: '$$$', location: 'Big Indian', url: 'https://peekamooserestaurant.com/', desc: 'Special-occasion dinner in the woods — reserve ahead.' },
+];
+
+/** Stock photo inspo for Photos & Links (Unsplash); merged once via ensureInspoRefs */
+const DEFAULT_REFS = {
+  day0: [
+    { title: 'Road trip north', image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&auto=format&fit=crop&q=80', url: 'https://www.google.com/maps/dir/New+York,+NY/Woodstock,+NY+12498', desc: 'Thruway / I-87 — EZ-Pass, gas, playlists.' },
+    { title: 'Catskills ridgelines', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&auto=format&fit=crop&q=80', url: '', desc: 'What you\'re driving toward — green hills & long light.' },
+    { title: 'Evening at the house', image: 'https://images.unsplash.com/photo-1518780664697-55e3ad701233?w=800&auto=format&fit=crop&q=80', url: '', desc: 'Low-key first night: unpack, porch, easy snacks.' },
+  ],
+  day1: [
+    { title: 'Small-town Main St.', image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&auto=format&fit=crop&q=80', url: '', desc: 'Tinker St. energy — shops, galleries, people-watching.' },
+    { title: 'Coffee stop', image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&auto=format&fit=crop&q=80', url: '', desc: 'Fuel up before wandering.' },
+    { title: 'Group dinner out', image: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&auto=format&fit=crop&q=80', url: '', desc: 'Holiday weekend — book ahead if you want a prime table.' },
+    { title: 'Woodstock town', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&auto=format&fit=crop&q=80', url: 'https://www.instagram.com/explore/tags/woodstockny/', desc: 'Inspo tag — not every spot is on Tinker St.' },
+  ],
+  day2: [
+    { title: 'Overlook Mountain trail', image: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&auto=format&fit=crop&q=80', url: 'https://www.alltrails.com/trail/us/new-york/overlook-mountain-trail', desc: 'Classic Catskills hike — fire tower views (check conditions).' },
+    { title: 'Forest & streams', image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&auto=format&fit=crop&q=80', url: '', desc: 'Shady trails — bring layers & water.' },
+    { title: 'Kaaterskill Falls area', image: 'https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?w=800&auto=format&fit=crop&q=80', url: 'https://www.nysdec.gov/lands/52679.html', desc: 'Iconic waterfall — arrive early on holiday weekends.' },
+    { title: 'Swimming hole / lake day', image: 'https://images.unsplash.com/photo-1501785888031-b60a4f1bd4b1?w=800&auto=format&fit=crop&q=80', url: '', desc: 'If the weather cooperates — towel & water shoes.' },
+    { title: 'Farmers market energy', image: 'https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=800&auto=format&fit=crop&q=80', url: '', desc: 'Local fruit, bread, flowers — check Sat hours for Woodstock.' },
+  ],
+  day3: [
+    { title: 'Slow Sunday coffee', image: 'https://images.unsplash.com/photo-1495474472887-4bbf4179296e?w=800&auto=format&fit=crop&q=80', url: '', desc: 'Last cup before packing.' },
+    { title: 'Scenic drive south', image: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&auto=format&fit=crop&q=80', url: '', desc: 'I-87 south — Sunday traffic: pad your ETA.' },
+    { title: 'One more bite', image: 'https://images.unsplash.com/photo-1551218808-941e8cdb7918?w=800&auto=format&fit=crop&q=80', url: '', desc: 'Brunch or road lunch on the way home.' },
+  ],
+};
+
+function ensureInspoRefs(s) {
+  if (!s._refs) s._refs = {};
+  if (s._inspoPackWoodstock1) return;
+  DAY_KEYS.forEach(k => {
+    const add = JSON.parse(JSON.stringify(DEFAULT_REFS[k] || []));
+    const cur = s._refs[k];
+    if (!cur || !Array.isArray(cur) || cur.length === 0) {
+      s._refs[k] = add;
+    } else {
+      s._refs[k] = add.concat(cur);
+    }
+  });
+  s._inspoPackWoodstock1 = true;
+}
+
+function loadLocal() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+}
+
+let _syncReady = false;
+
+function saveState(s) {
+  s._updated = Date.now();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
+  clearTimeout(saveState._t);
+  saveState._t = setTimeout(() => {
+    sb.from('planner_state').upsert({ id: 'woodstock-planner', state: s, updated_at: new Date().toISOString() });
+  }, 500);
+}
+
+function migrateStayStrategies(stays) {
+  if (!stays || !Array.isArray(stays)) return;
+  stays.forEach(v => {
+    if (v.strategy) return;
+    const n = (v.name || '').toLowerCase();
+    const d = (v.desc || '').toLowerCase();
+    if (/herwood|herbaceous|hotel dylan|dylan/.test(n)) v.strategy = 'walkable';
+    else if (/outside village|whole-house|whole house|minutes out|cabin \(/.test(n + ' ' + d)) v.strategy = 'drive';
+    else if (/airbnb|pick one|house rental/.test(n)) v.strategy = 'unsorted';
+    else v.strategy = 'unsorted';
+  });
+}
+
+/** Old defaults used a non-working “Herbaceous Air” URL and wrong Hotel Dylan domain. Fix rows already in localStorage. */
+function migrateObsoleteStayRows(stays) {
+  if (!stays) return;
+  stays.forEach(v => {
+    const n = (v.name || '').toLowerCase();
+    if (n === 'herbaceous air') {
+      v.name = 'The Herwood Inn';
+      v.url = 'https://www.theherwoodinn.com/';
+      v.desc = '148 Tinker St. Boutique inn — suites & cottages; two-night minimum. Verify pet rules on site.';
+    }
+    if (/hotel dylan/i.test(v.name || '') && v.url && /hoteldylan\.com/i.test(v.url) && !/theherwoodinn/i.test(v.url)) {
+      v.url = 'https://thehoteldylan.com/';
+    }
+  });
+}
+
+/** Remove Unsplash placeholder covers (stays: never stock; food: prefer real or none). */
+function stripStockImagesFromSavedVenues(s) {
+  if (s._stripUnsplashVenues1) return;
+  (s._stays || []).concat(s._food || []).forEach(v => {
+    if (v.image && /images\.unsplash\.com|unsplash\.com\/photo/i.test(v.image)) delete v.image;
+  });
+  s._stripUnsplashVenues1 = true;
+}
+
+function ensureVenueCoverImages(s) {
+  if (s._venueCoverWoodstock1) return;
+  const patch = (arr, defs) => {
+    if (!arr || !defs) return;
+    defs.forEach(d => {
+      const m = arr.find(x => x.name === d.name);
+      if (m && !m.image && d.image) m.image = d.image;
+    });
+  };
+  patch(s._stays, DEFAULT_STAYS);
+  patch(s._food, DEFAULT_FOOD);
+  s._venueCoverWoodstock1 = true;
+}
+
+function applyDefaults(s) {
+  if (!s._sections) s._sections = JSON.parse(JSON.stringify(DEFAULT_SECTIONS));
+  if (!s._itinerary) s._itinerary = JSON.parse(JSON.stringify(DEFAULT_ITINERARY));
+  if (!s._refs) s._refs = {};
+  if (!s._research) s._research = [];
+  if (!s._stays) s._stays = JSON.parse(JSON.stringify(DEFAULT_STAYS));
+  if (!s._food) s._food = JSON.parse(JSON.stringify(DEFAULT_FOOD));
+  migrateStayStrategies(s._stays);
+  migrateObsoleteStayRows(s._stays);
+  stripStockImagesFromSavedVenues(s);
+  ensureVenueCoverImages(s);
+  ensureInspoRefs(s);
+}
+
+const state = loadLocal();
+applyDefaults(state);
+// Only save locally for initial render — do NOT push to Supabase until sync completes
+localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+
+function escapeHtml(text) {
+  const d = document.createElement('div');
+  d.textContent = text;
+  return d.innerHTML;
+}
+
+// ============ ITINERARY (Data-driven days) ============
+function renderItinerary() {
+  const container = document.getElementById('days-container');
+  container.innerHTML = '';
+
+  state._itinerary.forEach((day, dayIdx) => {
+    const section = document.createElement('div');
+    section.className = 'day-section';
+    section.id = `day-${dayIdx}`;
+
+    let html = `<div class="day-header"><span class="day-number">${escapeHtml(day.num)}</span><div class="day-info"><span class="date">${escapeHtml(day.date)}</span><h2>${escapeHtml(day.title)}</h2><span class="day-location">${escapeHtml(day.location)}</span></div></div>`;
+    html += `<div class="activities">`;
+    day.activities.forEach((act, actIdx) => {
+      html += `<div class="activity type-${act.type}"><span class="activity-time">${escapeHtml(act.time)}</span><div class="activity-content"><div class="activity-title">${escapeHtml(act.title)}</div><div class="activity-sub">${escapeHtml(act.sub)}</div></div><span class="activity-tag tag-${act.type}">${escapeHtml(act.type)}</span><button class="delete-activity-btn" onclick="removeActivity(${dayIdx}, ${actIdx})" title="Remove">\u00d7</button></div>`;
+    });
+    html += `</div>`;
+    html += `<div class="add-activity-form"><input type="text" placeholder="Time" data-field="time"><input type="text" placeholder="Activity title" data-field="title"><select data-field="type"><option value="explore">Explore</option><option value="hike">Hike</option><option value="transport">Transport</option><option value="flight">Flight</option><option value="chill">Chill</option></select><input type="text" placeholder="Details (optional)" data-field="sub" style="grid-column:1/-1"><button onclick="addActivity(${dayIdx}, this)" style="grid-column:1/-1">+ Add Activity</button></div>`;
+    html += `<details class="ref-section" open data-day="${day.dayId}"><summary>Photos &amp; inspiration</summary><div class="ref-grid" id="ref-grid-${day.dayId}"></div></details>`;
+    html += `<div class="notes-area" contenteditable="true" data-placeholder="Add notes for this day..." data-key="notes-${day.dayId}"></div>`;
+
+    section.innerHTML = html;
+    container.appendChild(section);
+    // Make visible (CSS starts at opacity:0 for scroll-reveal)
+    requestAnimationFrame(() => section.classList.add('visible'));
+
+    // Wire notes
+    const notesEl = section.querySelector('.notes-area');
+    const nk = notesEl.dataset.key;
+    if (state[nk]) notesEl.innerHTML = state[nk];
+    notesEl.addEventListener('input', () => { state[nk] = notesEl.innerHTML; saveState(state); });
+  });
+}
+
+function reRenderAll() {
+  renderItinerary();
+  DAY_KEYS.forEach(renderRefGrid);
+  setupObservers();
+}
+
+function addActivity(dayIdx, btn) {
+  const form = btn.closest('.add-activity-form');
+  const title = form.querySelector('[data-field="title"]').value.trim();
+  if (!title) return;
+  state._itinerary[dayIdx].activities.push({
+    time: form.querySelector('[data-field="time"]').value.trim() || '?',
+    title,
+    sub: form.querySelector('[data-field="sub"]').value.trim(),
+    type: form.querySelector('[data-field="type"]').value,
+  });
+  saveState(state);
+  reRenderAll();
+}
+
+function removeActivity(dayIdx, actIdx) {
+  state._itinerary[dayIdx].activities.splice(actIdx, 1);
+  saveState(state);
+  reRenderAll();
+}
+
+// ============ CHECKLIST SECTIONS (Packing & Booking) ============
+function renderCard(section, gridEl) {
+  const card = document.createElement('div');
+  card.className = 'checklist-card';
+  card.dataset.group = section.id;
+  let html = `<button class="remove-section-btn" onclick="removeSection('${section.id}')" title="Remove category">\u00d7</button>`;
+  html += `<h3>${escapeHtml(section.title)}</h3><span class="progress-text">0 / 0</span><div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>`;
+  section.items.forEach(item => {
+    html += `<label class="check-item"><input type="checkbox"><span class="check-box"></span><span class="check-label">${escapeHtml(item)}</span><button class="delete-item-btn" onclick="removeItem(event, this)" title="Remove">\u00d7</button></label>`;
+  });
+  html += `<div class="add-item-row"><input class="add-item-input" placeholder="Add item..." data-group="${section.id}"><button class="add-item-btn" onclick="addItem(this)">Add</button></div>`;
+  card.innerHTML = html;
+  gridEl.appendChild(card);
+  card.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
+    const id = getCheckId(cb);
+    if (state[id]) cb.checked = true;
+    cb.addEventListener('change', () => { state[getCheckId(cb)] = cb.checked; saveState(state); updateProgress(card); });
+  });
+  card.querySelector('.add-item-input').addEventListener('keydown', e => { if (e.key === 'Enter') addItem(card.querySelector('.add-item-btn')); });
+  updateProgress(card);
+}
+
+function renderAllSections() {
+  ['packing-grid','booking-grid'].forEach(id => document.getElementById(id).innerHTML = '');
+  (state._sections.packing || []).forEach(s => renderCard(s, document.getElementById('packing-grid')));
+  (state._sections.booking || []).forEach(s => renderCard(s, document.getElementById('booking-grid')));
+}
+
+function getCheckId(cb) {
+  const card = cb.closest('.checklist-card');
+  return `${card.dataset.group}-${[...card.querySelectorAll('.check-item input[type="checkbox"]')].indexOf(cb)}`;
+}
+
+function updateProgress(card) {
+  const checks = card.querySelectorAll('.check-item input[type="checkbox"]');
+  const checked = [...checks].filter(c => c.checked).length;
+  const pct = checks.length ? Math.round((checked / checks.length) * 100) : 0;
+  card.querySelector('.progress-text').textContent = `${checked} / ${checks.length}`;
+  card.querySelector('.progress-fill').style.width = `${pct}%`;
+}
+
+function addItem(btn) {
+  const row = btn.parentElement, input = row.querySelector('.add-item-input'), text = input.value.trim();
+  if (!text) return;
+  const card = row.closest('.checklist-card'), group = card.dataset.group;
+  const type = group.startsWith('pack-') ? 'packing' : 'booking';
+  const section = state._sections[type].find(s => s.id === group);
+  if (section) { section.items.push(text); saveState(state); }
+  const label = document.createElement('label');
+  label.className = 'check-item';
+  label.innerHTML = `<input type="checkbox"><span class="check-box"></span><span class="check-label">${escapeHtml(text)}</span><button class="delete-item-btn" onclick="removeItem(event, this)">\u00d7</button>`;
+  card.insertBefore(label, row);
+  input.value = '';
+  label.querySelector('input').addEventListener('change', () => { state[getCheckId(label.querySelector('input'))] = label.querySelector('input').checked; saveState(state); updateProgress(card); });
+  updateProgress(card);
+}
+
+function removeItem(event, btn) {
+  event.preventDefault(); event.stopPropagation();
+  const label = btn.closest('.check-item'), card = label.closest('.checklist-card'), group = card.dataset.group;
+  const type = group.startsWith('pack-') ? 'packing' : 'booking';
+  const section = state._sections[type].find(s => s.id === group);
+  if (!section) return;
+  const allItems = [...card.querySelectorAll('.check-item')], idx = allItems.indexOf(label);
+  if (idx >= 0 && idx < section.items.length) {
+    section.items.splice(idx, 1);
+    const old = {}; allItems.forEach((it, i) => { if (it.querySelector('input')?.checked) old[i] = true; });
+    Object.keys(state).forEach(k => { if (k.startsWith(group + '-')) delete state[k]; });
+    let ni = 0; allItems.forEach((it, i) => { if (i === idx) return; if (old[i]) state[`${group}-${ni}`] = true; ni++; });
+    saveState(state);
+  }
+  label.remove(); updateProgress(card);
+}
+
+function addSection(type) {
+  const input = document.getElementById(`add-${type}-section`), title = input.value.trim();
+  if (!title) return;
+  const prefix = type === 'packing' ? 'pack-' : 'book-';
+  const id = prefix + title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  if (state._sections[type].some(s => s.id === id)) return;
+  const section = { id, title, items: [] };
+  state._sections[type].push(section); saveState(state);
+  renderCard(section, document.getElementById(`${type}-grid`));
+  input.value = '';
+}
+
+function removeSection(sectionId) {
+  if (!confirm('Remove this category and all its items?')) return;
+  const type = sectionId.startsWith('pack-') ? 'packing' : 'booking';
+  state._sections[type] = state._sections[type].filter(s => s.id !== sectionId);
+  Object.keys(state).forEach(k => { if (k.startsWith(sectionId + '-')) delete state[k]; });
+  saveState(state);
+  document.querySelector(`[data-group="${sectionId}"]`)?.remove();
+}
+
+document.querySelectorAll('.add-section-input').forEach(input => {
+  const type = input.id.includes('packing') ? 'packing' : 'booking';
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') addSection(type); });
+});
+
+// ============ RESEARCH TRACKER ============
+function renderResearch() {
+  const board = document.getElementById('research-board');
+  board.innerHTML = '';
+  state._research.forEach((item, idx) => {
+    const el = document.createElement('div');
+    el.className = 'research-item';
+    let html = `<button class="ri-delete" onclick="removeResearch(${idx})">\u00d7</button>`;
+    html += `<button class="ri-status ${item.status}" onclick="cycleResearchStatus(${idx})">${item.status}</button>`;
+    html += `<div class="ri-body">`;
+    html += `<div class="ri-title">${item.url ? `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener">${escapeHtml(item.title)}</a>` : escapeHtml(item.title)}</div>`;
+    const meta = [item.price, item.day].filter(Boolean).join(' \u00b7 ');
+    if (meta) html += `<div class="ri-meta">${escapeHtml(meta)}</div>`;
+    if (item.notes) html += `<div class="ri-notes">${escapeHtml(item.notes)}</div>`;
+    html += `</div>`;
+    html += `<span class="ri-cat">${escapeHtml(item.cat)}</span>`;
+    el.innerHTML = html;
+    board.appendChild(el);
+  });
+}
+
+function addResearchItem() {
+  const title = document.getElementById('ri-title').value.trim();
+  if (!title) return;
+  state._research.push({
+    title,
+    price: document.getElementById('ri-price').value.trim(),
+    url: document.getElementById('ri-url').value.trim(),
+    notes: document.getElementById('ri-notes').value.trim(),
+    cat: document.getElementById('ri-cat').value,
+    day: document.getElementById('ri-day').value,
+    status: 'considering',
+  });
+  saveState(state);
+  renderResearch();
+  ['ri-title','ri-price','ri-url','ri-notes'].forEach(id => document.getElementById(id).value = '');
+}
+
+function removeResearch(idx) {
+  state._research.splice(idx, 1); saveState(state); renderResearch();
+}
+
+function cycleResearchStatus(idx) {
+  const cycle = ['considering', 'booked', 'skipped'];
+  const cur = cycle.indexOf(state._research[idx].status);
+  state._research[idx].status = cycle[(cur + 1) % cycle.length];
+  saveState(state); renderResearch();
+}
+
+// ============ STAYS & FOOD (Venues) ============
+function appendVenueCard(grid, type, v, idx) {
+  const card = document.createElement('div');
+  card.className = 'venue-card';
+  let html = `<button class="vc-delete" onclick="removeVenue('${type}', ${idx})">\u00d7</button>`;
+  if (v.image) html += `<img class="vc-cover" src="${escapeHtml(v.image)}" alt="" loading="lazy" onerror="this.style.display='none'">`;
+  html += `<div class="vc-location">${escapeHtml(v.location)}</div>`;
+  html += `<div class="vc-name">${v.url ? `<a href="${escapeHtml(v.url)}" target="_blank" rel="noopener">${escapeHtml(v.name)}</a>` : escapeHtml(v.name)}</div>`;
+  if (v.price) html += `<div class="vc-price">${escapeHtml(v.price)}</div>`;
+  if (v.desc) html += `<div class="vc-desc">${escapeHtml(v.desc)}</div>`;
+  if (type === 'stays') {
+    const s = v.strategy === 'walkable' || v.strategy === 'drive' || v.strategy === 'unsorted' ? v.strategy : 'unsorted';
+    html += `<div class="vc-strategy-row"><span class="vc-strategy-label">Column</span><select class="vc-strategy-select" onchange="setStayStrategy(${idx}, this.value)">
+      <option value="walkable" ${s === 'walkable' ? 'selected' : ''}>Walkable / in village</option>
+      <option value="drive" ${s === 'drive' ? 'selected' : ''}>Short drive out</option>
+      <option value="unsorted" ${s === 'unsorted' ? 'selected' : ''}>Still deciding</option>
+    </select></div>`;
+  }
+  card.innerHTML = html;
+  grid.appendChild(card);
+}
+
+function setStayStrategy(idx, strategy) {
+  if (!state._stays || !state._stays[idx]) return;
+  state._stays[idx].strategy = strategy;
+  saveState(state);
+  renderStays();
+}
+
+function renderVenues(type) {
+  const grid = document.getElementById(`${type}-grid`);
+  grid.innerHTML = '';
+  (state[`_${type}`] || []).forEach((v, idx) => {
+    appendVenueCard(grid, type, v, idx);
+  });
+}
+
+function renderStays() {
+  const gw = document.getElementById('stays-grid-walkable');
+  const gd = document.getElementById('stays-grid-drive');
+  const gu = document.getElementById('stays-grid-unassigned');
+  const wrap = document.getElementById('stays-unassigned-wrap');
+  [gw, gd, gu].forEach(el => { el.innerHTML = ''; });
+
+  (state._stays || []).forEach((v, idx) => {
+    const strat = v.strategy === 'walkable' || v.strategy === 'drive' || v.strategy === 'unsorted'
+      ? v.strategy
+      : 'unsorted';
+    if (strat === 'walkable') appendVenueCard(gw, 'stays', v, idx);
+    else if (strat === 'drive') appendVenueCard(gd, 'stays', v, idx);
+    else appendVenueCard(gu, 'stays', v, idx);
+  });
+
+  const hasUn = (state._stays || []).some(v => {
+    const s = v.strategy;
+    return s !== 'walkable' && s !== 'drive';
+  });
+  wrap.hidden = !hasUn;
+}
+
+function canonicalAirbnbUrl(href) {
+  try {
+    const u = new URL(href.trim());
+    if (!/^(.+\.)?airbnb\./.test(u.hostname)) return null;
+    const m = u.pathname.match(/\/rooms\/(\d+)/);
+    if (!m) return null;
+    const base = `https://www.airbnb.com/rooms/${m[1]}`;
+    const keep = new URLSearchParams();
+    ['check_in', 'check_out', 'adults', 'children', 'infants', 'pets', 'guests'].forEach(k => {
+      const v = u.searchParams.get(k);
+      if (v != null && v !== '') keep.set(k, v);
+    });
+    const q = keep.toString();
+    return q ? `${base}?${q}` : base;
+  } catch {
+    return null;
+  }
+}
+
+function looksLikeAirbnbRoomsUrl(s) {
+  return /^https?:\/\//i.test(s) && /airbnb\.[^/]+\/rooms\/\d+/i.test(s);
+}
+
+function setStayImportStatus(text, isError) {
+  const el = document.getElementById('stay-import-status');
+  if (!el) return;
+  if (!text) {
+    el.hidden = true;
+    el.textContent = '';
+    el.classList.remove('is-error');
+    return;
+  }
+  el.hidden = false;
+  el.textContent = text;
+  el.classList.toggle('is-error', !!isError);
+}
+
+function formatAirbnbDateParam(iso) {
+  if (!iso || !/^\d{4}-\d{2}-\d{2}$/.test(iso)) return iso || '';
+  const d = new Date(`${iso}T12:00:00`);
+  return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function buildStayFromAirbnbUrl(href) {
+  const canonical = canonicalAirbnbUrl(href.trim());
+  if (!canonical) return null;
+  const u = new URL(canonical);
+  const idMatch = u.pathname.match(/\/rooms\/(\d+)/);
+  const listingId = idMatch ? idMatch[1] : '';
+  const lines = [];
+  const ci = u.searchParams.get('check_in');
+  const co = u.searchParams.get('check_out');
+  const adults = u.searchParams.get('adults');
+  const loc = u.searchParams.get('location');
+  lines.push('Candidate / not booked — dates & guests below are from the Airbnb search URL for side-by-side comparison.');
+  if (loc) lines.push(`Area (from search): ${decodeURIComponent(loc.replace(/\+/g, ' '))}`);
+  if (ci) lines.push(`If you booked: check-in ${formatAirbnbDateParam(ci)}`);
+  if (co) lines.push(`If you booked: check-out ${formatAirbnbDateParam(co)}`);
+  if (adults) lines.push(`Guests in search: ${adults} adult${adults === '1' ? '' : 's'}`);
+  lines.push('Open Airbnb for photos, calendar, total price, and house rules before anyone reserves.');
+  return {
+    canonical,
+    listingId,
+    name: listingId ? `Airbnb option #${listingId}` : 'Airbnb option',
+    desc: lines.join('\n'),
+  };
+}
+
+function guessNightlyFromText(text) {
+  if (!text) return '';
+  const m = text.match(/\$\s*([\d,]+)\s*(?:\/\s*night|per\s*night)?/i) || text.match(/\$\s*([\d,]+)/);
+  if (!m) return '';
+  return `~$${m[1].replace(/,/g, '')}/night (from page text — verify before booking)`;
+}
+
+/**
+ * Pulls real listing title, hero photo, and summary via Jina Reader (reads public Airbnb HTML).
+ * Microlink/OpenGraph fail on Airbnb; this path works for side-by-side shortlist cards.
+ */
+async function fetchAirbnbViaJina(canonicalUrl) {
+  const jinaUrl = 'https://r.jina.ai/' + encodeURIComponent(canonicalUrl);
+  const r = await fetch(jinaUrl);
+  if (!r.ok) throw new Error(`reader ${r.status}`);
+  const text = await r.text();
+
+  let name = '';
+  const h1Line = text.match(/^#\s+(.+)$/m);
+  if (h1Line) {
+    name = h1Line[1].split(/\s+-\s+/)[0].trim();
+    if (/airbnb$/i.test(name)) name = '';
+  }
+  if (!name) {
+    const tl = text.match(/^Title:\s*(.+)$/m);
+    if (tl) name = tl[1].split('·')[0].trim();
+  }
+
+  let summaryLine = '';
+  const tline = text.match(/^Title:\s*(.+)$/m);
+  if (tline) summaryLine = tline[1].trim();
+
+  let image = '';
+  const candidates = text.match(/https:\/\/a0\.muscache\.com\/im\/pictures\/[^)\s"'<>]+/g) || [];
+  const skipRe = /airbnb-platform-assets|search-bar|LaurelItem|static\/packages|\/User\/|GuestFavorite|ic-system-gf/;
+  for (const raw of candidates) {
+    const u = raw.replace(/[),.;]+$/, '');
+    if (skipRe.test(u)) continue;
+    image = u.split('?')[0] + '?im_w=1200&im_q=70';
+    break;
+  }
+
+  let detailBlurb = '';
+  const block = text.match(/## Entire [^\n]+\n+([\s\S]*?)(?=\n## |$)/);
+  if (block) {
+    detailBlurb = block[1].replace(/!\[[^\]]*\]\([^)]+\)/g, '').replace(/\n{3,}/g, '\n\n').trim().slice(0, 500);
+  }
+
+  if (!name && !image && !summaryLine) throw new Error('could not parse listing');
+
+  const priceHint = guessNightlyFromText(text);
+  return { name, image, summaryLine, detailBlurb, priceHint };
+}
+
+let _airbnbImportToken = 0;
+
+async function applyAirbnbLink(rawInput) {
+  const base = buildStayFromAirbnbUrl(rawInput);
+  if (!base) {
+    setStayImportStatus('Paste a link that includes /rooms/ and a listing number.', true);
+    return;
+  }
+  const myToken = ++_airbnbImportToken;
+  document.getElementById('stay-url').value = base.canonical;
+  const pasteEl = document.getElementById('stay-airbnb-paste');
+  if (pasteEl) pasteEl.value = '';
+  document.getElementById('stay-import-image').value = '';
+  document.getElementById('stay-name').value = base.name;
+  document.getElementById('stay-desc').value = base.desc;
+  document.getElementById('stay-price').value = '';
+  const openRow = document.getElementById('stay-import-open');
+  const openA = document.getElementById('stay-import-open-link');
+  if (openRow && openA) {
+    openA.href = base.canonical;
+    openRow.hidden = false;
+  }
+  setStayImportStatus('Fetching listing name & photo… (often 5–15s)', false);
+
+  try {
+    const j = await fetchAirbnbViaJina(base.canonical);
+    if (myToken !== _airbnbImportToken) return;
+    if (j.name) document.getElementById('stay-name').value = j.name.slice(0, 200);
+    if (j.image) document.getElementById('stay-import-image').value = j.image;
+    if (j.priceHint) document.getElementById('stay-price').value = j.priceHint;
+    const parts = ['Shortlist — not booked until someone pays.'];
+    if (j.summaryLine) parts.push(j.summaryLine);
+    if (j.detailBlurb) parts.push(j.detailBlurb);
+    parts.push('—');
+    parts.push(base.desc);
+    document.getElementById('stay-desc').value = parts.join('\n\n').slice(0, 2500);
+    setStayImportStatus('Loaded title, cover photo & details — pick a column, then Add listing.', false);
+  } catch (err) {
+    if (myToken !== _airbnbImportToken) return;
+    console.warn('Airbnb enrich failed', err);
+    setStayImportStatus('Could not load live details (network or block). Link & trip filters below are still saved — open Airbnb for full info.', true);
+  }
+}
+
+function wireAirbnbPasteHandlers() {
+  const pasteField = document.getElementById('stay-airbnb-paste');
+  const urlField = document.getElementById('stay-url');
+  const nameField = document.getElementById('stay-name');
+
+  function maybeImportFromField(el) {
+    const v = el.value.trim();
+    if (!looksLikeAirbnbRoomsUrl(v)) return;
+    applyAirbnbLink(v);
+  }
+
+  if (pasteField) {
+    pasteField.addEventListener('paste', () => setTimeout(() => maybeImportFromField(pasteField), 0));
+    pasteField.addEventListener('blur', () => maybeImportFromField(pasteField));
+  }
+  if (urlField) {
+    urlField.addEventListener('paste', () => setTimeout(() => maybeImportFromField(urlField), 0));
+  }
+  if (nameField) {
+    nameField.addEventListener('paste', () => setTimeout(() => {
+      const v = nameField.value.trim();
+      if (looksLikeAirbnbRoomsUrl(v)) {
+        applyAirbnbLink(v);
+        nameField.value = '';
+      }
+    }, 0));
+  }
+}
+
+function addVenue(type) {
+  const name = document.getElementById(`${type === 'stays' ? 'stay' : 'food'}-name`).value.trim();
+  if (!name) return;
+  const prefix = type === 'stays' ? 'stay' : 'food';
+  if (!state[`_${type}`]) state[`_${type}`] = [];
+  const row = {
+    name,
+    price: document.getElementById(`${prefix}-price`).value.trim(),
+    location: document.getElementById(`${prefix}-location`).value,
+    url: document.getElementById(`${prefix}-url`).value.trim(),
+    desc: document.getElementById(`${prefix}-desc`).value.trim(),
+  };
+  if (type === 'stays') {
+    row.strategy = document.getElementById('stay-strategy').value;
+    const img = document.getElementById('stay-import-image').value.trim();
+    if (img) row.image = img;
+  }
+  state[`_${type}`].push(row);
+  saveState(type === 'stays' ? state : state);
+  if (type === 'stays') renderStays();
+  else renderVenues(type);
+  [`${prefix}-name`, `${prefix}-price`, `${prefix}-url`, `${prefix}-desc`].forEach(id => {
+    const n = document.getElementById(id);
+    if (n) n.value = '';
+  });
+  if (type === 'stays') {
+    const im = document.getElementById('stay-import-image');
+    if (im) im.value = '';
+    const ap = document.getElementById('stay-airbnb-paste');
+    if (ap) ap.value = '';
+    const ow = document.getElementById('stay-import-open');
+    if (ow) ow.hidden = true;
+    setStayImportStatus('');
+  }
+}
+
+function removeVenue(type, idx) {
+  state[`_${type}`].splice(idx, 1); saveState(state);
+  if (type === 'stays') renderStays();
+  else renderVenues(type);
+}
+
+// ============ REFERENCE CARDS ============
+function renderRefGrid(dayKey) {
+  const grid = document.getElementById(`ref-grid-${dayKey}`);
+  if (!grid) return;
+  grid.innerHTML = '';
+  (state._refs[dayKey] || []).forEach((ref, idx) => {
+    const card = document.createElement('div');
+    card.className = 'ref-card';
+    let html = `<button class="delete-ref-btn" onclick="removeRef('${dayKey}', ${idx})">\u00d7</button>`;
+    if (ref.image) html += `<img src="${escapeHtml(ref.image)}" alt="${escapeHtml(ref.title || '')}" loading="lazy" onerror="this.style.display='none'">`;
+    html += `<div class="ref-body">`;
+    if (ref.title) html += `<div class="ref-title">${escapeHtml(ref.title)}</div>`;
+    if (ref.desc) html += `<div class="ref-desc">${escapeHtml(ref.desc)}</div>`;
+    if (ref.url) html += `<a class="ref-link" href="${escapeHtml(ref.url)}" target="_blank" rel="noopener">\u2192 View</a>`;
+    html += `</div>`;
+    card.innerHTML = html;
+    grid.appendChild(card);
+  });
+  const form = document.createElement('div');
+  form.className = 'add-ref-form';
+  form.innerHTML = `<input type="text" placeholder="Title" data-field="title"><input type="text" placeholder="Image URL (optional)" data-field="image"><input type="text" placeholder="Link URL (optional)" data-field="url"><input type="text" placeholder="Short description (optional)" data-field="desc"><button onclick="addRef('${dayKey}', this)">+ Add</button>`;
+  grid.appendChild(form);
+}
+
+function addRef(dayKey, btn) {
+  const form = btn.closest('.add-ref-form');
+  const title = form.querySelector('[data-field="title"]').value.trim();
+  if (!title) return;
+  if (!state._refs[dayKey]) state._refs[dayKey] = [];
+  state._refs[dayKey].push({
+    title,
+    image: form.querySelector('[data-field="image"]').value.trim(),
+    url: form.querySelector('[data-field="url"]').value.trim(),
+    desc: form.querySelector('[data-field="desc"]').value.trim(),
+  });
+  saveState(state); renderRefGrid(dayKey);
+}
+
+function removeRef(dayKey, idx) {
+  if (!state._refs[dayKey]) return;
+  state._refs[dayKey].splice(idx, 1); saveState(state); renderRefGrid(dayKey);
+}
+
+// ============ INITIAL RENDER ============
+try {
+  renderItinerary();
+  renderAllSections();
+  renderResearch();
+  renderStays();
+  renderVenues('food');
+  DAY_KEYS.forEach(renderRefGrid);
+  console.log('Initial render OK. Days:', state._itinerary?.length, 'Refs:', Object.keys(state._refs || {}).length);
+} catch (e) {
+  console.error('RENDER ERROR:', e);
+  document.getElementById('days-container').innerHTML = '<p style="padding:2rem;color:red">Render error: ' + e.message + '</p>';
+}
+
+// ============ SUPABASE SYNC ============
+(async function syncFromRemote() {
+  try {
+    const { data } = await sb.from('planner_state').select('state').eq('id', 'woodstock-planner').single();
+    if (data && data.state && Object.keys(data.state).length > 0) {
+      const remoteTs = data.state._updated || 0;
+      const localTs = state._updated || 0;
+      // Always use remote if it's newer OR if we have no meaningful local timestamp
+      if (remoteTs >= localTs || !localTs) {
+        Object.keys(state).forEach(k => delete state[k]);
+        Object.assign(state, data.state);
+        applyDefaults(state);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        renderItinerary();
+        renderAllSections();
+        renderResearch();
+        renderStays();
+        renderVenues('food');
+        DAY_KEYS.forEach(renderRefGrid);
+        setupObservers();
+      }
+    }
+  } catch {}
+  _syncReady = true;
+})();
+
+// ============ NAV SCROLL ============
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = document.getElementById(btn.dataset.target);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// Re-setup observers after dynamic render
+function setupObservers() {
+  const sections = [...document.querySelectorAll('[id]')].filter(el =>
+    document.querySelector(`.nav-btn[data-target="${el.id}"]`)
+  );
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        const btn = document.querySelector(`.nav-btn[data-target="${entry.target.id}"]`);
+        if (btn) btn.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.day-section').forEach(s => revealObserver.observe(s));
+}
+setupObservers();
+wireAirbnbPasteHandlers();
+
+// ============ COUNTDOWN ============
+const tripDate = new Date('2026-05-28T18:00:00-04:00');
+function updateCountdown() {
+  const now = new Date(), diff = tripDate - now;
+  const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  const footer = document.querySelector('.footer');
+  footer.textContent = days > 0 ? `Woodstock 2026 \u00B7 ${days} days to go` : days === 0 ? `Woodstock 2026 \u00B7 Today!` : `Woodstock 2026 \u00B7 Memories made`;
+}
+updateCountdown();
+
+// ============ COST QUICK SPLITS (USD, party of 4) ============
+const rateDisplay = document.getElementById('converter-rate');
+
+function perPersonSplit(total) {
+  return (total / 4).toFixed(2);
+}
+
+const quickTotals = [200, 400, 600, 800, 1200];
+const quickContainer = document.getElementById('quick-amounts');
+quickTotals.forEach(total => {
+  const btn = document.createElement('button');
+  btn.className = 'quick-amount-btn';
+  btn.textContent = `$${total} total → $${perPersonSplit(total)}/ea`;
+  btn.title = 'Illustrative: if the whole-house bill were this amount';
+  btn.onclick = () => {
+    rateDisplay.textContent = `If lodging + fees totaled $${total}, each of 4 pays about $${perPersonSplit(total)} (before food & gas).`;
+  };
+  quickContainer.appendChild(btn);
+});
+
+function buildCheatSheet() {
+  const sheet = document.getElementById('cheat-sheet');
+  const items = [
+    { label: 'Dinner out (group tab)', usd: 240 },
+    { label: 'Brunch (4 people)', usd: 120 },
+    { label: 'Groceries for 2 meals', usd: 100 },
+    { label: 'Gas + tolls (one car)', usd: 90 },
+    { label: 'Hike parking / day pass', usd: 10 },
+    { label: 'Coffee run', usd: 25 },
+  ];
+  sheet.innerHTML = items.map(i => `<div class="cheat-item"><span>${i.label}</span><span><span class="cheat-usd">~$${i.usd}</span> · <span class="cheat-gtq">~$${perPersonSplit(i.usd)}/ea</span></span></div>`).join('');
+}
+buildCheatSheet();
+
+// ============ WEATHER FORECAST ============
+const weatherCache = {};
+const TRIP_DATES = ['2026-05-28','2026-05-29','2026-05-30','2026-05-31'];
+const DAY_NAMES = ['Thu May 28','Fri May 29','Sat May 30','Sun May 31'];
+
+const weatherIcons = {
+  0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️',
+  45: '🌫️', 48: '🌫️',
+  51: '🌦️', 53: '🌦️', 55: '🌧️',
+  61: '🌧️', 63: '🌧️', 65: '🌧️',
+  80: '🌦️', 81: '🌧️', 82: '⛈️',
+  95: '⛈️', 96: '⛈️', 99: '⛈️',
+};
+
+const weatherDescs = {
+  0: 'Clear sky', 1: 'Mostly clear', 2: 'Partly cloudy', 3: 'Overcast',
+  45: 'Foggy', 48: 'Rime fog',
+  51: 'Light drizzle', 53: 'Drizzle', 55: 'Heavy drizzle',
+  61: 'Light rain', 63: 'Rain', 65: 'Heavy rain',
+  80: 'Light showers', 81: 'Showers', 82: 'Heavy showers',
+  95: 'Thunderstorm', 96: 'Hail storm', 99: 'Severe hail',
+};
+
+function getWeatherIcon(code) {
+  return weatherIcons[code] || '🌡️';
+}
+
+async function fetchWeather(lat, lon, locKey) {
+  if (weatherCache[locKey]) return weatherCache[locKey];
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum&temperature_unit=fahrenheit&start_date=2026-05-28&end_date=2026-05-31&timezone=America/New_York`;
+  try {
+    const r = await fetch(url);
+    const d = await r.json();
+    weatherCache[locKey] = d.daily;
+    return d.daily;
+  } catch {
+    return null;
+  }
+}
+
+function renderWeather(data) {
+  const grid = document.getElementById('weather-grid');
+  const summary = document.getElementById('weather-summary');
+  if (!data) {
+    grid.innerHTML = '<div class="weather-loading">Weather data not yet available for these dates. Check back closer to the trip.</div>';
+    summary.innerHTML = '<strong>Late May in the Catskills:</strong> Warm days, cool nights. Holiday weekend crowds. Afternoon storms possible — bring layers, rain shell, sun protection.';
+    return;
+  }
+  grid.innerHTML = data.time.map((date, i) => {
+    const code = data.weather_code[i];
+    const hi = Math.round(data.temperature_2m_max[i]);
+    const lo = Math.round(data.temperature_2m_min[i]);
+    const rain = data.precipitation_probability_max[i];
+    const mm = data.precipitation_sum[i];
+    return `<div class="weather-card">
+      <div class="wc-day">${DAY_NAMES[i]}</div>
+      <div class="wc-icon">${getWeatherIcon(code)}</div>
+      <div class="wc-temp">${hi}°F</div>
+      <div class="wc-temp-range">${lo}° / ${hi}°</div>
+      <div class="wc-detail">${weatherDescs[code] || 'Unknown'}<br>${rain}% rain · ${mm}mm</div>
+    </div>`;
+  }).join('');
+  const avgHi = Math.round(data.temperature_2m_max.reduce((a,b) => a+b, 0) / data.temperature_2m_max.length);
+  const avgLo = Math.round(data.temperature_2m_min.reduce((a,b) => a+b, 0) / data.temperature_2m_min.length);
+  const maxRain = Math.max(...data.precipitation_probability_max);
+  summary.innerHTML = `<strong>Trip average:</strong> Highs around ${avgHi}°F, lows around ${avgLo}°F. Rain chance up to ${maxRain}%. <strong>Pack tip:</strong> Light fleece for evenings, rain jacket, comfy shoes for town walks and trails.`;
+}
+
+document.querySelectorAll('.weather-loc-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    document.querySelectorAll('.weather-loc-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const grid = document.getElementById('weather-grid');
+    grid.innerHTML = '<div class="weather-loading">Loading...</div>';
+    const data = await fetchWeather(btn.dataset.lat, btn.dataset.lon, btn.dataset.loc);
+    renderWeather(data);
+  });
+});
+
+// Initial weather load
+(async () => {
+  const btn = document.querySelector('.weather-loc-btn.active');
+  const data = await fetchWeather(btn.dataset.lat, btn.dataset.lon, btn.dataset.loc);
+  renderWeather(data);
+})();
+
+// ============ AI ASSISTANT ============
+const GEMINI_BUILTIN_KEY = '__GEMINI_API_KEY__';
+const AI_KEY_STORAGE = 'woodstock-ai-key';
+const AI_HISTORY_STORAGE = 'woodstock-ai-history';
+let aiMessages = [];
+
+try { aiMessages = JSON.parse(localStorage.getItem(AI_HISTORY_STORAGE)) || []; } catch { aiMessages = []; }
+
+function getAIKey() {
+  // Prefer built-in key injected at deploy time, fall back to localStorage
+  if (GEMINI_BUILTIN_KEY && !GEMINI_BUILTIN_KEY.startsWith('__')) return GEMINI_BUILTIN_KEY;
+  return localStorage.getItem(AI_KEY_STORAGE) || '';
+}
+
+function saveAIKey() {
+  const key = document.getElementById('ai-key-input').value.trim();
+  if (!key) return;
+  localStorage.setItem(AI_KEY_STORAGE, key);
+  document.getElementById('ai-key-input').value = '';
+  updateAIKeyUI();
+  addSystemMessage('API key saved. Ask me anything about your trip!');
+}
+
+function updateAIKeyUI() {
+  const setup = document.getElementById('ai-key-setup');
+  // Hide setup entirely if built-in key is present
+  if (GEMINI_BUILTIN_KEY && !GEMINI_BUILTIN_KEY.startsWith('__')) {
+    setup.style.display = 'none';
+    return;
+  }
+  const key = getAIKey();
+  if (key) {
+    setup.innerHTML = `<label>Gemini API Key</label><span style="font-family:'JetBrains Mono';font-size:0.7rem;color:var(--jade)">✓ Key saved</span><button onclick="localStorage.removeItem('${AI_KEY_STORAGE}');updateAIKeyUI()" style="padding:0.4rem 0.75rem;border:none;background:rgba(196,89,59,0.1);color:var(--terracotta);border-radius:8px;font-family:'JetBrains Mono';font-size:0.6rem;cursor:pointer">Remove</button>`;
+  } else {
+    setup.innerHTML = `<label>Google AI API Key</label><input type="password" id="ai-key-input" placeholder="AIza..."><button onclick="saveAIKey()">Save</button><span style="font-size:0.7rem;color:var(--ash)">Free from <a href="https://aistudio.google.com/apikey" target="_blank" style="color:var(--lake)">Google AI Studio</a></span>`;
+  }
+}
+
+function addSystemMessage(text) {
+  const el = document.createElement('div');
+  el.className = 'ai-msg system';
+  el.textContent = text;
+  document.getElementById('ai-messages').appendChild(el);
+  scrollAIToBottom();
+}
+
+function renderAIMessages() {
+  const container = document.getElementById('ai-messages');
+  container.innerHTML = '';
+  aiMessages.forEach(m => {
+    const el = document.createElement('div');
+    el.className = `ai-msg ${m.role}`;
+    if (m.role === 'assistant') {
+      el.innerHTML = simpleMarkdown(m.content);
+    } else {
+      el.textContent = m.content;
+    }
+    container.appendChild(el);
+  });
+  scrollAIToBottom();
+}
+
+function simpleMarkdown(text) {
+  // Escape HTML first to prevent injection
+  const escaped = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return escaped
+    // Links: [text](url)
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener" style="color:var(--lake);text-decoration:underline">$1</a>')
+    // Bare URLs
+    .replace(/(^|[\s(])(https?:\/\/[^\s)<]+)/g, '$1<a href="$2" target="_blank" rel="noopener" style="color:var(--lake);text-decoration:underline">$2</a>')
+    // Bold
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    // Italic
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    // Numbered lists
+    .replace(/^\d+\.\s+(.+)$/gm, '<li>$1</li>')
+    // Bullet lists
+    .replace(/^[-*]\s+(.+)$/gm, '<li>$1</li>')
+    // Wrap consecutive <li> in <ul>
+    .replace(/((?:<li>.*?<\/li>\n?)+)/g, '<ul>$1</ul>')
+    // Paragraphs
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/\n/g, '<br>')
+    .replace(/^(.+)$/s, '<p>$1</p>');
+}
+
+function scrollAIToBottom() {
+  const c = document.getElementById('ai-messages');
+  c.scrollTop = c.scrollHeight;
+}
+
+function buildTripContext() {
+  let ctx = `You are a helpful Hudson Valley / Catskills travel assistant for a group trip to Woodstock, NY. You have FULL access to the group's current plan. Answer based on this data — don't say you don't have information if it's below.
+
+=== GROUP ===
+Two couples: Ilan & Kayla, and Naomi & John. Weekend road trip from New York City (~2–2.5 hr drive). All amounts are USD.
+
+=== TRAVEL ===
+Driving from NYC to Woodstock, NY (Ulster County). Typical route: I-87 North / NY Thruway. Split gas and tolls fairly between cars. Optional Thursday May 28 evening departure if Jon can work remotely Friday — otherwise leave Friday May 29. Return Sunday May 31 (Memorial Day weekend).
+
+=== DAILY ITINERARY ===\n`;
+
+  (state._itinerary || []).forEach(day => {
+    ctx += `\n${day.date} — ${day.title} (${day.location}):\n`;
+    day.activities.forEach(a => {
+      ctx += `  ${a.time}: ${a.title} — ${a.sub} [${a.type}]\n`;
+    });
+  });
+
+  ctx += `\n=== PACKING LIST ===\n`;
+  (state._sections?.packing || []).forEach(s => {
+    const checked = s.items.map((item, i) => {
+      const isChecked = state[`${s.id}-${i}`];
+      return `${isChecked ? '✓' : '☐'} ${item}`;
+    });
+    ctx += `${s.title}: ${checked.join(', ')}\n`;
+  });
+
+  ctx += `\n=== THINGS TO BOOK ===\n`;
+  (state._sections?.booking || []).forEach(s => {
+    const checked = s.items.map((item, i) => {
+      const isChecked = state[`${s.id}-${i}`];
+      return `${isChecked ? '✓ DONE' : '☐ TODO'} ${item}`;
+    });
+    ctx += `${s.title}: ${checked.join(', ')}\n`;
+  });
+
+  ctx += `\n=== RESEARCH (things being considered) ===\n`;
+  (state._research || []).forEach(r => {
+    ctx += `[${r.status}] ${r.title} — ${r.price || 'no price'} — ${r.notes || ''} (${r.cat})\n`;
+  });
+
+  ctx += `\n=== WHERE TO STAY (shortlist — none are confirmed booked unless stated) ===\n`;
+  (state._stays || []).forEach(v => {
+    const col = v.strategy === 'walkable' ? 'walkable' : v.strategy === 'drive' ? 'short drive' : 'still deciding';
+    ctx += `${v.name} (${v.location}) — ${v.price} — column: ${col} — ${v.desc}\n`;
+  });
+
+  ctx += `\n=== WHERE TO EAT ===\n`;
+  (state._food || []).forEach(v => {
+    ctx += `${v.name} (${v.location}) — ${v.price} — ${v.desc}\n`;
+  });
+
+  ctx += `\n=== BUDGET (ROUGH) ===
+Lodging: comparing options; final booking TBD — split 4 ways once reserved (see Cost section)
+Gas & tolls: ~$20–35 per person depending on cars
+Food: mix of dining out and cooking at the house — see budget rows in the page
+
+=== TRAVELER CONTEXT ===
+Four adults, couples trip, relaxed pace — hikes, town time, good food. Memorial Day weekend: busier than usual; Thu night arrival optional if Jon can work remote Friday.
+
+Keep answers concise and practical. Reference specific items from the plan above when relevant. If asked "what am I forgetting" or similar, compare the packing/booking lists against what's typical for a Catskills weekend house trip.`;
+
+  return ctx;
+}
+
+async function sendAIMessage() {
+  const input = document.getElementById('ai-input');
+  const text = input.value.trim();
+  if (!text) return;
+
+  const key = getAIKey();
+  if (!key) {
+    addSystemMessage('Please add your Google AI API key above first (free from Google AI Studio)');
+    return;
+  }
+
+  aiMessages.push({ role: 'user', content: text });
+  input.value = '';
+  renderAIMessages();
+
+  const btn = document.getElementById('ai-send-btn');
+  btn.disabled = true;
+  btn.textContent = '...';
+
+  try {
+    const geminiMessages = aiMessages.map(m => ({
+      role: m.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: m.content }]
+    }));
+
+    const tripCtx = buildTripContext();
+
+    // Prepend system context as first user message if first real message
+    if (geminiMessages.length === 1) {
+      geminiMessages.unshift(
+        { role: 'user', parts: [{ text: tripCtx + '\n\nPlease acknowledge you understand the trip details briefly.' }] },
+        { role: 'model', parts: [{ text: 'Got it! I have your Woodstock weekend — travelers (Ilan & Kayla, Naomi & John), driving plan, day-by-day ideas, packing, bookings, stays, food picks, and budget ballparks. What would you like to nail down?' }] }
+      );
+    }
+
+    const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: geminiMessages,
+        generationConfig: { maxOutputTokens: 1024, temperature: 0.7 },
+        systemInstruction: { parts: [{ text: tripCtx }] },
+      }),
+    });
+
+    const data = await resp.json();
+
+    if (data.error) {
+      throw new Error(data.error.message || 'API error');
+    }
+
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No response received.';
+    aiMessages.push({ role: 'assistant', content: reply });
+    localStorage.setItem(AI_HISTORY_STORAGE, JSON.stringify(aiMessages));
+    renderAIMessages();
+  } catch (err) {
+    addSystemMessage(`Error: ${err.message}`);
+    aiMessages.pop(); // remove failed user message
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Send';
+}
+
+function askAI(text) {
+  document.getElementById('ai-input').value = text;
+  sendAIMessage();
+}
+
+// Initialize AI UI
+updateAIKeyUI();
+if (aiMessages.length > 0) renderAIMessages();
+</script>
+
+</body>
+</html>
