@@ -2,6 +2,8 @@
 
 Static trip dashboards for **Guatemala** and **Woodstock**, deployed to **GitHub Pages** from `main`.
 
+**Live site (repo `ilan-berdy/trips`):** [https://ilan-berdy.github.io/trips/](https://ilan-berdy.github.io/trips/) — hub with links to each trip. The first path segment is the **GitHub repo name** (here `trips`), not the trip folder names.
+
 | Path | App |
 |------|-----|
 | `/` | Hub (links to each trip) |
@@ -29,10 +31,13 @@ git push origin main
 
   `https://<your-username>.github.io/<repo-name>/`
 
+  Example with this repo named **`trips`**:  
+  `https://ilan-berdy.github.io/trips/`
+
 - **Guatemala** (bookmark this):  
-  `https://<your-username>.github.io/<repo-name>/guatemala/`
+  `https://ilan-berdy.github.io/trips/guatemala/`
 - **Woodstock**:  
-  `https://<your-username>.github.io/<repo-name>/woodstock/`
+  `https://ilan-berdy.github.io/trips/woodstock/`
 
 If you used to open the Guatemala app at the **repo root URL**, that URL is now the **hub**. Update bookmarks to `/guatemala/`.
 
@@ -59,9 +64,9 @@ Add two repository secrets:
 
 **Limitations:** Client-side only; anyone with the deployed page can inspect it. Use strong, unique secrets if that matters to you.
 
-### 5. Optional: rename the GitHub repo
+### 5. Changing the site URL (`github.io/.../something/`)
 
-If you want the URL to say `trips` instead of `Guat`, rename under **Settings → General → Repository name**. Pages URL updates automatically.
+The segment right after `github.io/<username>/` is the **repository name**. To get URLs like `.../trips/woodstock/`, name the repo **`trips`** (this repo is already `ilan-berdy/trips`). Rename anytime under **Settings → General → Repository name**, or locally: `gh repo rename <new-name>`. GitHub usually redirects old repo URLs; update bookmarks to the new Pages URL.
 
 ### 6. Standalone Woodstock folder (optional)
 
