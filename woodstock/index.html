@@ -3396,5 +3396,42 @@ updateAIKeyUI();
 if (aiMessages.length > 0) renderAIMessages();
 </script>
 
+<div id="trip-auth-gate" style="position:fixed;inset:0;z-index:2147483647;background:var(--cream,#f4f1eb);display:none;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif;">
+  <div style="text-align:center;padding:2rem;max-width:22rem;">
+    <h2 style="font-family:'Instrument Serif',Georgia,serif;font-size:1.5rem;font-weight:400;color:var(--earth,#1e2d24);margin-bottom:1rem;">Woodstock planner</h2>
+    <p style="font-size:0.85rem;color:var(--ash,#7a756c);margin-bottom:1.25rem;">Enter the trip password to continue.</p>
+    <div style="position:relative;display:inline-block;width:100%;max-width:280px;">
+      <input id="trip-auth-input" type="password" placeholder="Password" autocomplete="current-password" style="font-size:0.95rem;padding:0.65rem 2.5rem 0.65rem 0.85rem;border:1px solid rgba(44,36,23,0.15);border-radius:10px;outline:none;width:100%;background:#fff;color:var(--earth,#1e2d24);box-sizing:border-box;">
+      <span id="trip-auth-toggle" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);cursor:pointer;user-select:none;color:var(--ash,#7a756c);" title="Show/hide" aria-hidden="true">
+        <svg id="trip-eye-off" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+        <svg id="trip-eye-on" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      </span>
+    </div>
+    <button type="button" id="trip-auth-btn" style="margin-top:1rem;padding:0.55rem 1.75rem;font-size:0.9rem;background:var(--earth,#1e2d24);color:var(--cream,#f4f1eb);border:none;border-radius:10px;cursor:pointer;font-family:'DM Sans',sans-serif;">Continue</button>
+    <div id="trip-auth-error" style="color:#8b4a3c;font-size:0.85rem;margin-top:0.75rem;display:none;">Incorrect password</div>
+    <style>@keyframes trip-auth-shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}.trip-auth-shake{animation:trip-auth-shake 0.45s ease-in-out}</style>
+  </div>
+</div>
+<script>
+(function(){
+  var PASS_HASH = '__SITE_PASS_HASH__';
+  var COOKIE_NAME = 'trip_auth_woodstock';
+  var COOKIE_DAYS = 14;
+  function getCookie(n){var m=document.cookie.match(new RegExp('(?:^|; )'+n.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'=([^;]*)'));return m?decodeURIComponent(m[1]):null;}
+  function setCookie(n,v,d){var e=new Date();e.setDate(e.getDate()+d);document.cookie=n+'='+encodeURIComponent(v)+';expires='+e.toUTCString()+';path=/;SameSite=Strict'}
+  function sha256(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(function(buf){return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('')});}
+  var gate=document.getElementById('trip-auth-gate');
+  if(!gate)return;
+  if(!PASS_HASH||PASS_HASH.indexOf('__')===0){gate.remove();return;}
+  var inp=document.getElementById('trip-auth-input');
+  var errEl=document.getElementById('trip-auth-error');
+  if(getCookie(COOKIE_NAME)==='1'){gate.remove();return;}
+  gate.style.display='flex';
+  document.getElementById('trip-auth-toggle').onclick=function(){var show=inp.type==='password';inp.type=show?'text':'password';document.getElementById('trip-eye-off').style.display=show?'none':'inline';document.getElementById('trip-eye-on').style.display=show?'inline':'none';inp.focus();};
+  document.getElementById('trip-auth-btn').onclick=function(){sha256(inp.value).then(function(h){if(h===PASS_HASH){setCookie(COOKIE_NAME,'1',COOKIE_DAYS);gate.remove();}else{errEl.style.display='block';errEl.classList.remove('trip-auth-shake');void errEl.offsetWidth;errEl.classList.add('trip-auth-shake');}});};
+  inp.onkeydown=function(e){if(e.key==='Enter')document.getElementById('trip-auth-btn').click();};
+})();
+</script>
+
 </body>
 </html>
